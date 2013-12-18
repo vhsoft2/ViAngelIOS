@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E29E18619A6400B28606 /* Media.xcassets */; };
+		DCA5E2AA1861AD2800B28606 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA5E2A91861AD2800B28606 /* UserData.m */; };
+		DCA5E2AD1861B6A300B28606 /* logo-80.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E2AC1861B6A300B28606 /* logo-80.png */; };
+		DCA5E2B31861C51E00B28606 /* guardian-80.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E2B21861C51E00B28606 /* guardian-80.png */; };
+		DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA5E2B41861CABA00B28606 /* MapKit.framework */; };
+		DCA5E2BC18622F0200B28606 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA5E2BA18622F0200B28606 /* NSDataAdditions.m */; };
+		DCA5E2BE1862479100B28606 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E2BD1862479100B28606 /* splash.png */; };
+		DCDA3E2E18625D640009CE00 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDA3E2D18625D640009CE00 /* VerifyCodeVC.m */; };
+		DCDA3E3118625D8D0009CE00 /* ElderStatusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */; };
 		DCF343E11860E6B700C87879 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E01860E6B700C87879 /* Foundation.framework */; };
 		DCF343E31860E6B700C87879 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E21860E6B700C87879 /* CoreGraphics.framework */; };
 		DCF343E51860E6B700C87879 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E41860E6B700C87879 /* UIKit.framework */; };
@@ -15,13 +24,14 @@
 		DCF343EF1860E6B700C87879 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF343EE1860E6B700C87879 /* main.m */; };
 		DCF343F31860E6B700C87879 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF343F21860E6B700C87879 /* AppDelegate.m */; };
 		DCF343F61860E6B700C87879 /* ViGuard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DCF343F41860E6B700C87879 /* ViGuard.xcdatamodeld */; };
-		DCF343F81860E6B700C87879 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCF343F71860E6B700C87879 /* Images.xcassets */; };
 		DCF343FF1860E6B800C87879 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343FE1860E6B800C87879 /* XCTest.framework */; };
 		DCF344001860E6B800C87879 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E01860E6B700C87879 /* Foundation.framework */; };
 		DCF344011860E6B800C87879 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E41860E6B700C87879 /* UIKit.framework */; };
 		DCF344021860E6B800C87879 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E61860E6B700C87879 /* CoreData.framework */; };
 		DCF3440A1860E6B800C87879 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF344081860E6B800C87879 /* InfoPlist.strings */; };
 		DCF3440C1860E6B800C87879 /* ViGuardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF3440B1860E6B800C87879 /* ViGuardTests.m */; };
+		DCF3441D1860F69400C87879 /* GuardianRegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */; };
+		DCF344221860FAAE00C87879 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCF344211860FAAE00C87879 /* MainStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +45,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DCA5E29E18619A6400B28606 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		DCA5E2A81861AD2800B28606 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		DCA5E2A91861AD2800B28606 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		DCA5E2AC1861B6A300B28606 /* logo-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-80.png"; sourceTree = "<group>"; };
+		DCA5E2B21861C51E00B28606 /* guardian-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guardian-80.png"; sourceTree = "<group>"; };
+		DCA5E2B41861CABA00B28606 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		DCA5E2BA18622F0200B28606 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
+		DCA5E2BB18622F0200B28606 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		DCA5E2BD1862479100B28606 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		DCDA3E2C18625D640009CE00 /* VerifyCodeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCodeVC.h; sourceTree = "<group>"; };
+		DCDA3E2D18625D640009CE00 /* VerifyCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeVC.m; sourceTree = "<group>"; };
+		DCDA3E2F18625D8D0009CE00 /* ElderStatusVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElderStatusVC.h; sourceTree = "<group>"; };
+		DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElderStatusVC.m; sourceTree = "<group>"; };
 		DCF343DD1860E6B700C87879 /* ViGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF343E01860E6B700C87879 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCF343E21860E6B700C87879 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -47,12 +70,14 @@
 		DCF343F11860E6B700C87879 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DCF343F21860E6B700C87879 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DCF343F51860E6B700C87879 /* ViGuard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ViGuard.xcdatamodel; sourceTree = "<group>"; };
-		DCF343F71860E6B700C87879 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DCF343FD1860E6B800C87879 /* ViGuardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViGuardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF343FE1860E6B800C87879 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DCF344071860E6B800C87879 /* ViGuardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ViGuardTests-Info.plist"; sourceTree = "<group>"; };
 		DCF344091860E6B800C87879 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCF3440B1860E6B800C87879 /* ViGuardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViGuardTests.m; sourceTree = "<group>"; };
+		DCF3441B1860F69400C87879 /* GuardianRegistrationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuardianRegistrationVC.h; sourceTree = "<group>"; };
+		DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuardianRegistrationVC.m; sourceTree = "<group>"; };
+		DCF344211860FAAE00C87879 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +87,7 @@
 			files = (
 				DCF343E31860E6B700C87879 /* CoreGraphics.framework in Frameworks */,
 				DCF343E71860E6B700C87879 /* CoreData.framework in Frameworks */,
+				DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */,
 				DCF343E51860E6B700C87879 /* UIKit.framework in Frameworks */,
 				DCF343E11860E6B700C87879 /* Foundation.framework in Frameworks */,
 			);
@@ -81,6 +107,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DCA5E2971861005200B28606 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DCF344211860FAAE00C87879 /* MainStoryboard.storyboard */,
+				DCF3441B1860F69400C87879 /* GuardianRegistrationVC.h */,
+				DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */,
+				DCDA3E2C18625D640009CE00 /* VerifyCodeVC.h */,
+				DCDA3E2D18625D640009CE00 /* VerifyCodeVC.m */,
+				DCDA3E2F18625D8D0009CE00 /* ElderStatusVC.h */,
+				DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DCA5E2A11861A1DF00B28606 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				DCF343F41860E6B700C87879 /* ViGuard.xcdatamodeld */,
+				DCA5E2A81861AD2800B28606 /* UserData.h */,
+				DCA5E2A91861AD2800B28606 /* UserData.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		DCA5E2AE1861B6AA00B28606 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				DCA5E2B21861C51E00B28606 /* guardian-80.png */,
+				DCA5E2AC1861B6A300B28606 /* logo-80.png */,
+				DCA5E2BD1862479100B28606 /* splash.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		DCA5E2B918621F6000B28606 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DCA5E2BA18622F0200B28606 /* NSDataAdditions.m */,
+				DCA5E2BB18622F0200B28606 /* NSDataAdditions.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		DCF343D41860E6B700C87879 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +172,7 @@
 		DCF343DF1860E6B700C87879 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCA5E2B41861CABA00B28606 /* MapKit.framework */,
 				DCF343E01860E6B700C87879 /* Foundation.framework */,
 				DCF343E21860E6B700C87879 /* CoreGraphics.framework */,
 				DCF343E41860E6B700C87879 /* UIKit.framework */,
@@ -115,11 +185,14 @@
 		DCF343E81860E6B700C87879 /* ViGuard */ = {
 			isa = PBXGroup;
 			children = (
+				DCA5E2B918621F6000B28606 /* Utils */,
+				DCA5E2AE1861B6AA00B28606 /* Images */,
+				DCA5E2A11861A1DF00B28606 /* Data */,
+				DCA5E29E18619A6400B28606 /* Media.xcassets */,
+				DCF343E91860E6B700C87879 /* Supporting Files */,
+				DCA5E2971861005200B28606 /* Views */,
 				DCF343F11860E6B700C87879 /* AppDelegate.h */,
 				DCF343F21860E6B700C87879 /* AppDelegate.m */,
-				DCF343F71860E6B700C87879 /* Images.xcassets */,
-				DCF343F41860E6B700C87879 /* ViGuard.xcdatamodeld */,
-				DCF343E91860E6B700C87879 /* Supporting Files */,
 			);
 			path = ViGuard;
 			sourceTree = "<group>";
@@ -200,6 +273,16 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Vitalitix;
 				TargetAttributes = {
+					DCF343DC1860E6B700C87879 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					DCF343FC1860E6B800C87879 = {
 						TestTargetID = DCF343DC1860E6B700C87879;
 					};
@@ -228,8 +311,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA5E2AD1861B6A300B28606 /* logo-80.png in Resources */,
+				DCF344221860FAAE00C87879 /* MainStoryboard.storyboard in Resources */,
+				DCA5E2B31861C51E00B28606 /* guardian-80.png in Resources */,
+				DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */,
+				DCA5E2BE1862479100B28606 /* splash.png in Resources */,
 				DCF343ED1860E6B700C87879 /* InfoPlist.strings in Resources */,
-				DCF343F81860E6B700C87879 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +335,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA5E2AA1861AD2800B28606 /* UserData.m in Sources */,
+				DCDA3E2E18625D640009CE00 /* VerifyCodeVC.m in Sources */,
+				DCA5E2BC18622F0200B28606 /* NSDataAdditions.m in Sources */,
+				DCDA3E3118625D8D0009CE00 /* ElderStatusVC.m in Sources */,
 				DCF343F31860E6B700C87879 /* AppDelegate.m in Sources */,
+				DCF3441D1860F69400C87879 /* GuardianRegistrationVC.m in Sources */,
 				DCF343EF1860E6B700C87879 /* main.m in Sources */,
 				DCF343F61860E6B700C87879 /* ViGuard.xcdatamodeld in Sources */,
 			);
@@ -451,6 +543,7 @@
 				DCF344111860E6B800C87879 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DCF344121860E6B800C87879 /* Build configuration list for PBXNativeTarget "ViGuardTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +552,7 @@
 				DCF344141860E6B800C87879 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
