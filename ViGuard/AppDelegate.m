@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "UserData.h"
+#import "GuardianRegistrationVC.h"
+#import "ElderStatusVC.h"
 
 @implementation AppDelegate
 
@@ -16,10 +19,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    // Get a reference to the stardard user defaults
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    //Get the storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    // Check if the app has run before by checking a key in user defaults
+    if ([prefs boolForKey:@"hasRunBefore"] != YES)
+    {
+        // Set flag so we know not to run this next time
+        [prefs setBool:YES forKey:@"hasRunBefore"];
+        [prefs synchronize];
+        
+        // Add our default user object in Core Data
+        UserData *userData = (UserData *)[NSEntityDescription insertNewObjectForEntityForName:@"UserData" inManagedObjectContext:self.managedObjectContext];
+        [userData setGuardianFirstName:@""];
+        [userData setGuardianLastName:@""];
+        [userData setGuardianMobilePhone:@""];
+        // Commit to core data
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
+            NSLog(@"Failed to add default user with error: %@", [error domain]);
+        else {
+            GuardianRegistrationVC *gvc = [storyboard instantiateViewControllerWithIdentifier:@"GuardianRegistrationVC"];
+            [(UINavigationController*)self.window.rootViewController pushViewController:gvc animated:NO];
+        }
+    } else {
+        ElderStatusVC *evc = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
+        [(UINavigationController*)self.window.rootViewController pushViewController:evc animated:NO];
+    }
+
     return YES;
 }
 
