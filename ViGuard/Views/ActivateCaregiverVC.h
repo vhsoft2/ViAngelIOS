@@ -1,5 +1,5 @@
 //
-//  VerifyCodeVC.h
+//  ActivateCaregiverVC.h
 //  ViGuard
 //
 //  Created by Ronen Shraga on 12/19/13.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VerifyCodeVC : UIViewController
+@interface ActivateCaregiverVC : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *codeTxt;
+@property (weak, nonatomic) IBOutlet UITextField *caregiverCodeTxt;
 
 @end

@@ -11,6 +11,7 @@
         <attribute name="elderImageUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="elderLastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="elderMobilePhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="elderUpdateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="guardianCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="guardianDateOfBirth" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="guardianEmail" optional="YES" attributeType="String" syncable="YES"/>

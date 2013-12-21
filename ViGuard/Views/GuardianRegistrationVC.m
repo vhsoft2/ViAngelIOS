@@ -7,9 +7,10 @@
 //
 
 #import "GuardianRegistrationVC.h"
-#import "UserData.h"
-#import "AppDelegate.h"
 #import "NSDataAdditions.h"
+#import "DataUtils.h"
+#import "HttpService.h"
+#import "ElderStatusVC.h"
 
 @interface GuardianRegistrationVC ()
 
@@ -17,11 +18,24 @@
 
 @implementation GuardianRegistrationVC
 
-@synthesize changeGuardianImage;
+@synthesize firstName;
+@synthesize lastName;
+@synthesize mobilePhone;
+@synthesize email;
+@synthesize address;
+@synthesize dateOfBirth;
+@synthesize gender;
+@synthesize guardianImageBtn;
+@synthesize registerBtn;
+@synthesize backBtn;
 
 UserData *userData;
-NSManagedObjectContext *managedObjectContext = nil;
+bool firstTime = true;
 
+//This is needed to allow dismiss of the keyboard
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,44 +46,51 @@ NSManagedObjectContext *managedObjectContext = nil;
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    //changeGuardianImage.imageView.image = ;
-
     
-    managedObjectContext = ((AppDelegate*)([[UIApplication sharedApplication] delegate])).managedObjectContext;
-
-    userData = [self getUserData];
+    NSInteger count = [self.navigationController.viewControllers count];
+    UIViewController *callingVC = [self.navigationController.viewControllers objectAtIndex:count - 2];
+    if ( [callingVC isKindOfClass: [ElderStatusVC class]] ) {
+        [registerBtn setTitle:@"Back" forState:UIControlStateNormal];
+        firstTime = false;
+        [backBtn setImage: [UIImage imageNamed:@"back.png"]];
+    }
+    userData = [DataUtils getUserData];
     if (userData.guardianImage)
-        changeGuardianImage.imageView.image = [self fromBase64:userData.guardianImage];
-    self.firstName.text = userData.guardianFirstName;
-    self.lastName.text = userData.guardianLastName;
-    self.mobilePhone.text = userData.guardianMobilePhone;
-    self.email.text = userData.guardianEmail;
-    self.address.text = userData.guardianHomeAddress;
-    self.dateOfBirth.text = [userData.guardianDateOfBirth description];
-    self.gender.text = userData.guardianGender;
-    [self.firstName becomeFirstResponder];
+        guardianImageBtn.imageView.image = [DataUtils fromBase64:userData.guardianImage];
+    firstName.text = userData.guardianFirstName;
+    lastName.text = userData.guardianLastName;
+    mobilePhone.text = userData.guardianMobilePhone;
+    email.text = userData.guardianEmail;
+    address.text = userData.guardianHomeAddress;
+    dateOfBirth.text = [userData.guardianDateOfBirth description];
+    gender.text = userData.guardianGender;
+    [firstName becomeFirstResponder];
+    //To dismiss the keyboard on done
+    firstName.delegate = self;
+    lastName.delegate = self;
+    mobilePhone.delegate = self;
+    email.delegate = self;
+    address.delegate = self;
+    dateOfBirth.delegate = self;
+    gender.delegate = self;
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)saveGuardianDetails:(id)sender {
-    //Save changes to core data
-    [self setUserData];
-    //Go to next screen
-    if (userData.elderCode) {
-        [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToElderStatus"];
-    } else {
-        [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToVerifyCode"];
-    }
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -81,6 +102,60 @@ NSManagedObjectContext *managedObjectContext = nil;
     [self.address resignFirstResponder];
     [self.dateOfBirth resignFirstResponder];
     [self.gender resignFirstResponder];
+}
+
+- (void)setUserData {
+    userData.guardianFirstName = self.firstName.text;
+    userData.guardianLastName = self.lastName.text;
+    userData.guardianMobilePhone = self.mobilePhone.text;
+    userData.guardianEmail = self.email.text;
+    userData.guardianHomeAddress = self.address.text;
+    //userData.guardianDateOfBirth = self.dateOfBirth.text;
+    userData.guardianGender = self.gender.text;
+    userData.guardianImage = [DataUtils toBase64:guardianImageBtn.imageView.image];
+    [DataUtils saveAllData];
+}
+
+#pragma mark IBActions
+- (IBAction)backClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)saveGuardianDetails:(id)sender {
+    //Save changes to core data
+    [self setUserData];
+    if (firstTime) {
+        //Save to server
+        NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                 userData.guardianFirstName,   @"first_name",
+                                 userData.guardianLastName,    @"last_name",
+                                 userData.guardianEmail,       @"email",
+                                 userData.guardianMobilePhone, @"phone",
+                                 userData.guardianHomeAddress, @"address",
+                                 userData.guardianGender,      @"gender",
+                                 userData.guardianDateOfBirth, @"dob", nil];
+        HttpService *httpService = [[HttpService alloc] init];
+        [httpService postJsonRequest:@"sign_up" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
+            userData.guardianToken = [jsonDict objectForKey:@"token"];
+            //Go to next screen
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^
+             {
+                 if (userData.elderCode) {
+                     [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToElderStatus"];
+                 } else {
+                     [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToVerifyCode"];
+                 }
+             }];
+        } callbackErr:^(NSString * errStr) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^
+             {
+                 [[[UIAlertView alloc] initWithTitle:@"Signup error" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+             }];
+        }];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }
 }
 
 - (IBAction)changeGuardianImage:(id)sender {
@@ -95,62 +170,17 @@ NSManagedObjectContext *managedObjectContext = nil;
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
-- (NSString *)toBase64:(UIImage*)img {
-    NSData * data = [UIImagePNGRepresentation(img) base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    return [NSString stringWithUTF8String:[data bytes]];
-}
-
-- (UIImage *)fromBase64:(NSString*)str {
-    return [UIImage imageWithData:[NSData dataWithBase64EncodedString:str]];
-}
-
-- (NSArray*)fetchData {
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"UserData" inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDesc];
-    [request setPredicate:nil];
-    return [managedObjectContext executeFetchRequest:request error:nil];
-}
-
-- (void)setUserData {
-    NSArray *objects = [self fetchData];
-    if (objects) {
-        UserData *uData = (UserData*)objects[0];
-        uData.guardianFirstName = self.firstName.text;
-        userData.guardianLastName = self.lastName.text;
-        userData.guardianMobilePhone = self.mobilePhone.text;
-        userData.guardianEmail = self.email.text;
-        userData.guardianHomeAddress = self.address.text;
-        //userData.guardianDateOfBirth = self.dateOfBirth.text;
-        userData.guardianGender = self.gender.text;
-
-        uData.guardianImage = [self toBase64:changeGuardianImage.imageView.image];
-        [managedObjectContext save:nil];
-    }
-}
-
-- (UserData*)getUserData {
-    UserData *uData = nil;
-    NSArray *objects = [self fetchData];
-    if (objects) {
-        uData = (UserData*)objects[0];
-    }
-    return uData;
-}
-
 #pragma mark change image
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     //dismiss the pick dialog
     [picker dismissViewControllerAnimated:YES completion:NULL];
     //set the image
-    changeGuardianImage.imageView.image = info[UIImagePickerControllerEditedImage];
+    guardianImageBtn.imageView.image = info[UIImagePickerControllerEditedImage];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    
 }
 
 @end

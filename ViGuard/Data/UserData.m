@@ -1,8 +1,8 @@
 //
-//  User.m
+//  UserData.m
 //  ViGuard
 //
-//  Created by Ronen Shraga on 12/18/13.
+//  Created by Ronen Shraga on 12/20/13.
 //  Copyright (c) 2013 Vitalitix. All rights reserved.
 //
 
@@ -32,5 +32,6 @@
 @dynamic guardianLastName;
 @dynamic guardianMobilePhone;
 @dynamic guardianToken;
+@dynamic elderUpdateTime;
 
 @end

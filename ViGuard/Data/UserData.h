@@ -1,8 +1,8 @@
 //
-//  User.h
+//  UserData.h
 //  ViGuard
 //
-//  Created by Ronen Shraga on 12/18/13.
+//  Created by Ronen Shraga on 12/20/13.
 //  Copyright (c) 2013 Vitalitix. All rights reserved.
 //
 
@@ -33,5 +33,6 @@
 @property (nonatomic, retain) NSString * guardianLastName;
 @property (nonatomic, retain) NSString * guardianMobilePhone;
 @property (nonatomic, retain) NSString * guardianToken;
+@property (nonatomic, retain) NSDate * elderUpdateTime;
 
 @end
