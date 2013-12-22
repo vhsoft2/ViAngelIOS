@@ -47,25 +47,9 @@
 		DCF343EF1860E6B700C87879 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF343EE1860E6B700C87879 /* main.m */; };
 		DCF343F31860E6B700C87879 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF343F21860E6B700C87879 /* AppDelegate.m */; };
 		DCF343F61860E6B700C87879 /* ViGuard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DCF343F41860E6B700C87879 /* ViGuard.xcdatamodeld */; };
-		DCF343FF1860E6B800C87879 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343FE1860E6B800C87879 /* XCTest.framework */; };
-		DCF344001860E6B800C87879 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E01860E6B700C87879 /* Foundation.framework */; };
-		DCF344011860E6B800C87879 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E41860E6B700C87879 /* UIKit.framework */; };
-		DCF344021860E6B800C87879 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E61860E6B700C87879 /* CoreData.framework */; };
-		DCF3440A1860E6B800C87879 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF344081860E6B800C87879 /* InfoPlist.strings */; };
-		DCF3440C1860E6B800C87879 /* ViGuardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF3440B1860E6B800C87879 /* ViGuardTests.m */; };
 		DCF3441D1860F69400C87879 /* GuardianRegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */; };
 		DCF344221860FAAE00C87879 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCF344211860FAAE00C87879 /* MainStoryboard.storyboard */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		DCF344031860E6B800C87879 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DCF343D51860E6B700C87879 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCF343DC1860E6B700C87879;
-			remoteInfo = ViGuard;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DC1B64F61862D9FB009513F6 /* DataUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtils.h; sourceTree = "<group>"; };
@@ -125,11 +109,7 @@
 		DCF343F11860E6B700C87879 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DCF343F21860E6B700C87879 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DCF343F51860E6B700C87879 /* ViGuard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ViGuard.xcdatamodel; sourceTree = "<group>"; };
-		DCF343FD1860E6B800C87879 /* ViGuardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViGuardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF343FE1860E6B800C87879 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DCF344071860E6B800C87879 /* ViGuardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ViGuardTests-Info.plist"; sourceTree = "<group>"; };
-		DCF344091860E6B800C87879 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCF3440B1860E6B800C87879 /* ViGuardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViGuardTests.m; sourceTree = "<group>"; };
 		DCF3441B1860F69400C87879 /* GuardianRegistrationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuardianRegistrationVC.h; sourceTree = "<group>"; };
 		DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuardianRegistrationVC.m; sourceTree = "<group>"; };
 		DCF344211860FAAE00C87879 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -145,17 +125,6 @@
 				DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */,
 				DCF343E51860E6B700C87879 /* UIKit.framework in Frameworks */,
 				DCF343E11860E6B700C87879 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCF343FA1860E6B800C87879 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCF343FF1860E6B800C87879 /* XCTest.framework in Frameworks */,
-				DCF344021860E6B800C87879 /* CoreData.framework in Frameworks */,
-				DCF344011860E6B800C87879 /* UIKit.framework in Frameworks */,
-				DCF344001860E6B800C87879 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				DCF343E81860E6B700C87879 /* ViGuard */,
-				DCF344051860E6B800C87879 /* ViGuardTests */,
 				DCF343DF1860E6B700C87879 /* Frameworks */,
 				DCF343DE1860E6B700C87879 /* Products */,
 			);
@@ -251,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				DCF343DD1860E6B700C87879 /* ViGuard.app */,
-				DCF343FD1860E6B800C87879 /* ViGuardTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -295,24 +262,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DCF344051860E6B800C87879 /* ViGuardTests */ = {
-			isa = PBXGroup;
-			children = (
-				DCF3440B1860E6B800C87879 /* ViGuardTests.m */,
-				DCF344061860E6B800C87879 /* Supporting Files */,
-			);
-			path = ViGuardTests;
-			sourceTree = "<group>";
-		};
-		DCF344061860E6B800C87879 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DCF344071860E6B800C87879 /* ViGuardTests-Info.plist */,
-				DCF344081860E6B800C87879 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -333,24 +282,6 @@
 			productReference = DCF343DD1860E6B700C87879 /* ViGuard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DCF343FC1860E6B800C87879 /* ViGuardTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DCF344121860E6B800C87879 /* Build configuration list for PBXNativeTarget "ViGuardTests" */;
-			buildPhases = (
-				DCF343F91860E6B800C87879 /* Sources */,
-				DCF343FA1860E6B800C87879 /* Frameworks */,
-				DCF343FB1860E6B800C87879 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DCF344041860E6B800C87879 /* PBXTargetDependency */,
-			);
-			name = ViGuardTests;
-			productName = ViGuardTests;
-			productReference = DCF343FD1860E6B800C87879 /* ViGuardTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -370,9 +301,6 @@
 							};
 						};
 					};
-					DCF343FC1860E6B800C87879 = {
-						TestTargetID = DCF343DC1860E6B700C87879;
-					};
 				};
 			};
 			buildConfigurationList = DCF343D81860E6B700C87879 /* Build configuration list for PBXProject "ViGuard" */;
@@ -388,7 +316,6 @@
 			projectRoot = "";
 			targets = (
 				DCF343DC1860E6B700C87879 /* ViGuard */,
-				DCF343FC1860E6B800C87879 /* ViGuardTests */,
 			);
 		};
 /* End PBXProject section */
@@ -421,14 +348,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DCF343FB1860E6B800C87879 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCF3440A1860E6B800C87879 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -456,37 +375,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DCF343F91860E6B800C87879 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCF3440C1860E6B800C87879 /* ViGuardTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DCF344041860E6B800C87879 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCF343DC1860E6B700C87879 /* ViGuard */;
-			targetProxy = DCF344031860E6B800C87879 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DCF343EB1860E6B700C87879 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DCF343EC1860E6B700C87879 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DCF344081860E6B800C87879 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF344091860E6B800C87879 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -594,48 +489,6 @@
 			};
 			name = Release;
 		};
-		DCF344131860E6B800C87879 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ViGuard.app/ViGuard";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ViGuard/ViGuard-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ViGuardTests/ViGuardTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		DCF344141860E6B800C87879 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ViGuard.app/ViGuard";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ViGuard/ViGuard-Prefix.pch";
-				INFOPLIST_FILE = "ViGuardTests/ViGuardTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -653,15 +506,6 @@
 			buildConfigurations = (
 				DCF344101860E6B800C87879 /* Debug */,
 				DCF344111860E6B800C87879 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DCF344121860E6B800C87879 /* Build configuration list for PBXNativeTarget "ViGuardTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DCF344131860E6B800C87879 /* Debug */,
-				DCF344141860E6B800C87879 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
