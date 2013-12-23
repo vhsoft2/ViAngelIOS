@@ -125,29 +125,27 @@ bool imageChanged = false;
             HttpService *httpService2 = [[HttpService alloc] init];
             [httpService2 postJsonRequest:@"load_image" postDict:mapData2 callbackOK:^(NSDictionary *jsonDict2) {
                 imageChanged = false;
-                //[[NSOperationQueue mainQueue] addOperationWithBlock:^
+                //        dispatch_async(dispatch_get_main_queue(), ^{
                  //{
                      //Go to parent screen
                      //[self.navigationController popViewControllerAnimated:YES];
-                 //}];
+                 //});
             } callbackErr:^(NSString * errStr) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^
-                 {
+                dispatch_async(dispatch_get_main_queue(), ^{
                      [[[UIAlertView alloc] initWithTitle:@"Update Elder Image" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                 }];
+                 });
             }];
         } else {
-            //[[NSOperationQueue mainQueue] addOperationWithBlock:^
-             //{
+            //dispatch_async(dispatch_get_main_queue(), ^{
+
                  //Go to parent screen
                  //[self.navigationController popViewControllerAnimated:YES];
-             //}];
+             //});
         }
     } callbackErr:^(NSString * errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Update Elder Detail" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -165,6 +163,7 @@ bool imageChanged = false;
     picker.delegate = self;
     picker.allowsEditing = YES;
     picker.sourceType = imageSourceType;
+    [picker setVideoQuality:UIImagePickerControllerQualityType640x480];
     [self presentViewController:picker animated:YES completion:NULL];
 }
 

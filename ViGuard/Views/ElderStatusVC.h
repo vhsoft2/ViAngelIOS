@@ -11,8 +11,8 @@
 @interface ElderStatusVC : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *elderNameLbl;
-@property (weak, nonatomic) IBOutlet UIImageView *elderImage;
 @property (weak, nonatomic) IBOutlet UIButton *elderStatusBtn;
+@property (weak, nonatomic) IBOutlet UIButton *elderBtn;
 
 @property (weak, nonatomic) IBOutlet UILabel *elderAddressLbl;
 @property (weak, nonatomic) IBOutlet UILabel *elderLastStatTmLbl;

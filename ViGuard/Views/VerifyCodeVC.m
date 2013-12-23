@@ -58,15 +58,13 @@ UserData *userData = nil;
     [httpService postJsonRequest:@"verify_code" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
         NSLog(@"%@", jsonDict);
         //Run on main thread
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromVerifyCodeToActivateElder"];
-         }];
+         });
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Activation error" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 @end

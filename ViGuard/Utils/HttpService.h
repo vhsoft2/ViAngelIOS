@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HttpService : NSObject <NSURLSessionDelegate>
+@interface HttpService : NSObject //<NSURLSessionDelegate>
 
 typedef void(^PostJsonCallbackOK)(NSDictionary*);
 typedef void(^PostDataCallbackOK)(NSString*);

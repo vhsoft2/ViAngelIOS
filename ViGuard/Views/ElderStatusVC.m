@@ -20,7 +20,7 @@
 @implementation ElderStatusVC
 
 @synthesize elderNameLbl;
-@synthesize elderImage;
+@synthesize elderBtn;
 @synthesize elderStatusBtn;
 @synthesize elderAddressLbl;
 @synthesize elderLastStatTmLbl;
@@ -32,10 +32,10 @@
 UserData *userData;
 
 //Status variables
-NSNumber *elderLat;
-NSNumber *elderLon;
-NSNumber *angelCount;
-NSNumber *angelProximity;
+double elderLat;
+double elderLon;
+int angelCount;
+double angelProximity;
 NSString *scheduleType;
 NSDate *scheduleStartDate;
 NSString *scheduleComments;
@@ -56,13 +56,18 @@ NSString *scheduleComments;
 	// Do any additional setup after loading the view.
     userData = [DataUtils getUserData];
     
-    CALayer * l = [elderImage layer];
-    [l setMasksToBounds:YES];
-    [l setCornerRadius:20.0];
+    //CALayer * l = [elderBtn.imageView layer];
+    //[l setMasksToBounds:YES];
+    //[l setCornerRadius:20.0];
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self getElderStatus];
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self getElderStatus];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,7 +87,7 @@ NSString *scheduleComments;
         // Get reference to the destination view controller
         AngelsMapVC *avc = [segue destinationViewController];
         // Pass any objects to the view controller here, like...
-        [avc setElderDetails:elderNameLbl.text lat:[elderLat doubleValue] lon:[elderLon doubleValue]];
+        [avc setElderDetails:elderNameLbl.text lat:elderLat lon:elderLon];
     }
 }
 
@@ -90,6 +95,7 @@ NSString *scheduleComments;
     NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:userData.guardianToken,    @"token", nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"get_elder_status" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
+        //Set user data
         userData.elderEmail         = [jsonDict objectForKey:@"email"];
         userData.elderMobilePhone   = [jsonDict objectForKey:@"phone"];
         userData.elderFirstName     = [jsonDict objectForKey:@"first_name"];
@@ -97,63 +103,59 @@ NSString *scheduleComments;
         userData.elderGender        = [jsonDict objectForKey:@"gender"];
         userData.elderDateOfBirth   = [DataUtils dateFromStr:[jsonDict objectForKey:@"dob"]];
         userData.elderHomeAddress   = [jsonDict objectForKey:@"address"];
-        userData.elderUpdateTime    = [DataUtils dateFromMilliSecondStr:[jsonDict objectForKey:@"update_time"]];
-        
-        elderLat                    = [jsonDict objectForKey:@"lat"];
-        elderLon                    = [jsonDict objectForKey:@"lon"];
-        angelCount                  = [jsonDict objectForKey:@"angel_count"];
-        angelProximity              = [jsonDict objectForKey:@"shortest_distance"];
+        userData.elderUpdateTime    = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"update_time"]];
+        //Set local variables
+        elderLat                    = [[jsonDict objectForKey:@"lat"] doubleValue];
+        elderLon                    = [[jsonDict objectForKey:@"lon"] doubleValue];;
+        angelCount                  = [[jsonDict objectForKey:@"angel_count"] intValue];
+        angelProximity              = [[jsonDict objectForKey:@"shortest_distance"] floatValue];
         scheduleType                = [jsonDict objectForKey:@"schedule_type"];
-        scheduleStartDate           = [DataUtils dateFromMilliSecondStr:[jsonDict objectForKey:@"schedule_start_date"]];
+        scheduleStartDate           = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"schedule_start_date"]];
         scheduleComments            = [jsonDict objectForKey:@"schedule_comments"];
-        NSDate *elderImageUpdated   = [DataUtils dateFromMilliSecondStr:[jsonDict objectForKey:@"elder_image_updated"]];
-        if ([userData.elderImageUpdated compare:elderImageUpdated] != NSOrderedSame) {
+        NSDate *elderImageUpdateTime   = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"elder_image_updated"]];
+        if (userData.elderImageUpdated == nil || [userData.elderImageUpdated compare:elderImageUpdateTime ] != NSOrderedSame) {
             NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                      userData.guardianToken,@"token",
                                      @"elder",              @"image_type", nil];
             HttpService *httpImgService = [[HttpService alloc] init];
             [httpImgService postDataRequest:@"get_image" postDict:reqData callbackOK:^(NSString *imgStr) {
                 userData.elderImage = imgStr;
-                userData.elderImageUpdated = elderImageUpdated;
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^
-                 {
+                userData.elderImageUpdated = elderImageUpdateTime;
+                dispatch_async(dispatch_get_main_queue(), ^{
                      [DataUtils saveAllData];
                      [self displayElderStatus];
-                 }];
+                 });
             } callbackErr:^(NSString *imgErrStr) {
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^
-                 {
+                dispatch_async(dispatch_get_main_queue(), ^{
                      [[[UIAlertView alloc] initWithTitle:@"Get Elder Status" message:imgErrStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                 }];
+                 });
             }];
         } else {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^
-             {
+            dispatch_async(dispatch_get_main_queue(), ^{
                  [DataUtils saveAllData];
                  [self displayElderStatus];
-             }];
+             });
         }
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Elder Status" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 
 -(void)displayElderStatus {
     elderNameLbl.text       = [[userData.elderFirstName stringByAppendingString:@", "] stringByAppendingString:userData.elderLastName];
     if (userData.elderImage) {
-        elderImage.image        = [DataUtils fromBase64:userData.elderImage];
+        [elderBtn setBackgroundImage:[DataUtils fromBase64:userData.elderImage] forState:UIControlStateNormal];
     }
     //elderStatusBtn          = ;
     tasksLbl.text           = scheduleComments ;
     taskTimeLbl.text        = [DataUtils strFromDate:scheduleStartDate format:@"MM-dd HH:mm"];
-    angelsStatusLbl.text    = [NSString stringWithFormat:@"%@ angels are nearby", angelCount];
-    angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",([angelProximity floatValue]>1000.0) ? [angelProximity floatValue]/1000.0:[angelProximity floatValue], ([angelProximity floatValue]>1000.0) ? @"m":@"km"];
+    angelsStatusLbl.text    = [NSString stringWithFormat:@"%d angels are nearby", angelCount];
+    angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
     elderLastStatTmLbl.text =  [DataUtils strFromDate:userData.elderUpdateTime format:@"MM-dd HH:mm"];
     //Reverse geocode location
-    CLLocation *loc = [[CLLocation alloc] initWithLatitude:elderLat.doubleValue longitude:elderLon.doubleValue];
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:elderLat longitude:elderLon];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:loc completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error || placemarks.count == 0) {
@@ -174,6 +176,10 @@ NSString *scheduleComments;
 #pragma mark IBActions
 - (IBAction)resetApplication:(id)sender {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasRunBefore"];
+}
+
+- (IBAction)elderConfig:(id)sender {
+    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromElderStatusToElderConfiguration"];
 }
 
 - (IBAction)showElderMap:(id)sender {

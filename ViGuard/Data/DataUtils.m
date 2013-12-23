@@ -36,7 +36,7 @@ static NSManagedObjectContext *managedObjectContext = nil;
 }
 
 +(NSString *)toBase64:(UIImage*)img {
-    NSData * data = [UIImagePNGRepresentation(img) base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSData * data = [UIImageJPEGRepresentation(img,0.25) base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
     return [NSString stringWithUTF8String:[data bytes]];
 }
 
@@ -76,8 +76,8 @@ static NSManagedObjectContext *managedObjectContext = nil;
     return [self strFromDate:date format:@"HH:mm:ss"];
 }
 
-+(NSDate*)dateFromMilliSecondStr:(NSString*)msStr {
-    return [NSDate dateWithTimeIntervalSince1970:[msStr integerValue]/1000];
++(NSDate*)dateFromMilliSeconds:(NSNumber*)ms {
+    return [NSDate dateWithTimeIntervalSince1970:[ms longLongValue]/1000];
 }
 
 @end

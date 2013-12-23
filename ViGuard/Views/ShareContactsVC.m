@@ -95,10 +95,9 @@ NSString *guardianToken;
         HttpService *httpService = [[HttpService alloc] init];
         [httpService postJsonRequest:@"load_address_book" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
         } callbackErr:^(NSString* errStr) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^
-             {
+            dispatch_async(dispatch_get_main_queue(), ^{
                  [[[UIAlertView alloc] initWithTitle:@"Load address book" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             }];
+             });
         }];
     }
 }
@@ -116,17 +115,15 @@ NSString *guardianToken;
                 // User denied access
                 // Display an alert telling user the contact could not be added
             }
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^
-            {
+            dispatch_async(dispatch_get_main_queue(), ^{
                [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromShareContactsToElderStatus"];
-            }];
+            });
         });
     } else if (authorizationStatus == kABAuthorizationStatusAuthorized) {
         [self loadPhoneBook:addressBookRef];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromShareContactsToElderStatus"];
-         }];
+         });
     }
 }
 

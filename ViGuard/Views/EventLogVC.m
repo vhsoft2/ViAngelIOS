@@ -24,7 +24,7 @@ typedef enum {AudioOff, AudioLoading, AudioPlaying, AudioPaused} AudioStatus;
 
 NSArray *eventLogArr;
 AudioStatus audioStatus = AudioOff;
-int audioIdx = -1;
+long audioIdx = -1;
 UserData *userData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -56,15 +56,13 @@ UserData *userData;
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"get_elder_log" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
         eventLogArr = (NSArray*)jsonDict;
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [eventLogTV reloadData];
-         }];
+         });
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Elder Log" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 
@@ -72,7 +70,7 @@ UserData *userData;
     NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys: userData.guardianToken, @"token", eventLogId,@"event_log_id",@"iPhone",@"platform",nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postDataRequest:@"get_event_audio" postDict:mapData callbackOK:^(NSString *audioStr) {
-        NSLog(@"%@: Audio Size:%d", NSStringFromSelector(_cmd), audioStr.length);
+        NSLog(@"%@: Audio Size:%lu", NSStringFromSelector(_cmd), (unsigned long)audioStr.length);
         if (audioStr.length > 0) {
             if (audioIdx >=0 ) {
                 audioStatus = AudioPlaying;
@@ -93,17 +91,15 @@ UserData *userData;
         } else {
             audioStatus = AudioOff;
         }
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [eventLogTV reloadData];
-         }];
+         });
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Event Audio" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
              audioStatus = AudioOff;
              [eventLogTV reloadData];
-         }];
+         });
     }];
 }
 
@@ -136,7 +132,7 @@ UserData *userData;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
-	int idx=indexPath.row;
+	long idx=indexPath.row;
     NSString *recFile = [eventLogArr[idx] objectForKey:@"recording"];
     if (![recFile isKindOfClass:[NSNull class]]) {
         if (idx == audioIdx) {
@@ -228,7 +224,7 @@ UserData *userData;
             }
         }
     }
-    cell.eventLogTxt.text = [NSString stringWithFormat:@"%@ %@", [DataUtils strFromDate:[DataUtils dateFromMilliSecondStr:[cellDict objectForKey:@"date"]] format:@"MM-dd HH:mm"], [cellDict objectForKey:@"comments"]];
+    cell.eventLogTxt.text = [NSString stringWithFormat:@"%@ %@", [DataUtils strFromDate:[DataUtils dateFromMilliSeconds:[cellDict objectForKey:@"date"]] format:@"dd-MM HH:mm"], [cellDict objectForKey:@"comments"]];
     return cell;
 }
 

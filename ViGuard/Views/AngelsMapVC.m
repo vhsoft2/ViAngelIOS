@@ -63,13 +63,13 @@ double elderLon;
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"get_elder_guardians" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
         caregiversArr = (NSArray*)jsonDict;
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [caregiversTV reloadData];
-         }];
+         });
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Elder Guardians" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 
@@ -78,13 +78,13 @@ double elderLon;
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"get_angel_list" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
         angelsArr = (NSArray*)jsonDict;
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [self refreshAngelMap];
-         }];
+         });
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Angel List" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 
@@ -113,7 +113,7 @@ double elderLon;
             angelAnn.coordinate = coord;
             angelAnn.title = @"Angel";
             double dist = [[d objectForKey:@"distance"] doubleValue];
-            angelAnn.subtitle = [NSString stringWithFormat:@"Distance: %.1f%@, Time: %@",(dist>1000.0) ? dist/1000.0:dist, (dist>1000.0) ? @"km":@"m", [DataUtils strFromDate:[DataUtils dateFromMilliSecondStr:[d objectForKey:@"time"]] format:@"dd-MM HH:mm"]];
+            angelAnn.subtitle = [NSString stringWithFormat:@"Distance: %.1f%@, Time: %@",(dist>1000.0) ? dist/1000.0:dist, (dist>1000.0) ? @"km":@"m", [DataUtils strFromDate:[DataUtils dateFromMilliSeconds:[d objectForKey:@"time"]] format:@"dd-MM HH:mm"]];
             [angelsMap addAnnotation:angelAnn];
         }
     }
@@ -135,7 +135,7 @@ double elderLon;
         if ([annotation.subtitle isEqualToString:@""])
             pinView.image = [UIImage imageNamed:@"logo-30.png"];
         else
-            pinView.image = [UIImage imageNamed:@"angel-30.png"];
+            pinView.image = [UIImage imageNamed:@"angel-20.png"];
         pinView.canShowCallout = YES;
     }
     return pinView;
@@ -169,7 +169,7 @@ double elderLon;
         cell = [[CaregiverTVC alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:CellIdentifier];
     }
     //{ "first_name": "Caregiver", "last_name": "Two", "phone": "0587792921", "email": "undefined", "address": "ggggdghgf", "gender": "Male", "age": null, "guardian_id": 29, "last_status_tm": null }
-    int idx = indexPath.row;
+    long idx = indexPath.row;
     cell.caregiverNameLbl.text = [NSString stringWithFormat:@"%@ %@", [caregiversArr[idx] objectForKey:@"first_name"], [caregiversArr[idx] objectForKey:@"last_name"]];
     return cell;
 }

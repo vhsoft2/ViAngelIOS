@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TaskListVC : UIViewController
+@interface TaskListVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tasksTV;
 
 @end

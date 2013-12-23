@@ -59,13 +59,12 @@ NSString *guardianToken;
                              @0,@"time",nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"get_elder_route" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
-        NSLog(@"%@:Number of positions:%d", NSStringFromSelector(_cmd), jsonDict.count);
+        NSLog(@"%@:Number of positions:%lu", NSStringFromSelector(_cmd), (unsigned long)jsonDict.count);
         [self showRoute:jsonDict];
     } callbackErr:^(NSString* errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Elder Route" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 
@@ -84,14 +83,13 @@ NSString *guardianToken;
         toAdd.subtitle = @"Last Location";
         toAdd.title = @"Elder";
         //Put it on the map
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [elderMapView addOverlay:routeLine];
              //Set map to show route
              [elderMapView setVisibleMapRect:[routeLine boundingMapRect] edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:NO];
              //Add last location icon
              [elderMapView addAnnotation:toAdd];
-         }];
+         });
     }
 }
 

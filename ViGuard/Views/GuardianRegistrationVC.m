@@ -63,7 +63,7 @@ bool firstTime = true;
     if ( [callingVC isKindOfClass: [ElderStatusVC class]] ) {
         [registerBtn setTitle:@"Back" forState:UIControlStateNormal];
         firstTime = false;
-        [backBtn setImage: [UIImage imageNamed:@"back.png"]];
+        [backBtn setImage: [UIImage imageNamed:@"back-30.png"]];
     }
     userData = [DataUtils getUserData];
     if (userData.guardianImage)
@@ -138,19 +138,17 @@ bool firstTime = true;
         [httpService postJsonRequest:@"sign_up" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
             userData.guardianToken = [jsonDict objectForKey:@"token"];
             //Go to next screen
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^
-             {
+            dispatch_async(dispatch_get_main_queue(), ^{
                  if (userData.elderCode) {
                      [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToElderStatus"];
                  } else {
                      [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToVerifyCode"];
                  }
-             }];
+             });
         } callbackErr:^(NSString * errStr) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^
-             {
+            dispatch_async(dispatch_get_main_queue(), ^{
                  [[[UIAlertView alloc] initWithTitle:@"Signup error" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             }];
+             });
         }];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
@@ -167,6 +165,7 @@ bool firstTime = true;
     picker.delegate = self;
     picker.allowsEditing = YES;
     picker.sourceType = imageSourceType;
+    [picker setVideoQuality:UIImagePickerControllerQualityType640x480];
     [self presentViewController:picker animated:YES completion:NULL];
 }
 

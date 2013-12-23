@@ -15,7 +15,8 @@ NSString *serverAddress = @"http://109.226.62.3/";
 -(void)postJsonRequest:(NSString*)serviceName postDict:(NSMutableDictionary*)postDict callbackOK:(PostJsonCallbackOK)callbackOK callbackErr:(PostCallbackErr)callbackErr {
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    //NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSURL *url = [NSURL URLWithString:[serverAddress stringByAppendingString:serviceName]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     //Set request headers
@@ -26,7 +27,7 @@ NSString *serverAddress = @"http://109.226.62.3/";
     NSData *postData = [NSJSONSerialization dataWithJSONObject:postDict options:0 error:&error];
     [request setHTTPBody:postData];
     //Run the request
-    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (!error) {
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
@@ -46,14 +47,14 @@ NSString *serverAddress = @"http://109.226.62.3/";
             callbackErr(@"Error calling server");
             NSLog(@"%@ dataTaskWithRequest:%@", NSStringFromSelector(_cmd), error);
         }
-    }];
-    [postDataTask resume];
+    }] resume];
 }
 
 -(void)postDataRequest:(NSString*)serviceName postDict:(NSMutableDictionary*)postDict callbackOK:(PostDataCallbackOK)callbackOK callbackErr:(PostCallbackErr)callbackErr {
     NSError *error;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    //NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSURL *url = [NSURL URLWithString:[serverAddress stringByAppendingString:serviceName]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     //Set request headers

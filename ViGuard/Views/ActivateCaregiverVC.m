@@ -52,20 +52,20 @@
                              caregiverCodeTxt.text,                 @"guard_pass", nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"assign_to_elder" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
-             if ([[jsonDict objectForKey:@"assigned"]  isEqual: @"true"]){
+        //[[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+        //}];
+        dispatch_async(dispatch_get_main_queue(), ^{
+             if ([[jsonDict objectForKey:@"assigned"]  isEqual: @"true"]) {
                  //Run on main thread
                  [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromActivateElderToShareContacts"];
              } else {
                  [[[UIAlertView alloc] initWithTitle:@"ERROR" message:@"Can't assign to elder" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
              }
-         }];
+         });
     } callbackErr:^(NSString *errStr) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^
-         {
+        dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Can't assign to elder" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-         }];
+         });
     }];
 }
 
