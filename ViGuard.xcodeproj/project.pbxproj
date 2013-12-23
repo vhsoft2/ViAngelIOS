@@ -20,6 +20,13 @@
 		DC1B651018638EFB009513F6 /* listen-80.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1B650B18638EFB009513F6 /* listen-80.png */; };
 		DC1B651118638EFB009513F6 /* location-50.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1B650C18638EFB009513F6 /* location-50.png */; };
 		DC1B651218638EFB009513F6 /* reminders-50.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1B650D18638EFB009513F6 /* reminders-50.png */; };
+		DC454C411866EEDB0084D7B3 /* play-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C401866EEDB0084D7B3 /* play-30.png */; };
+		DC454C431866EEE70084D7B3 /* stop-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C421866EEE70084D7B3 /* stop-30.png */; };
+		DC454C461866F0420084D7B3 /* call-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C441866F0420084D7B3 /* call-30.png */; };
+		DC454C471866F0420084D7B3 /* reminder-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C451866F0420084D7B3 /* reminder-30.png */; };
+		DC454C491866F0A70084D7B3 /* listen-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C481866F0A70084D7B3 /* listen-30.png */; };
+		DC454C4C1866F5D60084D7B3 /* EventLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC454C4B1866F5D60084D7B3 /* EventLogCell.m */; };
+		DC454C4E1866F7E50084D7B3 /* play-disabled-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C4D1866F7E50084D7B3 /* play-disabled-30.png */; };
 		DC65AC0A186497BC0001AA97 /* ElderMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC65AC09186497BC0001AA97 /* ElderMapVC.m */; };
 		DC65AC0D1864D9B60001AA97 /* ElderConfigurationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC65AC0C1864D9B60001AA97 /* ElderConfigurationVC.m */; };
 		DC9D674618639AB400B5EF6A /* event-log-50.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9D674518639AB400B5EF6A /* event-log-50.png */; };
@@ -39,6 +46,13 @@
 		DCD09E7818664E6400BAF511 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD09E7718664E6400BAF511 /* back.png */; };
 		DCDA3E2E18625D640009CE00 /* VerifyCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDA3E2D18625D640009CE00 /* VerifyCodeVC.m */; };
 		DCDA3E3118625D8D0009CE00 /* ElderStatusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */; };
+		DCF29CE5186713A9009342BF /* x-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF29CE4186713A9009342BF /* x-30.png */; };
+		DCF29CE718671BC3009342BF /* panic-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF29CE618671BC3009342BF /* panic-30.png */; };
+		DCF29CE918672038009342BF /* waiting-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF29CE818672038009342BF /* waiting-30.png */; };
+		DCF29CEB18672A86009342BF /* pause-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF29CEA18672A86009342BF /* pause-30.png */; };
+		DCF29CED1867445A009342BF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF29CEC1867445A009342BF /* AVFoundation.framework */; };
+		DCF29CF418678E6F009342BF /* CaregiverTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF29CF318678E6F009342BF /* CaregiverTVC.m */; };
+		DCF29CF61867A139009342BF /* angel-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DCF29CF51867A139009342BF /* angel-30.png */; };
 		DCF343E11860E6B700C87879 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E01860E6B700C87879 /* Foundation.framework */; };
 		DCF343E31860E6B700C87879 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E21860E6B700C87879 /* CoreGraphics.framework */; };
 		DCF343E51860E6B700C87879 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E41860E6B700C87879 /* UIKit.framework */; };
@@ -68,6 +82,14 @@
 		DC1B650B18638EFB009513F6 /* listen-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listen-80.png"; sourceTree = "<group>"; };
 		DC1B650C18638EFB009513F6 /* location-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-50.png"; sourceTree = "<group>"; };
 		DC1B650D18638EFB009513F6 /* reminders-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reminders-50.png"; sourceTree = "<group>"; };
+		DC454C401866EEDB0084D7B3 /* play-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-30.png"; sourceTree = "<group>"; };
+		DC454C421866EEE70084D7B3 /* stop-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop-30.png"; sourceTree = "<group>"; };
+		DC454C441866F0420084D7B3 /* call-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "call-30.png"; sourceTree = "<group>"; };
+		DC454C451866F0420084D7B3 /* reminder-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reminder-30.png"; sourceTree = "<group>"; };
+		DC454C481866F0A70084D7B3 /* listen-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listen-30.png"; sourceTree = "<group>"; };
+		DC454C4A1866F5D60084D7B3 /* EventLogCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventLogCell.h; sourceTree = "<group>"; };
+		DC454C4B1866F5D60084D7B3 /* EventLogCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventLogCell.m; sourceTree = "<group>"; };
+		DC454C4D1866F7E50084D7B3 /* play-disabled-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-disabled-30.png"; sourceTree = "<group>"; };
 		DC65AC08186497BC0001AA97 /* ElderMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElderMapVC.h; sourceTree = "<group>"; };
 		DC65AC09186497BC0001AA97 /* ElderMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElderMapVC.m; sourceTree = "<group>"; };
 		DC65AC0B1864D9B60001AA97 /* ElderConfigurationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElderConfigurationVC.h; sourceTree = "<group>"; };
@@ -97,6 +119,14 @@
 		DCDA3E2D18625D640009CE00 /* VerifyCodeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeVC.m; sourceTree = "<group>"; };
 		DCDA3E2F18625D8D0009CE00 /* ElderStatusVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElderStatusVC.h; sourceTree = "<group>"; };
 		DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElderStatusVC.m; sourceTree = "<group>"; };
+		DCF29CE4186713A9009342BF /* x-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x-30.png"; sourceTree = "<group>"; };
+		DCF29CE618671BC3009342BF /* panic-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "panic-30.png"; sourceTree = "<group>"; };
+		DCF29CE818672038009342BF /* waiting-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "waiting-30.png"; sourceTree = "<group>"; };
+		DCF29CEA18672A86009342BF /* pause-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause-30.png"; sourceTree = "<group>"; };
+		DCF29CEC1867445A009342BF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DCF29CF218678E6F009342BF /* CaregiverTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaregiverTVC.h; sourceTree = "<group>"; };
+		DCF29CF318678E6F009342BF /* CaregiverTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaregiverTVC.m; sourceTree = "<group>"; };
+		DCF29CF51867A139009342BF /* angel-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "angel-30.png"; path = "../../../../../Dropbox/Vitalitix/Graphic Design/Mobile App/iPhone/angel-30.png"; sourceTree = "<group>"; };
 		DCF343DD1860E6B700C87879 /* ViGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF343E01860E6B700C87879 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCF343E21860E6B700C87879 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -120,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCF29CED1867445A009342BF /* AVFoundation.framework in Frameworks */,
 				DCF343E31860E6B700C87879 /* CoreGraphics.framework in Frameworks */,
 				DCF343E71860E6B700C87879 /* CoreData.framework in Frameworks */,
 				DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */,
@@ -141,14 +172,18 @@
 				DCD09E6D1866010D00BAF511 /* AngelsMapVC.m */,
 				DC65AC0B1864D9B60001AA97 /* ElderConfigurationVC.h */,
 				DC65AC0C1864D9B60001AA97 /* ElderConfigurationVC.m */,
+				DC454C4A1866F5D60084D7B3 /* EventLogCell.h */,
+				DC454C4B1866F5D60084D7B3 /* EventLogCell.m */,
+				DCD09E6F1866012300BAF511 /* EventLogVC.h */,
+				DCD09E701866012300BAF511 /* EventLogVC.m */,
 				DC65AC08186497BC0001AA97 /* ElderMapVC.h */,
 				DC65AC09186497BC0001AA97 /* ElderMapVC.m */,
 				DCDA3E2F18625D8D0009CE00 /* ElderStatusVC.h */,
 				DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */,
-				DCD09E6F1866012300BAF511 /* EventLogVC.h */,
-				DCD09E701866012300BAF511 /* EventLogVC.m */,
 				DCF3441B1860F69400C87879 /* GuardianRegistrationVC.h */,
 				DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */,
+				DCF29CF218678E6F009342BF /* CaregiverTVC.h */,
+				DCF29CF318678E6F009342BF /* CaregiverTVC.m */,
 				DCD09E7218660E4100BAF511 /* ShareContactsVC.h */,
 				DCD09E7318660E4100BAF511 /* ShareContactsVC.m */,
 				DCD09E691865FFA700BAF511 /* TaskListVC.h */,
@@ -174,8 +209,10 @@
 		DCA5E2AE1861B6AA00B28606 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DCF29CF51867A139009342BF /* angel-30.png */,
 				DC1B650918638EFB009513F6 /* angel-50.png */,
 				DCD09E7718664E6400BAF511 /* back.png */,
+				DC454C441866F0420084D7B3 /* call-30.png */,
 				DC1B650A18638EFB009513F6 /* call-80.png */,
 				DC9D674518639AB400B5EF6A /* event-log-50.png */,
 				DC1B64FF1863785B009513F6 /* guardian-30.png */,
@@ -183,14 +220,23 @@
 				DC1B650C18638EFB009513F6 /* location-50.png */,
 				DC1B65001863785B009513F6 /* logo-30.png */,
 				DCA5E2AC1861B6A300B28606 /* logo-80.png */,
+				DC454C481866F0A70084D7B3 /* listen-30.png */,
 				DC1B650B18638EFB009513F6 /* listen-80.png */,
+				DCF29CE618671BC3009342BF /* panic-30.png */,
+				DCF29CEA18672A86009342BF /* pause-30.png */,
 				DCD09E751866145500BAF511 /* phone_book.png */,
+				DC454C401866EEDB0084D7B3 /* play-30.png */,
+				DC454C4D1866F7E50084D7B3 /* play-disabled-30.png */,
+				DC454C451866F0420084D7B3 /* reminder-30.png */,
 				DC1B650D18638EFB009513F6 /* reminders-50.png */,
 				DC9D674A1864532100B5EF6A /* seperating_line.png */,
 				DCA5E2BD1862479100B28606 /* splash.png */,
 				DC1B650318638441009513F6 /* status-ok.png */,
 				DC1B650418638441009513F6 /* status-panic.png */,
 				DC1B650518638441009513F6 /* status-warning.png */,
+				DC454C421866EEE70084D7B3 /* stop-30.png */,
+				DCF29CE818672038009342BF /* waiting-30.png */,
+				DCF29CE4186713A9009342BF /* x-30.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -226,6 +272,7 @@
 		DCF343DF1860E6B700C87879 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DCF29CEC1867445A009342BF /* AVFoundation.framework */,
 				DCA5E2B41861CABA00B28606 /* MapKit.framework */,
 				DCF343E01860E6B700C87879 /* Foundation.framework */,
 				DCF343E21860E6B700C87879 /* CoreGraphics.framework */,
@@ -325,11 +372,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC454C471866F0420084D7B3 /* reminder-30.png in Resources */,
+				DCF29CF61867A139009342BF /* angel-30.png in Resources */,
 				DCA5E2AD1861B6A300B28606 /* logo-80.png in Resources */,
+				DCF29CE5186713A9009342BF /* x-30.png in Resources */,
 				DCF344221860FAAE00C87879 /* MainStoryboard.storyboard in Resources */,
 				DC1B650F18638EFB009513F6 /* call-80.png in Resources */,
+				DC454C461866F0420084D7B3 /* call-30.png in Resources */,
 				DC1B650818638441009513F6 /* status-warning.png in Resources */,
+				DCF29CEB18672A86009342BF /* pause-30.png in Resources */,
+				DC454C491866F0A70084D7B3 /* listen-30.png in Resources */,
+				DC454C431866EEE70084D7B3 /* stop-30.png in Resources */,
 				DC1B651118638EFB009513F6 /* location-50.png in Resources */,
+				DC454C411866EEDB0084D7B3 /* play-30.png in Resources */,
 				DCA5E2B31861C51E00B28606 /* guardian-80.png in Resources */,
 				DC1B650E18638EFB009513F6 /* angel-50.png in Resources */,
 				DC9D674B1864532100B5EF6A /* seperating_line.png in Resources */,
@@ -341,9 +396,12 @@
 				DC1B650718638441009513F6 /* status-panic.png in Resources */,
 				DCF343ED1860E6B700C87879 /* InfoPlist.strings in Resources */,
 				DC1B651018638EFB009513F6 /* listen-80.png in Resources */,
+				DCF29CE718671BC3009342BF /* panic-30.png in Resources */,
 				DCD09E7818664E6400BAF511 /* back.png in Resources */,
+				DCF29CE918672038009342BF /* waiting-30.png in Resources */,
 				DC1B651218638EFB009513F6 /* reminders-50.png in Resources */,
 				DC1B65021863785B009513F6 /* logo-30.png in Resources */,
+				DC454C4E1866F7E50084D7B3 /* play-disabled-30.png in Resources */,
 				DC9D674618639AB400B5EF6A /* event-log-50.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,10 +418,12 @@
 				DCDA3E2E18625D640009CE00 /* VerifyCodeVC.m in Sources */,
 				DCA5E2BC18622F0200B28606 /* NSDataAdditions.m in Sources */,
 				DCD09E711866012300BAF511 /* EventLogVC.m in Sources */,
+				DCF29CF418678E6F009342BF /* CaregiverTVC.m in Sources */,
 				DCDA3E3118625D8D0009CE00 /* ElderStatusVC.m in Sources */,
 				DCF343F31860E6B700C87879 /* AppDelegate.m in Sources */,
 				DC1B64FB1862E5D1009513F6 /* HttpService.m in Sources */,
 				DCD09E6B1865FFA700BAF511 /* TaskListVC.m in Sources */,
+				DC454C4C1866F5D60084D7B3 /* EventLogCell.m in Sources */,
 				DC1B64F81862D9FB009513F6 /* DataUtils.m in Sources */,
 				DCD09E6E1866010D00BAF511 /* AngelsMapVC.m in Sources */,
 				DCF3441D1860F69400C87879 /* GuardianRegistrationVC.m in Sources */,

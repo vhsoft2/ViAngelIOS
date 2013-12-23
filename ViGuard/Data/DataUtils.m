@@ -44,6 +44,10 @@ static NSManagedObjectContext *managedObjectContext = nil;
     return [UIImage imageWithData:[NSData dataWithBase64EncodedString:str]];
 }
 
++(NSData*)dataFromBase64:(NSString*)str {
+    return [NSData dataWithBase64EncodedString:str];
+}
+
 +(NSDate*)dateFromStr:(NSString *)str format:(NSString*)format {
     NSDateFormatter *inFormat = [[NSDateFormatter alloc] init];
     [inFormat setDateFormat:format];

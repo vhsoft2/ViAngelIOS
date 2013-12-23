@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface EventLogVC : UIViewController
+@interface EventLogVC : UIViewController <UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate>
+
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+
+@property (weak, nonatomic) IBOutlet UITableView *eventLogTV;
 
 @end

@@ -8,7 +8,6 @@
 #import <MapKit/MapKit.h>
 #import "ElderMapVC.h"
 #import "HttpService.h"
-//#import "DataUtils.h"
 
 @interface ElderMapVC ()
 
@@ -71,7 +70,6 @@ NSString *guardianToken;
 }
 
 -(void)showRoute:(NSDictionary*)dict {
-    //make the line
     if (dict.count) {
         //Setup polyline
         CLLocationCoordinate2D coord[dict.count];
@@ -97,7 +95,7 @@ NSString *guardianToken;
     }
 }
 
-- (MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>) annotation
+-(MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>) annotation
 {
     MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pinView"];
     if (!pinView) {

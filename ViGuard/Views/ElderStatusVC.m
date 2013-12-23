@@ -11,6 +11,7 @@
 #import "DataUtils.h"
 #import "HttpService.h"
 #import "ElderMapVC.h"
+#import "AngelsMapVC.h"
 
 @interface ElderStatusVC ()
 
@@ -77,6 +78,11 @@ NSString *scheduleComments;
         ElderMapVC *evc = [segue destinationViewController];
         // Pass any objects to the view controller here, like...
         [evc setAddress:elderAddressLbl.text token:userData.guardianToken];
+    } else if ([[segue identifier] isEqualToString:@"fromElderStatusToAngelsMap"]) {
+        // Get reference to the destination view controller
+        AngelsMapVC *avc = [segue destinationViewController];
+        // Pass any objects to the view controller here, like...
+        [avc setElderDetails:elderNameLbl.text lat:[elderLat doubleValue] lon:[elderLon doubleValue]];
     }
 }
 
