@@ -93,6 +93,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ugP-vh-CmM" id="Pmp-JH-Fzv"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4af-gd-tRB">
                                 <rect key="frame" x="20" y="314" width="57" height="21"/>
@@ -106,6 +109,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ugP-vh-CmM" id="8G2-hu-5vi"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlX-K3-bcV">
                                 <rect key="frame" x="31" y="383" width="69" height="30"/>
@@ -184,10 +190,10 @@
                     <connections>
                         <outlet property="address" destination="TBH-kS-MCf" id="uuI-VQ-SzL"/>
                         <outlet property="backBtn" destination="Qgu-6e-kEL" id="DyR-IY-KWg"/>
-                        <outlet property="dateOfBirth" destination="Luq-pl-wxv" id="0up-IK-c6r"/>
+                        <outlet property="dateOfBirthTxt" destination="Luq-pl-wxv" id="7uC-gn-ZSW"/>
                         <outlet property="email" destination="0gI-Ds-1En" id="p4b-iz-rhd"/>
                         <outlet property="firstName" destination="MAG-yu-iO1" id="Ivi-4b-vBO"/>
-                        <outlet property="gender" destination="xG8-4z-nFy" id="3cY-l6-OJE"/>
+                        <outlet property="genderTxt" destination="xG8-4z-nFy" id="KeA-FT-3JO"/>
                         <outlet property="guardianImageBtn" destination="hhz-Co-OV8" id="JLa-pT-j76"/>
                         <outlet property="lastName" destination="XCc-Or-YWo" id="OMD-5D-xdS"/>
                         <outlet property="mobilePhone" destination="W7Q-1S-cBX" id="Xb3-m3-YTh"/>
@@ -1179,18 +1185,27 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kkZ-Wa-Lan" id="ee2-lQ-VK7"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0jC-Ve-nNH">
                                 <rect key="frame" x="144" y="148" width="166" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kkZ-Wa-Lan" id="WPV-2o-JKE"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EbR-DR-r2C">
                                 <rect key="frame" x="144" y="186" width="166" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kkZ-Wa-Lan" id="VaV-Wc-OXx"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DATE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92F-Y1-vCK">
                                 <rect key="frame" x="10" y="114" width="124" height="21"/>
@@ -1215,6 +1230,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kkZ-Wa-Lan" id="oFs-RP-TPd"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="RECURRENT:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykb-8h-Ise">
                                 <rect key="frame" x="10" y="227" width="124" height="21"/>
@@ -1260,6 +1278,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kkZ-Wa-Lan" id="ubs-rd-ijP"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="END DATE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67V-xM-wDa">
                                 <rect key="frame" x="10" y="265" width="124" height="24"/>
@@ -1267,7 +1288,7 @@
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2u-FP-njF">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2u-FP-njF">
                                 <rect key="frame" x="10" y="420" width="70" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="26"/>
@@ -1292,7 +1313,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLH-yP-Vmo">
-                                <rect key="frame" x="240" y="420" width="70" height="48"/>
+                                <rect key="frame" x="240" y="420" width="70" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="26"/>
                                 <state key="normal" title="Delete">
@@ -1315,6 +1336,7 @@
                         <outlet property="playButton" destination="kbm-J5-NR7" id="Rd5-lD-b0k"/>
                         <outlet property="recordButton" destination="oQY-Cf-g0W" id="8Su-7p-XG4"/>
                         <outlet property="recordLengthTxt" destination="i4w-Kf-JT7" id="39u-i0-h1N"/>
+                        <outlet property="recordMessageLbl" destination="jKm-wc-c0D" id="0up-7w-vT0"/>
                         <outlet property="saveBtn" destination="T2u-FP-njF" id="CK1-d0-218"/>
                         <outlet property="taskEndDateTxt" destination="Qy1-2e-EUy" id="p3O-eW-5qu"/>
                         <outlet property="taskRecurrentTxt" destination="oIR-Wp-vxv" id="N0j-lM-1Ls"/>

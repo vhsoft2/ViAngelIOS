@@ -13,7 +13,9 @@
 
 static UserData *userData = nil;
 static NSManagedObjectContext *managedObjectContext = nil;
-
+//
+//UserData helpers
+//
 +(NSArray*)fetchData {
     if (!managedObjectContext)
         managedObjectContext = ((AppDelegate*)([[UIApplication sharedApplication] delegate])).managedObjectContext;
@@ -34,10 +36,17 @@ static NSManagedObjectContext *managedObjectContext = nil;
 +(void)saveAllData {
     [managedObjectContext save:nil];
 }
-
+//
+//Base64 helpers
+//
 +(NSString *)toBase64:(UIImage*)img {
     NSData * data = [UIImageJPEGRepresentation(img,0.25) base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
     return [NSString stringWithUTF8String:[data bytes]];
+}
+
++(NSString *)dataToBase64:(NSData*)data {
+    NSData * b64Data = [data base64EncodedDataWithOptions:0];
+    return [NSString stringWithUTF8String:[b64Data bytes]];
 }
 
 +(UIImage *)fromBase64:(NSString*)str {
@@ -47,7 +56,9 @@ static NSManagedObjectContext *managedObjectContext = nil;
 +(NSData*)dataFromBase64:(NSString*)str {
     return [NSData dataWithBase64EncodedString:str];
 }
-
+//
+//Date and time functions
+//
 +(NSDate*)dateFromStr:(NSString *)str format:(NSString*)format {
     NSDateFormatter *inFormat = [[NSDateFormatter alloc] init];
     [inFormat setDateFormat:format];
@@ -80,4 +91,7 @@ static NSManagedObjectContext *managedObjectContext = nil;
     return [NSDate dateWithTimeIntervalSince1970:[ms longLongValue]/1000];
 }
 
++(NSNumber*)milliSecondsFromDate:(NSDate*)date {
+    return [NSNumber numberWithDouble:[date timeIntervalSince1970]*1000];
+}
 @end

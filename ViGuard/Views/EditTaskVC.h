@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import "ActionSheetPicker.h"
+#import "DataUtils.h"
 
-@interface EditTaskVC : UIViewController
+@interface EditTaskVC : UIViewController <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *taskTitleTxt;
 @property (weak, nonatomic) IBOutlet UITextField *taskStartDateTxt;
@@ -22,7 +25,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *recordLengthTxt;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (weak, nonatomic) IBOutlet UILabel *recordMessageLbl;
 
--(void)setTaskData:(NSDictionary*)dict;
+//Picker properties
+@property (nonatomic, assign) NSInteger picekerSelectedIndex;
+@property (nonatomic, strong) AbstractActionSheetPicker *actionSheetPicker;
+//Audio
+@property (strong, nonatomic) NSTimer *audioTimer;
+
+-(void)setTaskData:(NSDictionary*)dict uData:(UserData*)uData;
 
 @end

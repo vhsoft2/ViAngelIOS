@@ -25,6 +25,11 @@
 @synthesize genderTxt;
 @synthesize elderImageBtn;
 
+//picker properties
+@synthesize picekerSelectedIndex;
+@synthesize actionSheetPicker;
+
+NSArray *genderTypesArr;
 UserData *userData;
 bool imageChanged = false;
 
@@ -46,7 +51,9 @@ bool imageChanged = false;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    genderTypesArr = @[@"Male",@"Female"];
+
     userData = [DataUtils getUserData];
     if (userData.elderImage)
         elderImageBtn.imageView.image = [DataUtils fromBase64:userData.elderImage];
@@ -55,7 +62,7 @@ bool imageChanged = false;
     mobilePhoneTxt.text = userData.elderMobilePhone;
     emailTxt.text = userData.elderEmail;
     addressTxt.text = userData.elderHomeAddress;
-    dateOfBirthTxt.text = [userData.elderDateOfBirth description];
+    dateOfBirthTxt.text = [DataUtils dateStrFromDate:userData.elderDateOfBirth];
     genderTxt.text = userData.elderGender;
     [firstNameTxt becomeFirstResponder];
     //To dismiss the keyboard on done
@@ -91,13 +98,52 @@ bool imageChanged = false;
     userData.elderMobilePhone = mobilePhoneTxt.text;
     userData.elderEmail = emailTxt.text;
     userData.elderHomeAddress = addressTxt.text;
-    //userData.elderDateOfBirth = dateOfBirthTxt.text;
+    userData.elderDateOfBirth = [DataUtils dateFromStr:dateOfBirthTxt.text format:@"yyyy-MM-dd"];
     userData.elderGender = genderTxt.text;
     userData.elderImage = [[DataUtils toBase64:elderImageBtn.imageView.image] stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
     //NSLog(@"%@:%@", NSStringFromSelector(_cmd), userData.elderImage);
     [DataUtils saveAllData];
 }
 
+#pragma mark UITextViewDelegate
+
+- (void)dobWasSelected:(NSDate *)selectedDate element:(id)element {
+    dateOfBirthTxt.text = [DataUtils dateStrFromDate:selectedDate];
+}
+
+- (void)genderWasSelected:(NSNumber *)selectedIndex element:(id)element {
+    genderTxt.text = genderTypesArr[[selectedIndex intValue]];
+}
+
+// Delegate function
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    BOOL ret = YES;
+    // We are now showing the UIPickerViewer instead
+    if ([textField isEqual:self.genderTxt]) {
+        [ActionSheetStringPicker showPickerWithTitle:@"Select Gender" rows:genderTypesArr initialSelection:picekerSelectedIndex target:self successAction:@selector(genderWasSelected:element:) cancelAction:nil origin:textField];
+        ret = NO;
+    } else if ([textField isEqual:self.dateOfBirthTxt]) {
+        NSDate *date;
+        if (![dateOfBirthTxt.text isEqualToString:@""]) {
+            date = [DataUtils dateFromStr:dateOfBirthTxt.text format:@"yyyy-MM-dd"];
+        }
+        if (!date)
+            date = [DataUtils dateFromStr:@"1930" format:@"yyyy"];
+        actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"Date Of Birth" datePickerMode:UIDatePickerModeDate selectedDate:date target:self action:@selector(dobWasSelected:element:) origin:textField];
+        [self.actionSheetPicker addCustomButtonWithTitle:@"1910" value:[DataUtils dateFromStr:@"1910" format:@"yyyy"]];
+        [self.actionSheetPicker addCustomButtonWithTitle:@"1930" value:[DataUtils dateFromStr:@"1930" format:@"yyyy"]];
+        [self.actionSheetPicker addCustomButtonWithTitle:@"1950" value:[DataUtils dateFromStr:@"1950" format:@"yyyy"]];
+        self.actionSheetPicker.hideCancel = YES;
+        [self.actionSheetPicker showActionSheetPicker];
+        ret = NO;
+    }
+    if (ret == NO) {
+        // Close the keypad if it is showing
+        [self.view.superview endEditing:YES];
+    }
+    // Return NO if picker so that there won't be a cursor in the box
+    return ret;
+}
 
 #pragma mark IBActions
 

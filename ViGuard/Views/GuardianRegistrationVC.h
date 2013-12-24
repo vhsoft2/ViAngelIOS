@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActionSheetPicker.h"
 
 @interface GuardianRegistrationVC : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate,UITextFieldDelegate>
 
@@ -17,8 +18,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *mobilePhone;
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UITextField *address;
-@property (weak, nonatomic) IBOutlet UITextField *dateOfBirth;
-@property (weak, nonatomic) IBOutlet UITextField *gender;
+@property (weak, nonatomic) IBOutlet UITextField *dateOfBirthTxt;
+@property (weak, nonatomic) IBOutlet UITextField *genderTxt;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backBtn;
+
+//Picker properties
+@property (nonatomic, assign) NSInteger picekerSelectedIndex;
+@property (nonatomic, strong) AbstractActionSheetPicker *actionSheetPicker;
 
 @end

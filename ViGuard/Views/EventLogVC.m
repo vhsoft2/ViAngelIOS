@@ -76,6 +76,7 @@ UserData *userData;
                 audioStatus = AudioPlaying;
                 NSError *error;
                 audioPlayer = [[AVAudioPlayer alloc] initWithData:(NSData*)[DataUtils dataFromBase64:audioStr] error:&error];
+                //audioPlayer = [[AVAudioPlayer alloc] initWithData:(NSData*)[DataUtils dataFromBase64:audioStr] fileTypeHint:AVFileTypeAMR error:&error];
                 if (error)
                 {
                     audioStatus = AudioOff;

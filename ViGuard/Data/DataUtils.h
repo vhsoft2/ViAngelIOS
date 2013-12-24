@@ -26,5 +26,7 @@
 +(NSString*)strFromDate:(NSDate*)date format:(NSString*)format;
 +(NSDate*)dateFromStr:(NSString *)str format:(NSString*)format;
 +(NSData*)dataFromBase64:(NSString*)str;
++(NSString *)dataToBase64:(NSData*)data;
++(NSNumber*)milliSecondsFromDate:(NSDate*)date;
 
 @end

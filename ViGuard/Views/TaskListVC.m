@@ -75,10 +75,10 @@ bool rowClicked;
         if (rowClicked) {
             
             if (selectedTaskIdx>=0 && selectedTaskIdx<tasksArr.count)
-                [evc setTaskData:tasksArr[selectedTaskIdx]];
+                [evc setTaskData:tasksArr[selectedTaskIdx] uData:userData];
         }
         else
-            [evc setTaskData:nil];
+            [evc setTaskData:nil uData:userData];
     }
 }
 

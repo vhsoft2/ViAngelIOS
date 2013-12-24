@@ -69,7 +69,10 @@ NSString *serverAddress = @"http://109.226.62.3/";
         if (!error) {
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
-                callbackOK([NSString stringWithUTF8String:[data bytes]]);
+                if (data.length)
+                    callbackOK([NSString stringWithUTF8String:[data bytes]]);
+                else
+                    callbackOK(@"");
             } else {
                 NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 callbackErr([NSString stringWithFormat:@"Server returned status %ld\n%@", (long)httpResp.statusCode, dataStr]);

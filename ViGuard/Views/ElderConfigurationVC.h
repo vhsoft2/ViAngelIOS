@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ActionSheetPicker.h"
 
 @interface ElderConfigurationVC : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
@@ -18,5 +19,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *dateOfBirthTxt;
 @property (weak, nonatomic) IBOutlet UITextField *genderTxt;
 @property (weak, nonatomic) IBOutlet UIButton *elderImageBtn;
+
+//Picker properties
+@property (nonatomic, assign) NSInteger picekerSelectedIndex;
+@property (nonatomic, strong) AbstractActionSheetPicker *actionSheetPicker;
 
 @end

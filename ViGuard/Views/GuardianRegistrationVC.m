@@ -23,11 +23,15 @@
 @synthesize mobilePhone;
 @synthesize email;
 @synthesize address;
-@synthesize dateOfBirth;
-@synthesize gender;
+@synthesize dateOfBirthTxt;
+@synthesize genderTxt;
 @synthesize guardianImageBtn;
 @synthesize registerBtn;
 @synthesize backBtn;
+//picker properties
+@synthesize picekerSelectedIndex;
+@synthesize actionSheetPicker;
+NSArray *genderTypesArr;
 
 UserData *userData;
 bool firstTime = true;
@@ -56,7 +60,8 @@ bool firstTime = true;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+    genderTypesArr = @[@"Male",@"Female"];
     
     NSInteger count = [self.navigationController.viewControllers count];
     UIViewController *callingVC = [self.navigationController.viewControllers objectAtIndex:count - 2];
@@ -73,8 +78,8 @@ bool firstTime = true;
     mobilePhone.text = userData.guardianMobilePhone;
     email.text = userData.guardianEmail;
     address.text = userData.guardianHomeAddress;
-    dateOfBirth.text = [userData.guardianDateOfBirth description];
-    gender.text = userData.guardianGender;
+    dateOfBirthTxt.text = [DataUtils dateStrFromDate:userData.guardianDateOfBirth];
+    genderTxt.text = userData.guardianGender;
     [firstName becomeFirstResponder];
     //To dismiss the keyboard on done
     firstName.delegate = self;
@@ -82,8 +87,8 @@ bool firstTime = true;
     mobilePhone.delegate = self;
     email.delegate = self;
     address.delegate = self;
-    dateOfBirth.delegate = self;
-    gender.delegate = self;
+    dateOfBirthTxt.delegate = self;
+    genderTxt.delegate = self;
 
 }
 
@@ -100,8 +105,8 @@ bool firstTime = true;
     [self.mobilePhone resignFirstResponder];
     [self.email resignFirstResponder];
     [self.address resignFirstResponder];
-    [self.dateOfBirth resignFirstResponder];
-    [self.gender resignFirstResponder];
+    [self.dateOfBirthTxt resignFirstResponder];
+    [self.genderTxt resignFirstResponder];
 }
 
 - (void)setUserData {
@@ -110,10 +115,53 @@ bool firstTime = true;
     userData.guardianMobilePhone = self.mobilePhone.text;
     userData.guardianEmail = self.email.text;
     userData.guardianHomeAddress = self.address.text;
-    //userData.guardianDateOfBirth = self.dateOfBirth.text;
-    userData.guardianGender = self.gender.text;
+    userData.guardianDateOfBirth = [DataUtils dateFromStr:self.dateOfBirthTxt.text format:@"yyyy-MM-dd"];
+    userData.guardianGender = self.genderTxt.text;
     userData.guardianImage = [DataUtils toBase64:guardianImageBtn.imageView.image];
     [DataUtils saveAllData];
+}
+
+
+
+
+#pragma mark UITextViewDelegate
+
+- (void)dobWasSelected:(NSDate *)selectedDate element:(id)element {
+    dateOfBirthTxt.text = [DataUtils dateStrFromDate:selectedDate];
+}
+
+- (void)genderWasSelected:(NSNumber *)selectedIndex element:(id)element {
+    genderTxt.text = genderTypesArr[[selectedIndex intValue]];
+}
+
+// Delegate function
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    BOOL ret = YES;
+    // We are now showing the UIPickerViewer instead
+    if ([textField isEqual:self.genderTxt]) {
+        [ActionSheetStringPicker showPickerWithTitle:@"Select Gender" rows:genderTypesArr initialSelection:picekerSelectedIndex target:self successAction:@selector(genderWasSelected:element:) cancelAction:nil origin:textField];
+        ret = NO;
+    } else if ([textField isEqual:self.dateOfBirthTxt]) {
+        NSDate *date;
+        if (![dateOfBirthTxt.text isEqualToString:@""]) {
+            date = [DataUtils dateFromStr:dateOfBirthTxt.text format:@"yyyy-MM-dd"];
+        }
+        if (!date)
+            date = [DataUtils dateFromStr:@"1990" format:@"yyyy"];
+        actionSheetPicker = [[ActionSheetDatePicker alloc] initWithTitle:@"Date Of Birth" datePickerMode:UIDatePickerModeDate selectedDate:date target:self action:@selector(dobWasSelected:element:) origin:textField];
+        [self.actionSheetPicker addCustomButtonWithTitle:@"1950" value:[DataUtils dateFromStr:@"1950" format:@"yyyy"]];
+        [self.actionSheetPicker addCustomButtonWithTitle:@"1970" value:[DataUtils dateFromStr:@"1970" format:@"yyyy"]];
+        [self.actionSheetPicker addCustomButtonWithTitle:@"1990" value:[DataUtils dateFromStr:@"1990" format:@"yyyy"]];
+        self.actionSheetPicker.hideCancel = YES;
+        [self.actionSheetPicker showActionSheetPicker];
+        ret = NO;
+    }
+    if (ret == NO) {
+        // Close the keypad if it is showing
+        [self.view.superview endEditing:YES];
+    }
+    // Return NO if picker so that there won't be a cursor in the box
+    return ret;
 }
 
 #pragma mark IBActions
