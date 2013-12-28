@@ -60,7 +60,7 @@ NSString *guardianToken;
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"get_elder_route" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
         NSLog(@"%@:Number of positions:%lu", NSStringFromSelector(_cmd), (unsigned long)jsonDict.count);
-        [self showRoute:jsonDict];
+        [self showRoute:(NSArray*)jsonDict];
     } callbackErr:^(NSString* errStr) {
         dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Elder Route" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -68,18 +68,18 @@ NSString *guardianToken;
     }];
 }
 
--(void)showRoute:(NSDictionary*)dict {
-    if (dict.count) {
+-(void)showRoute:(NSArray*)arr {
+    if (arr.count) {
         //Setup polyline
-        CLLocationCoordinate2D coord[dict.count];
+        CLLocationCoordinate2D coord[arr.count];
         int i = 0;
-        for (NSDictionary * d in dict) {
+        for (NSDictionary * d in arr) {
             coord[i++] = CLLocationCoordinate2DMake([[d objectForKey:@"lat"] floatValue], [[d objectForKey:@"lon"] floatValue]);
         }
-        MKPolyline *routeLine = [MKPolyline polylineWithCoordinates:coord count:dict.count];
+        MKPolyline *routeLine = [MKPolyline polylineWithCoordinates:coord count:arr.count];
         //Setup icon
         MKPointAnnotation *toAdd = [[MKPointAnnotation alloc]init];
-        toAdd.coordinate = coord[dict.count-1];
+        toAdd.coordinate = coord[0];
         toAdd.subtitle = @"Last Location";
         toAdd.title = @"Elder";
         //Put it on the map

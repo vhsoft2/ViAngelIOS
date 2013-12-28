@@ -65,8 +65,8 @@
         self.smallUnitString = smallUnitString;
         self.smallUnitMax = smallUnitMax;
         self.selectedSmallUnit = selectedSmallUnit;
-        self.bigUnitDigits = [[NSString stringWithFormat:@"%i", self.bigUnitMax] length];
-        self.smallUnitDigits = [[NSString stringWithFormat:@"%i", self.smallUnitMax] length];
+        self.bigUnitDigits = [[NSString stringWithFormat:@"%lu", (long)self.bigUnitMax] length];
+        self.smallUnitDigits = [[NSString stringWithFormat:@"%lu", (long)self.smallUnitMax] length];
     }
     return self;
 }
@@ -93,7 +93,7 @@
     
     unitSubtract = 0;
     
-    for (int i = self.bigUnitDigits; i < self.bigUnitDigits + self.smallUnitDigits; ++i) {
+    for (long i = self.bigUnitDigits; i < self.bigUnitDigits + self.smallUnitDigits; ++i) {
         NSInteger factor = (int)pow((double)10, (double)(self.bigUnitDigits + self.smallUnitDigits - (i+1)));
         currentDigit = (( self.selectedSmallUnit - unitSubtract ) / factor )  ;
         [picker selectRow:currentDigit inComponent:i animated:NO];
@@ -113,12 +113,12 @@
     for (int i = 0; i < self.bigUnitDigits; ++i)
         bigUnits += [picker selectedRowInComponent:i] * (int)pow((double)10, (double)(self.bigUnitDigits - (i + 1)));
 
-    for (int i = self.bigUnitDigits; i < self.bigUnitDigits + self.smallUnitDigits; ++i) 
+    for (long i = self.bigUnitDigits; i < self.bigUnitDigits + self.smallUnitDigits; ++i)
         smallUnits += [picker selectedRowInComponent:i] * (int)pow((double)10, (double)((picker.numberOfComponents - i - 1)));
 
         //sending three objects, so can't use performSelector:
     if ([target respondsToSelector:action])
-        objc_msgSend(target, action, [NSNumber numberWithInt:bigUnits], [NSNumber numberWithInt:smallUnits], origin);
+        objc_msgSend(target, action, [NSNumber numberWithLong:bigUnits], [NSNumber numberWithLong:smallUnits], origin);
     else
         NSAssert(NO, @"Invalid target/action ( %s / %s ) combination used for ActionSheetPicker", object_getClassName(target), (char *)sel_getName(action));
 }
@@ -142,7 +142,7 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-     return [NSString stringWithFormat:@"%i", row];
+     return [NSString stringWithFormat:@"%li", (long)row];
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {

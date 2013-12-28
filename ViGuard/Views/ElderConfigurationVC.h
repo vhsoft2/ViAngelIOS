@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ActionSheetPicker.h"
 
-@interface ElderConfigurationVC : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
+@interface ElderConfigurationVC : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTxt;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTxt;

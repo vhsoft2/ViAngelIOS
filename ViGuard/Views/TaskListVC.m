@@ -53,9 +53,7 @@ bool rowClicked;
 }
 
 -(void)getTaskList {
-    NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:userData.guardianToken, @"token", nil];
-    HttpService *httpService = [[HttpService alloc] init];
-    [httpService postJsonRequest:@"get_elder_tasks" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
+    [[[HttpService alloc] init] postJsonRequest:@"get_elder_tasks" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token": userData.guardianToken}] callbackOK:^(NSDictionary *jsonDict) {
         tasksArr = (NSArray*)jsonDict;
         dispatch_async(dispatch_get_main_queue(), ^{
             [tasksTV reloadData];

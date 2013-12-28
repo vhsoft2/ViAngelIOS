@@ -28,5 +28,6 @@
 +(NSData*)dataFromBase64:(NSString*)str;
 +(NSString *)dataToBase64:(NSData*)data;
 +(NSNumber*)milliSecondsFromDate:(NSDate*)date;
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 @end

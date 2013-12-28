@@ -200,10 +200,11 @@ bool imageChanged = false;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)changeElderImage:(id)sender {
-    UIImagePickerControllerSourceType imageSourceType = UIImagePickerControllerSourceTypeCamera;
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imageSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    UIImagePickerControllerSourceType imageSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if (buttonIndex == 0 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        imageSourceType = UIImagePickerControllerSourceTypeCamera;
     }
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
@@ -211,6 +212,11 @@ bool imageChanged = false;
     picker.sourceType = imageSourceType;
     [picker setVideoQuality:UIImagePickerControllerQualityType640x480];
     [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (IBAction)changeElderImage:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Choose Picture Source" message:@"" delegate:self cancelButtonTitle:@"Camera" otherButtonTitles:@"Library", nil];
+    [alert show];
 }
 
 #pragma mark change image

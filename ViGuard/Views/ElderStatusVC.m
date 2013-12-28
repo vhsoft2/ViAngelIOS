@@ -12,6 +12,8 @@
 #import "HttpService.h"
 #import "ElderMapVC.h"
 #import "AngelsMapVC.h"
+#import "PanicHandleVC.h"
+#import "UIAlertView+WithBlock.h"
 
 @interface ElderStatusVC ()
 
@@ -40,6 +42,8 @@ NSString *scheduleType;
 NSDate *scheduleStartDate;
 NSString *scheduleComments;
 
+NSNumber *panicId;
+//NSNumber *angelId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,12 +57,14 @@ NSString *scheduleComments;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
     userData = [DataUtils getUserData];
     
     //CALayer * l = [elderBtn.imageView layer];
     //[l setMasksToBounds:YES];
     //[l setCornerRadius:20.0];
+    
+    elderStatusBtn.enabled = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -75,22 +81,37 @@ NSString *scheduleComments;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"fromElderStatusToElderMap"])
-    {
-        // Get reference to the destination view controller
-        ElderMapVC *evc = [segue destinationViewController];
-        // Pass any objects to the view controller here, like...
-        [evc setAddress:elderAddressLbl.text token:userData.guardianToken];
-    } else if ([[segue identifier] isEqualToString:@"fromElderStatusToAngelsMap"]) {
-        // Get reference to the destination view controller
-        AngelsMapVC *avc = [segue destinationViewController];
-        // Pass any objects to the view controller here, like...
-        [avc setElderDetails:elderNameLbl.text lat:elderLat lon:elderLon];
+//
+//
+//
+-(void)panicStatusChanged:(NSNumber*)panic_id panic_status:(NSString*)pnic_status battery_status:(NSString*)battery_status comm_status:(NSString*)comm_status {
+    panicId = panic_id;
+    if (![panic_id isKindOfClass:[NSNull class]] && panic_id > 0) {
+        elderStatusBtn.enabled = YES;
+        [elderStatusBtn setBackgroundImage:[UIImage imageNamed:@"status-panic.png"] forState:UIControlStateNormal];
+    } else {
+        elderStatusBtn.enabled = NO;
+        [elderStatusBtn setBackgroundImage:[UIImage imageNamed:@"status-ok.png"] forState:UIControlStateNormal];
     }
 }
 
+//Pass parameters to children view controllers
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"fromElderStatusToElderMap"])
+    {
+        ElderMapVC *evc = [segue destinationViewController];
+        [evc setAddress:elderAddressLbl.text token:userData.guardianToken];
+    } else if ([[segue identifier] isEqualToString:@"fromElderStatusToAngelsMap"]) {
+        AngelsMapVC *avc = [segue destinationViewController];
+        [avc setElderDetails:elderNameLbl.text lat:elderLat lon:elderLon];
+    } else if ([[segue identifier] isEqualToString:@"fromElderStatusToPanicHandle"]) {
+        PanicHandleVC *pvc = [segue destinationViewController];
+        [pvc setData:userData.guardianToken panic_id:panicId angel_id:nil elderName:elderNameLbl.text elderLat:elderLat elderLon:elderLon];
+    }
+}
+//
+//HTTP stuff
+//
 -(void)getElderStatus {
     NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:userData.guardianToken,    @"token", nil];
     HttpService *httpService = [[HttpService alloc] init];
@@ -149,7 +170,7 @@ NSString *scheduleComments;
         [elderBtn setBackgroundImage:[DataUtils fromBase64:userData.elderImage] forState:UIControlStateNormal];
     }
     //elderStatusBtn          = ;
-    tasksLbl.text           = scheduleComments ;
+    tasksLbl.text           = [scheduleComments isKindOfClass:[NSString class]] ? scheduleComments:@"";
     taskTimeLbl.text        = [DataUtils strFromDate:scheduleStartDate format:@"MM-dd HH:mm"];
     angelsStatusLbl.text    = [NSString stringWithFormat:@"%d angels are nearby", angelCount];
     angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
@@ -175,7 +196,27 @@ NSString *scheduleComments;
 
 #pragma mark IBActions
 - (IBAction)resetApplication:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasRunBefore"];
+    //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasRunBefore"];
+    //[self panicStatusChanged:@2 panic_status:@"new" battery_status:@"OK" comm_status:@"OK"];
+
+    /*OGActionChooser *acSheet = [OGActionChooser actionChooserWithDelegate:nil];
+	acSheet.title = @"Select something";
+	[acSheet setBackgroundColor: [UIColor lightGrayColor]];
+    NSArray *buttons = @[[OGActionButton buttonWithTitle:@"Send Angel" imageName:@"send-angel-50.png" enabled:YES],[OGActionButton buttonWithTitle:@"Call Angel" imageName:@"call-angel-50.png" enabled:YES],[OGActionButton buttonWithTitle:@"Back" imageName:@"angel-50.png" enabled:YES block:^(NSString *title, BOOL *dismiss) {
+		NSLog(@"you can now use ^(%@) too …", title);
+		*dismiss = YES;
+	}]];
+
+	[acSheet setButtonsWithArray:buttons]; // next page
+	[acSheet presentInView: self.view];*/
+
+    [OGActionChooser showWithTitle:@"Test test test?" buttons:@[[OGActionButton buttonWithTitle:@"Send Angel" imageName:@"send-angel-50.png" enabled:YES],@"",[OGActionButton buttonWithTitle:@"Call Angel" imageName:@"call-angel-50.png" enabled:YES],@"",[OGActionButton buttonWithTitle:@"Back" imageName:@"angel-50.png" enabled:YES block:^(NSString *title, BOOL *dismiss) {
+		NSLog(@"you can now use ^(%@) too …", title);
+		*dismiss = YES;
+	}],@""] view:self.view];
+    
+    
+    
 }
 
 - (IBAction)elderConfig:(id)sender {
@@ -194,10 +235,40 @@ NSString *scheduleComments;
 - (IBAction)showEventLog:(id)sender {
 }
 
+- (IBAction)elderStatusClicked:(id)sender {
+    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromElderStatusToPanicHandle"];
+}
+
 - (IBAction)callElder:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"OK to Call?" message:@"" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [[[HttpService alloc] init] postJsonRequest:@"add_update_elder_task" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token":userData.guardianToken,@"schedule_type":@"conf",@"to":@"both",@"title":@"App call"}] callbackOK:^(NSDictionary *jsonDict) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"Call request accepted" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                });
+            } callbackErr:^(NSString* errStr) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"Call Elder" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                });
+            }];
+        }
+    }];
 }
 
 - (IBAction)listenToElder:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"OK to Listen?" message:@"" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [[[HttpService alloc] init] postJsonRequest:@"add_update_elder_task" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token":userData.guardianToken,@"schedule_type":@"listen",@"to":@"elder",@"title":@"App listen",@"timeout":@30}] callbackOK:^(NSDictionary *jsonDict) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"Listen request accepted" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                });
+            } callbackErr:^(NSString* errStr) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"Listen To Elder" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                });
+            }];
+        }
+    }];
 }
 
 

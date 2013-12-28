@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OGActionChooser.h"
 
 @interface ElderStatusVC : UIViewController
 
@@ -20,5 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *angelsStatusLbl;
 @property (weak, nonatomic) IBOutlet UILabel *angelsProximityLbl;
 @property (weak, nonatomic) IBOutlet UILabel *taskTimeLbl;
+
+-(void)panicStatusChanged:(NSNumber*)panic_id panic_status:(NSString*)pnic_status battery_status:(NSString*)battery_status comm_status:(NSString*)comm_status;
 
 @end

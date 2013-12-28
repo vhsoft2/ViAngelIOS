@@ -7,9 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "UserData.h"
 #import "GuardianRegistrationVC.h"
 #import "ElderStatusVC.h"
+#import "LocationSingleton.h"
+#import "HttpService.h"
+#import "DataUtils.h"
 
 @implementation AppDelegate
 
@@ -17,12 +19,18 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+NSTimer *statusTimer;
+UserData *userData;
+UIStoryboard *storyboard;
+NSString *lastPanicStatus = @"OK";
+ElderStatusVC *elderStatusVC;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Get a reference to the stardard user defaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     //Get the storyboard
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     // Check if the app has run before by checking a key in user defaults
     if ([prefs boolForKey:@"hasRunBefore"] != YES)
     {
@@ -31,7 +39,7 @@
         [prefs synchronize];
         
         // Add our default user object in Core Data
-        UserData *userData = (UserData *)[NSEntityDescription insertNewObjectForEntityForName:@"UserData" inManagedObjectContext:self.managedObjectContext];
+        userData = (UserData *)[NSEntityDescription insertNewObjectForEntityForName:@"UserData" inManagedObjectContext:self.managedObjectContext];
         [userData setGuardianFirstName:@""];
         [userData setGuardianLastName:@""];
         [userData setGuardianMobilePhone:@""];
@@ -44,10 +52,14 @@
             [(UINavigationController*)self.window.rootViewController pushViewController:gvc animated:NO];
         }
     } else {
-        ElderStatusVC *evc = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
-        [(UINavigationController*)self.window.rootViewController pushViewController:evc animated:NO];
+        elderStatusVC = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
+        [(UINavigationController*)self.window.rootViewController pushViewController:elderStatusVC animated:NO];
     }
-
+    //Start backgrounding
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetchingLocationsContinously) name:@"rrrr" object:nil];
+    //Set timer to report location
+    statusTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:NO];
+    //[self sendStatus:nil];
     return YES;
 }
 
@@ -92,7 +104,97 @@
         } 
     }
 }
+#pragma mark - Handle server messages
+#pragma mark - HTTP
 
+- (void)timerAction:(NSTimer*)timer {
+    statusTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerAction:) userInfo:nil repeats:NO];
+    [self sendStatus:nil];
+}
+
+-(void)sendStatus:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if (userData.guardianToken) {
+        CLLocation *loc = [LocationSingleton sharedSingleton].locationManager.location;
+        HttpService *httpService = [[HttpService alloc] init];
+        //token":"","tm":"11","lat":"32","lon":"34","alt":"20.0","spd":"0.0","dir":"0.0","acc":"20.0","stat":""
+        [httpService postJsonRequest:@"guardian_status" postDict:[[NSMutableDictionary alloc] initWithDictionary:
+                                                                  @{@"token":userData.guardianToken,
+                                                                    @"tm":[DataUtils milliSecondsFromDate:[NSDate date]],
+                                                                    @"lat":[NSNumber numberWithDouble:loc.coordinate.latitude],
+                                                                    @"lon":[NSNumber numberWithDouble:loc.coordinate.longitude],
+                                                                    @"alt":[NSNumber numberWithDouble:loc.altitude],
+                                                                    @"spd":[NSNumber numberWithDouble:loc.speed],
+                                                                    @"dir":[NSNumber numberWithDouble:loc.course],
+                                                                    @"acc":[NSNumber numberWithDouble:loc.horizontalAccuracy],
+                                                                    @"stat":@"iPhone rocks (not)"}] callbackOK:^(NSDictionary *jsonDict) {
+            //{ "angel_status": [ { "panic_id": 1, "elder_id": 132, "distance": 74.8255, "angel_status": "request" } ], "elder_status": [ { "panic_id": 1, "panic_status": "in_process", "battery_status": "OK", "comm_status": "OK" } ] }
+            //NSDictionary *angelDict = [jsonDict objectForKey:@"angel_status"];
+            NSArray *elderStatusArr = [jsonDict objectForKey:@"elder_status"];
+            if (elderStatusArr) {
+                NSDictionary *elderDict = [elderStatusArr objectAtIndex:0];
+                if (elderDict) {
+                    NSNumber *panicId = [elderDict objectForKey:@"panic_id"];
+                    NSString *battStat = [elderDict objectForKey:@"battery_status"];
+                    NSString *commStat = [elderDict objectForKey:@"comm_status"];
+                    NSString *panicStat = [elderDict objectForKey:@"panic_status"];
+                    if (panicId || ![lastPanicStatus isEqualToString:panicStat]) {
+                        lastPanicStatus = panicStat;
+                        if (!elderStatusVC)
+                            elderStatusVC = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [elderStatusVC panicStatusChanged:panicId panic_status:panicStat battery_status:battStat comm_status:commStat];
+                            //[(UINavigationController*)self.window.rootViewController presentViewController:elderStatusVC animated:NO completion:nil];
+                            //[(UINavigationController*)self.window.rootViewController pushViewController:elderStatusVC animated:NO];
+                            
+                        });
+                    }
+                } else {
+                    NSLog(@"%@ json parse error1:%@", NSStringFromSelector(_cmd), elderDict);
+                }
+            } else {
+                NSLog(@"%@ json parse error2:%@", NSStringFromSelector(_cmd), elderStatusArr);
+            }
+            if (completionHandler) {
+                completionHandler(UIBackgroundFetchResultNewData);
+            }
+
+        } callbackErr:^(NSString* errStr) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[[UIAlertView alloc] initWithTitle:@"Delete Task" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            });
+            if (completionHandler) {
+                completionHandler(UIBackgroundFetchResultFailed);
+            }
+            NSLog(@"%@:%@", NSStringFromSelector(_cmd), errStr);
+        }];
+    }
+}
+
+#pragma mark - Background
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"Background fetch started");
+    /* Set up Local Notifications
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.fireDate = [NSDate date];
+    localNotification.alertBody = [NSString stringWithFormat:@"Test time."];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    localNotification.applicationIconBadgeNumber = -1;
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    completionHandler(UIBackgroundFetchResultNewData);*/
+    [self sendStatus:completionHandler];
+    NSLog(@"Background fetch completed");
+}
+
+-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:0.01];//UIApplicationBackgroundFetchIntervalMinimum];
+    return true;
+}
+
+-(void)startFetchingLocationsContinously {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
 #pragma mark - Core Data stack
 
 // Returns the managed object context for the application.

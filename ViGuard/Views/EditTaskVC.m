@@ -8,6 +8,7 @@
 
 #import "EditTaskVC.h"
 #import "HttpService.h"
+#import "UIAlertView+WithBlock.h"
 
 @interface EditTaskVC ()
 
@@ -82,11 +83,9 @@ NSString *b64Voice;
     // Setup audio session
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
     // Define the recorder setting
-    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
-    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
-    [recordSetting setValue:[NSNumber numberWithFloat:8000.0] forKey:AVSampleRateKey];
-    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] initWithDictionary:@{AVFormatIDKey: [NSNumber numberWithInt:kAudioFormatMPEG4AAC], AVSampleRateKey: @8000, AVNumberOfChannelsKey: @1, AVLinearPCMBitDepthKey: @8, AVLinearPCMIsBigEndianKey: @0, AVLinearPCMIsFloatKey: @0}];
     // Initiate and prepare the recorder
     recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
     recorder.delegate = self;
@@ -136,6 +135,7 @@ NSString *b64Voice;
     taskEndDateTxt.text = [DataUtils dateTimeStrFromDate:taskEndDate];
     [self showTaskEndDate:taskRecurrent];
     [self showRecordControl];
+    [self listenMode];
     if (taskId && [taskType isEqualToString:@"reminder"])
         [self getTaskAudio];
     
@@ -165,11 +165,38 @@ NSString *b64Voice;
     }
 }
 //
+//If listen then only elder
+//
+- (void)listenMode {
+    if ([taskType isEqualToString:@"listen"]) {
+        taskTo = @"elder";
+        taskToTxt.text = taskTo;
+        [taskToTxt setEnabled:NO];
+    } else {
+        [taskToTxt setEnabled:YES];
+    }
+}
+//
 //Called from sague
 //
 -(void)setTaskData:(NSDictionary*)dict uData:(UserData*)uData {
     taskDict = dict;
     userData = uData;
+}
+//
+//Http methods
+//
+-(void)deleteTask {
+    HttpService *httpService = [[HttpService alloc] init];
+    [httpService postDataRequest:@"delete_elder_task" postDict:[[NSMutableDictionary alloc] initWithObjectsAndKeys: userData.guardianToken, @"token", taskId, @"task_id", nil] callbackOK:^(NSString *tid) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    } callbackErr:^(NSString* errStr) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:@"Delete Task" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        });
+    }];
 }
 
 -(void)saveTask {
@@ -180,13 +207,10 @@ NSString *b64Voice;
         endDateMs = [DataUtils milliSecondsFromDate:[[DataUtils dateFromStr:taskStartDateTxt.text] dateByAddingTimeInterval:1]];
     else
         endDateMs = [DataUtils milliSecondsFromDate:[DataUtils dateFromStr:taskEndDateTxt.text]];
-    //b64Voice = [DataUtils dataToBase64:[NSData dataWithContentsOfURL:recorder.url]];
-    NSData *data = [NSData dataWithContentsOfURL:recorder.url];
-    b64Voice = [DataUtils dataToBase64:data];
-    
+    b64Voice = [DataUtils dataToBase64:[NSData dataWithContentsOfURL:recorder.url]];
     NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     userData.guardianToken, @"token",
-                                    taskId,                 @"task_id",
+                                    taskId ? taskId:@0,     @"task_id",
                                     taskTypeTxt.text,       @"schedule_type",
                                     startDateMs,            @"start_date",
                                     endDateMs,              @"end_date",
@@ -196,7 +220,7 @@ NSString *b64Voice;
                                     taskTitleTxt.text,      @"title",
                                     //taskTimeout,          @"timeout",
                                     b64Voice,               @"voice",
-                                    @"iPhone-",              @"platform",nil];
+                                    @"iPhone",              @"platform",nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postDataRequest:@"add_update_elder_task" postDict:mapData callbackOK:^(NSString *tid) {
         NSLog(@"%@:%@", NSStringFromSelector(_cmd), tid);
@@ -211,7 +235,7 @@ NSString *b64Voice;
 }
 
 -(void)getTaskAudio {
-    NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys: userData.guardianToken, @"token", taskId,@"task_id",@"iPhone-",@"platform",nil];
+    NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys: userData.guardianToken, @"token", taskId,@"task_id",@"iPhone",@"platform",nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postDataRequest:@"get_task_audio" postDict:mapData callbackOK:^(NSString *audioStr) {
         //NSLog(@"%@: Audio Size:%lu", NSStringFromSelector(_cmd), (unsigned long)audioStr.length);
@@ -280,6 +304,7 @@ NSString *b64Voice;
     picekerSelectedIndex = [selectedIndex intValue];
     taskType = taskTypesArr[picekerSelectedIndex];
     taskTypeTxt.text = taskType;
+    [self listenMode];
     [self showRecordControl];
 }
 
@@ -407,5 +432,11 @@ NSString *b64Voice;
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)deleteClicked:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Task: " stringByAppendingString:taskTitleTxt.text] message:@"Delete task?" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alertView showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self deleteTask];
+        }
+    }];
 }
 @end

@@ -11,6 +11,7 @@
 #import "DataUtils.h"
 #import "HttpService.h"
 #import "ElderStatusVC.h"
+#import "ActionSheetPicker.h"
 
 @interface GuardianRegistrationVC ()
 
@@ -34,6 +35,7 @@
 NSArray *genderTypesArr;
 
 UserData *userData;
+bool guardianImageChanged = false;
 bool firstTime = true;
 
 //This is needed to allow dismiss of the keyboard
@@ -66,8 +68,8 @@ bool firstTime = true;
     NSInteger count = [self.navigationController.viewControllers count];
     UIViewController *callingVC = [self.navigationController.viewControllers objectAtIndex:count - 2];
     if ( [callingVC isKindOfClass: [ElderStatusVC class]] ) {
-        [registerBtn setTitle:@"Back" forState:UIControlStateNormal];
         firstTime = false;
+        [registerBtn setTitle:@"Back" forState:UIControlStateNormal];
         [backBtn setImage: [UIImage imageNamed:@"back-30.png"]];
     }
     userData = [DataUtils getUserData];
@@ -89,7 +91,6 @@ bool firstTime = true;
     address.delegate = self;
     dateOfBirthTxt.delegate = self;
     genderTxt.delegate = self;
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +110,7 @@ bool firstTime = true;
     [self.genderTxt resignFirstResponder];
 }
 
-- (void)setUserData {
+- (void)setUserData:(void (^)())callback {
     userData.guardianFirstName = self.firstName.text;
     userData.guardianLastName = self.lastName.text;
     userData.guardianMobilePhone = self.mobilePhone.text;
@@ -117,12 +118,11 @@ bool firstTime = true;
     userData.guardianHomeAddress = self.address.text;
     userData.guardianDateOfBirth = [DataUtils dateFromStr:self.dateOfBirthTxt.text format:@"yyyy-MM-dd"];
     userData.guardianGender = self.genderTxt.text;
-    userData.guardianImage = [DataUtils toBase64:guardianImageBtn.imageView.image];
+    userData.guardianImage = //[DataUtils toBase64:guardianImageBtn.imageView.image];
+        [[DataUtils toBase64:guardianImageBtn.imageView.image] stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
     [DataUtils saveAllData];
+    callback();
 }
-
-
-
 
 #pragma mark UITextViewDelegate
 
@@ -171,43 +171,72 @@ bool firstTime = true;
 
 - (IBAction)saveGuardianDetails:(id)sender {
     //Save changes to core data
-    [self setUserData];
-    if (firstTime) {
+    UIViewController *selfId = self;
+    [self setUserData:^(){
         //Save to server
         NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                 userData.guardianFirstName,   @"first_name",
-                                 userData.guardianLastName,    @"last_name",
-                                 userData.guardianEmail,       @"email",
-                                 userData.guardianMobilePhone, @"phone",
-                                 userData.guardianHomeAddress, @"address",
-                                 userData.guardianGender,      @"gender",
-                                 userData.guardianDateOfBirth, @"dob", nil];
+                                        userData.guardianFirstName,   @"first_name",
+                                        userData.guardianLastName,    @"last_name",
+                                        userData.guardianEmail,       @"email",
+                                        userData.guardianMobilePhone, @"phone",
+                                        userData.guardianHomeAddress, @"address",
+                                        userData.guardianGender,      @"gender",
+                                        [DataUtils milliSecondsFromDate:userData.guardianDateOfBirth], @"dob", nil];
         HttpService *httpService = [[HttpService alloc] init];
         [httpService postJsonRequest:@"sign_up" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
             userData.guardianToken = [jsonDict objectForKey:@"token"];
+            
+            if (guardianImageChanged) {
+                NSMutableDictionary *mapData2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                                 userData.guardianToken, @"token",
+                                                 @"guardian", @"type",
+                                                 userData.guardianImage, @"image", nil];
+                HttpService *httpService2 = [[HttpService alloc] init];
+                [httpService2 postJsonRequest:@"load_image" postDict:mapData2 callbackOK:^(NSDictionary *jsonDict2) {
+                    guardianImageChanged = false;
+                    //        dispatch_async(dispatch_get_main_queue(), ^{
+                    //{
+                    //Go to parent screen
+                    //[self.navigationController popViewControllerAnimated:YES];
+                    //});
+                } callbackErr:^(NSString * errStr) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[[UIAlertView alloc] initWithTitle:@"Update Guardian Image" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                    });
+                }];
+            } else {
+                //dispatch_async(dispatch_get_main_queue(), ^{
+                //Go to parent screen
+                //[self.navigationController popViewControllerAnimated:YES];
+                //});
+            }
             //Go to next screen
-            dispatch_async(dispatch_get_main_queue(), ^{
-                 if (userData.elderCode) {
-                     [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToElderStatus"];
-                 } else {
-                     [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToVerifyCode"];
-                 }
-             });
+            if (firstTime) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                if (userData.elderCode) {
+                    [selfId performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToElderStatus"];
+                } else {
+                    [selfId performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromGuardianRegistrationToVerifyCode"];
+                }
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [selfId.navigationController popViewControllerAnimated:YES];
+                });
+            }
         } callbackErr:^(NSString * errStr) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                 [[[UIAlertView alloc] initWithTitle:@"Signup error" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             });
+                [[[UIAlertView alloc] initWithTitle:@"Signup error" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            });
         }];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-
-    }
+    }];
 }
 
-- (IBAction)changeGuardianImage:(id)sender {
-    UIImagePickerControllerSourceType imageSourceType = UIImagePickerControllerSourceTypeCamera;
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        imageSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    UIImagePickerControllerSourceType imageSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if (buttonIndex == 0 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+         imageSourceType = UIImagePickerControllerSourceTypeCamera;
     }
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
@@ -217,6 +246,12 @@ bool firstTime = true;
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
+- (IBAction)changeGuardianImage:(id)sender {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Choose Picture Source" message:@"" delegate:self cancelButtonTitle:@"Camera" otherButtonTitles:@"Library", nil];
+    [alert show];
+}
+
 #pragma mark change image
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -224,6 +259,7 @@ bool firstTime = true;
     [picker dismissViewControllerAnimated:YES completion:NULL];
     //set the image
     guardianImageBtn.imageView.image = info[UIImagePickerControllerEditedImage];
+    guardianImageChanged = true;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

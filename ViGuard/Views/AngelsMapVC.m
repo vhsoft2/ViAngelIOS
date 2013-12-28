@@ -171,6 +171,8 @@ double elderLon;
     //{ "first_name": "Caregiver", "last_name": "Two", "phone": "0587792921", "email": "undefined", "address": "ggggdghgf", "gender": "Male", "age": null, "guardian_id": 29, "last_status_tm": null }
     long idx = indexPath.row;
     cell.caregiverNameLbl.text = [NSString stringWithFormat:@"%@ %@", [caregiversArr[idx] objectForKey:@"first_name"], [caregiversArr[idx] objectForKey:@"last_name"]];
+    //double dist = [[caregiversArr[idx] objectForKey:@"distance"] doubleValue];
+    //cell.caregiverDistanceLbl.text = [NSString stringWithFormat:@"%.1f%@",(dist>1000.0) ? dist/1000.0:dist, (dist>1000.0) ? @"km":@"m"];
     return cell;
 }
 
