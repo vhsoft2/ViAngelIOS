@@ -34,10 +34,6 @@ ElderStatusVC *elderStatusVC;
     // Check if the app has run before by checking a key in user defaults
     if ([prefs boolForKey:@"hasRunBefore"] != YES)
     {
-        // Set flag so we know not to run this next time
-        [prefs setBool:YES forKey:@"hasRunBefore"];
-        [prefs synchronize];
-        
         // Add our default user object in Core Data
         userData = (UserData *)[NSEntityDescription insertNewObjectForEntityForName:@"UserData" inManagedObjectContext:self.managedObjectContext];
         [userData setGuardianFirstName:@""];
@@ -55,11 +51,9 @@ ElderStatusVC *elderStatusVC;
         elderStatusVC = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
         [(UINavigationController*)self.window.rootViewController pushViewController:elderStatusVC animated:NO];
     }
-    //Start backgrounding
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetchingLocationsContinously) name:@"rrrr" object:nil];
     //Set timer to report location
     statusTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:NO];
-    //[self sendStatus:nil];
     return YES;
 }
 
@@ -78,6 +72,7 @@ ElderStatusVC *elderStatusVC;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    //Start backgrounding
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

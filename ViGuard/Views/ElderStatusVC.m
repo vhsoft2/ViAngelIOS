@@ -14,6 +14,7 @@
 #import "AngelsMapVC.h"
 #import "PanicHandleVC.h"
 #import "UIAlertView+WithBlock.h"
+#import "ActivateCaregiverVC.h"
 
 @interface ElderStatusVC ()
 
@@ -196,27 +197,16 @@ NSNumber *panicId;
 
 #pragma mark IBActions
 - (IBAction)resetApplication:(id)sender {
-    //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"hasRunBefore"];
+    [[[UIAlertView alloc] initWithTitle:@"Rest Application Data" message:@"This action will reset your application, you will need to re-enter your details! Are you Sure?" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex==1) {
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            [prefs setBool:NO forKey:@"hasRunBefore"];
+            [prefs synchronize];
+            [self.navigationController popViewControllerAnimated:YES];
+            exit(0);
+        }
+    }];
     //[self panicStatusChanged:@2 panic_status:@"new" battery_status:@"OK" comm_status:@"OK"];
-
-    /*OGActionChooser *acSheet = [OGActionChooser actionChooserWithDelegate:nil];
-	acSheet.title = @"Select something";
-	[acSheet setBackgroundColor: [UIColor lightGrayColor]];
-    NSArray *buttons = @[[OGActionButton buttonWithTitle:@"Send Angel" imageName:@"send-angel-50.png" enabled:YES],[OGActionButton buttonWithTitle:@"Call Angel" imageName:@"call-angel-50.png" enabled:YES],[OGActionButton buttonWithTitle:@"Back" imageName:@"angel-50.png" enabled:YES block:^(NSString *title, BOOL *dismiss) {
-		NSLog(@"you can now use ^(%@) too …", title);
-		*dismiss = YES;
-	}]];
-
-	[acSheet setButtonsWithArray:buttons]; // next page
-	[acSheet presentInView: self.view];*/
-
-    [OGActionChooser showWithTitle:@"Test test test?" buttons:@[[OGActionButton buttonWithTitle:@"Send Angel" imageName:@"send-angel-50.png" enabled:YES],@"",[OGActionButton buttonWithTitle:@"Call Angel" imageName:@"call-angel-50.png" enabled:YES],@"",[OGActionButton buttonWithTitle:@"Back" imageName:@"angel-50.png" enabled:YES block:^(NSString *title, BOOL *dismiss) {
-		NSLog(@"you can now use ^(%@) too …", title);
-		*dismiss = YES;
-	}],@""] view:self.view];
-    
-    
-    
 }
 
 - (IBAction)elderConfig:(id)sender {

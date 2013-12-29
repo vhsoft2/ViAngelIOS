@@ -22,7 +22,7 @@
 @synthesize helpMap;
 
 //
-NSArray *angelsArr;
+NSMutableArray *angelsArr;
 NSTimer *refreshListTimer;
 NSString *guardianToken;
 NSNumber *panicId = nil;
@@ -30,7 +30,7 @@ double elderLat;
 double elderLon;
 NSString *elderName;
 NSIndexPath *previousIndex = nil;
-NSMutableDictionary *helpImages;
+NSMutableDictionary *helpImages = nil;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +44,9 @@ NSMutableDictionary *helpImages;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    helpImages = [[NSMutableDictionary alloc] init];
+    previousIndex = nil;
+    if (!helpImages)
+        helpImages = [[NSMutableDictionary alloc] init];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -66,9 +68,11 @@ NSMutableDictionary *helpImages;
 -(void)getHelpList {
     if (panicId) {
         [[[HttpService alloc] init] postJsonRequest:@"get_help_list" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token":guardianToken,@"panic_id":panicId}] callbackOK:^(NSDictionary *jsonDict) {
-            angelsArr = (NSArray*)jsonDict;
-            for (int i=0;i<angelsArr.count;i++) {
-                NSString *si = [NSString stringWithFormat:@"index_%i",i];
+            angelsArr = [[NSMutableArray alloc] init];//(NSArray*)jsonDict;
+            NSArray *angAr = (NSArray*)jsonDict;
+            for (int i=0;i<angAr.count;i++) {
+                [angelsArr addObject:[[NSMutableDictionary alloc] initWithDictionary:angAr[i]]];
+                NSString *si = [angelsArr[i] objectForKey:@"id"];
                 if (![helpImages objectForKey:si]) {
                     NSDictionary *d = angelsArr[i];
                     NSNumber *angel_id = [d objectForKey:@"id"];
@@ -76,18 +80,21 @@ NSMutableDictionary *helpImages;
                         UIImage *img = [DataUtils fromBase64:angelImgStr];
                         [helpImages setValue:img forKey:si];
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            previousIndex = nil;
+                            [helpListTV reloadData];
                             [self refreshHelpMap];
                         });
                     } callbackErr:nil];
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
+                previousIndex = nil;
                 [helpListTV reloadData];
                 [self refreshHelpMap];
             });
         } callbackErr:^(NSString* errStr) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Get Elder Tasks" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Get Help List" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             });
         }];
     }
@@ -123,32 +130,29 @@ NSMutableDictionary *helpImages;
     //{ "first_name": "?", "last_name": "?", "phone": "0555555555", "gender": "Male", "distance": 74822.5434303393, "time": 1386326265000, "comments": "this is testing", "id": 42, "going": "willing" }
     //remove all annonations
     [helpMap removeAnnotations:[helpMap annotations]];
+    //Setup angels icons
+    for (int i=0;i<angelsArr.count;i++) {
+        NSMutableDictionary *d = angelsArr[i];
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([[d objectForKey:@"lat"] doubleValue], [[d objectForKey:@"lon"] doubleValue]);
+        minLat = coord.latitude < minLat ? coord.latitude:minLat;
+        minLon = coord.longitude< minLon ? coord.longitude:minLon;
+        maxLat = coord.latitude > maxLat ? coord.latitude:maxLat;
+        maxLon = coord.longitude> maxLon ? coord.longitude:maxLon;
+        //Setup angel icon
+        MKPointAnnotation *angelAnn = [[MKPointAnnotation alloc]init];
+        angelAnn.coordinate = coord;
+        double dist = [[d objectForKey:@"distance"] doubleValue];
+        angelAnn.title = [NSString stringWithFormat:@"%@, %@ (%.1f%@)", [d objectForKey:@"first_name"], [d objectForKey:@"last_name"],(dist>1000.0) ? dist/1000.0:dist, (dist>1000.0) ? @"km":@"m"];
+        angelAnn.subtitle = [NSString stringWithFormat:@"Time: %@ Gender:%@", [DataUtils strFromDate:[DataUtils dateFromMilliSeconds:[d objectForKey:@"time"]] format:@"dd-MM HH:mm"], [d objectForKey:@"gender"]];
+        [helpMap addAnnotation:angelAnn];
+        [d setObject:angelAnn forKey:@"annotation"];
+    }
     //Setup elder icon
     MKPointAnnotation *elderAnn = [[MKPointAnnotation alloc]init];
     elderAnn.coordinate = CLLocationCoordinate2DMake(elderLat,elderLon);
     elderAnn.title = elderName;
     elderAnn.subtitle = @"";
     [helpMap addAnnotation:elderAnn];
-    //Setup angels icons
-    //if (angelsArr.count) {
-        for (int i=0;i<angelsArr.count;i++) {
-            NSDictionary *d = angelsArr[i];
-        //for (NSDictionary * d in angelsArr) {
-            CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([[d objectForKey:@"lat"] doubleValue], [[d objectForKey:@"lon"] doubleValue]);
-            minLat = coord.latitude < minLat ? coord.latitude:minLat;
-            minLon = coord.longitude< minLon ? coord.longitude:minLon;
-            maxLat = coord.latitude > maxLat ? coord.latitude:maxLat;
-            maxLon = coord.longitude> maxLon ? coord.longitude:maxLon;
-            //Setup angel icon
-            MKPointAnnotation *angelAnn = [[MKPointAnnotation alloc]init];
-            angelAnn.coordinate = coord;
-            double dist = [[d objectForKey:@"distance"] doubleValue];
-            angelAnn.title = [NSString stringWithFormat:@"%@, %@ (%.1f%@)", [d objectForKey:@"first_name"], [d objectForKey:@"last_name"],(dist>1000.0) ? dist/1000.0:dist, (dist>1000.0) ? @"km":@"m"];
-            angelAnn.subtitle = [NSString stringWithFormat:@"Time: %@ Gender:%@", [DataUtils strFromDate:[DataUtils dateFromMilliSeconds:[d objectForKey:@"time"]] format:@"dd-MM HH:mm"], [d objectForKey:@"gender"]];
-            //[angelAnn setValue:index forKey:@"index"];
-            [helpMap addAnnotation:angelAnn];
-        }
-    //}
     //Set map to show all annonations
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake(elderLat, elderLon);
     MKCoordinateSpan span = MKCoordinateSpanMake((maxLat-minLat)*3, (maxLon-minLon)*3);
@@ -160,25 +164,40 @@ NSMutableDictionary *helpImages;
 
 -(MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>) annotation
 {
-    NSString *pinIdStr = @"pinView";
-    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinIdStr];
-    //if (!pinView) {
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinIdStr];
+    //Find the annotation
+    long annIdx = -1;//[[helpMap annotations] inde:annotation];
+    for (int i=0;i<helpMap.annotations.count;i++) {
+        if (annotation==helpMap.annotations[i]) {
+            annIdx = i;
+            break;
+        }
+    }
+    //Find the angel
+    UIImage *angelImg = nil;
+    for (int i=0;i<angelsArr.count;i++) {
+        if ([angelsArr[i] objectForKey:@"annotation"] == annotation) {
+            angelImg = [helpImages objectForKey:[angelsArr[i] objectForKey:@"id"]];
+            break;
+        }
+    }
+    if (annIdx >= 0) {
+        NSString *pinIdStr = @"pinView";
+        MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinIdStr];
         if ([annotation.subtitle isEqualToString:@""])
             pinView.image = [UIImage imageNamed:@"logo-30.png"];
-        else {
-            unsigned long idx = [[helpMap annotations] indexOfObject:annotation];
-            UIImage *img;
-            NSString *si = [NSString stringWithFormat:@"index_%lu",idx];
-            img = [helpImages objectForKey:si];
-            if (img)
-                pinView.image = [DataUtils imageWithImage:img scaledToSize:CGSizeMake(17,17)];
-            else
+        else if (annotation.subtitle.length>0) {
+            if (annIdx < angelsArr.count) {
+                if (angelImg)
+                    pinView.image = [DataUtils imageWithImage:angelImg scaledToSize:CGSizeMake(30,30)];
+                else
+                    pinView.image = [UIImage imageNamed:@"angel-20.png"];
+            } else
                 pinView.image = [UIImage imageNamed:@"angel-20.png"];
         }
         pinView.canShowCallout = YES;
-    //}
-    return pinView;
+        return pinView;
+    } else
+        return nil;
 }
 
 
@@ -200,7 +219,9 @@ NSMutableDictionary *helpImages;
             *dismiss = YES;
         }],@""] view:self.view];
     } else {
-        id<MKAnnotation> annonation = [helpMap.annotations objectAtIndex:indexPath.row];
+    }
+    if (indexPath.row>=0) {
+        id<MKAnnotation> annonation = [angelsArr[indexPath.row] objectForKey:@"annotation"];
         [helpMap selectAnnotation:annonation animated:NO];
     }
     previousIndex = indexPath;
@@ -233,8 +254,7 @@ NSMutableDictionary *helpImages;
     double angelProximity = [[angelDict objectForKey:@"distance"] doubleValue];
     cell.angelDistanceLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
     //Image
-    NSString *si = [NSString stringWithFormat:@"index_%li",(long)indexPath.row];
-    UIImage *img = [helpImages objectForKey:si];
+    UIImage *img = [helpImages objectForKey:[angelDict objectForKey:@"id"]];
     if (img)
         cell.angelImg.image = [DataUtils imageWithImage:img scaledToSize:CGSizeMake(17,17)];
 
