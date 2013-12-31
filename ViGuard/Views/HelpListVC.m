@@ -84,7 +84,9 @@ NSMutableDictionary *helpImages = nil;
                             [helpListTV reloadData];
                             [self refreshHelpMap];
                         });
-                    } callbackErr:nil];
+                    } callbackErr:^(NSString *errStr) {
+                        [helpImages setValue:[UIImage imageNamed:@"angel-20.png"] forKey:si];
+                    }];
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -160,7 +162,22 @@ NSMutableDictionary *helpImages = nil;
     [helpMap setRegion:region animated:NO];
 }
 
-
+-(UIImage *)imageWithRoundedCornersSize:(float)cornerRadius usingImage:(UIImage *)original
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:original];
+    // Begin a new image that will be the new image with the rounded corners
+    // (here with the size of an UIImageView)
+    UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, NO, 1.0);
+    // Add a clip before drawing anything, in the shape of an rounded rect
+    [[UIBezierPath bezierPathWithRoundedRect:imageView.bounds cornerRadius:cornerRadius] addClip];
+    // Draw your image
+    [original drawInRect:imageView.bounds];
+    // Get the image, here setting the UIImageView image
+    imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    // Lets forget about that we were drawing
+    UIGraphicsEndImageContext();
+    return imageView.image;
+}
 
 -(MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>) annotation
 {
@@ -187,9 +204,10 @@ NSMutableDictionary *helpImages = nil;
             pinView.image = [UIImage imageNamed:@"logo-30.png"];
         else if (annotation.subtitle.length>0) {
             if (annIdx < angelsArr.count) {
-                if (angelImg)
-                    pinView.image = [DataUtils imageWithImage:angelImg scaledToSize:CGSizeMake(30,30)];
-                else
+                if (angelImg) {
+                    UIImage *img = [DataUtils imageWithImage:angelImg scaledToSize:CGSizeMake(30,30)];
+                    pinView.image = [self imageWithRoundedCornersSize:10.0 usingImage:img];
+                } else
                     pinView.image = [UIImage imageNamed:@"angel-20.png"];
             } else
                 pinView.image = [UIImage imageNamed:@"angel-20.png"];

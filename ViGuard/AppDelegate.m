@@ -78,6 +78,15 @@ ElderStatusVC *elderStatusVC;
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    //check to see if navbar "get" worked
+    if (navigationController.viewControllers)
+        //look for the nav controller in tab bar views
+        for (UINavigationController *view in navigationController.viewControllers) {
+                    if ([view isKindOfClass:[ElderStatusVC class]])
+                        elderStatusVC = (ElderStatusVC *) view;
+        }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -140,7 +149,6 @@ ElderStatusVC *elderStatusVC;
                             [elderStatusVC panicStatusChanged:panicId panic_status:panicStat battery_status:battStat comm_status:commStat];
                             //[(UINavigationController*)self.window.rootViewController presentViewController:elderStatusVC animated:NO completion:nil];
                             //[(UINavigationController*)self.window.rootViewController pushViewController:elderStatusVC animated:NO];
-                            
                         });
                     }
                 } else {

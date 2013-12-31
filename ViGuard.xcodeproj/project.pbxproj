@@ -11,8 +11,11 @@
 		DC1B64FB1862E5D1009513F6 /* HttpService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1B64FA1862E5D1009513F6 /* HttpService.m */; };
 		DC1B64FE1862FEAD009513F6 /* ActivateCaregiverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1B64FD1862FEAD009513F6 /* ActivateCaregiverVC.m */; };
 		DC1B65021863785B009513F6 /* logo-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC1B65001863785B009513F6 /* logo-30.png */; };
+		DC24A18E1871C4F2000A707B /* HelpAssistVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC24A18D1871C4F2000A707B /* HelpAssistVC.m */; };
 		DC2906B5186889B5005B090E /* TaskListTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2906B4186889B5005B090E /* TaskListTVC.m */; };
 		DC2906BE18689FCB005B090E /* EditTaskVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2906BD18689FCB005B090E /* EditTaskVC.m */; };
+		DC33F4131871B8B200F1E359 /* logo-190.png in Resources */ = {isa = PBXBuildFile; fileRef = DC33F4121871B8B200F1E359 /* logo-190.png */; };
+		DC33F4151871BBB700F1E359 /* home-50.png in Resources */ = {isa = PBXBuildFile; fileRef = DC33F4141871BBB700F1E359 /* home-50.png */; };
 		DC454C411866EEDB0084D7B3 /* play-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C401866EEDB0084D7B3 /* play-30.png */; };
 		DC454C431866EEE70084D7B3 /* stop-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC454C421866EEE70084D7B3 /* stop-30.png */; };
 		DC454C4C1866F5D60084D7B3 /* EventLogCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC454C4B1866F5D60084D7B3 /* EventLogCell.m */; };
@@ -61,11 +64,14 @@
 		DC8A515A186ECFE4000DF878 /* status-warning.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8A5152186ECFE4000DF878 /* status-warning.png */; };
 		DC8A515B186ECFE4000DF878 /* stop-80.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8A5153186ECFE4000DF878 /* stop-80.png */; };
 		DC8A515D186ED081000DF878 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8A515C186ED081000DF878 /* splash.png */; };
+		DC96A63A1871BECF00372031 /* home-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC96A6391871BECF00372031 /* home-30.png */; };
+		DC96A63C1871BEDD00372031 /* location-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC96A63B1871BEDD00372031 /* location-30.png */; };
 		DC9D67491863A61F00B5EF6A /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9D67481863A61F00B5EF6A /* UserData.m */; };
 		DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E29E18619A6400B28606 /* Media.xcassets */; };
 		DCA5E2AD1861B6A300B28606 /* logo-80.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E2AC1861B6A300B28606 /* logo-80.png */; };
 		DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA5E2B41861CABA00B28606 /* MapKit.framework */; };
 		DCA5E2BC18622F0200B28606 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA5E2BA18622F0200B28606 /* NSDataAdditions.m */; };
+		DCCEE46C1871A7EE002A5180 /* AngelRequestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCEE46B1871A7EE002A5180 /* AngelRequestVC.m */; };
 		DCD09E6B1865FFA700BAF511 /* TaskListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD09E6A1865FFA700BAF511 /* TaskListVC.m */; };
 		DCD09E6E1866010D00BAF511 /* AngelsMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD09E6D1866010D00BAF511 /* AngelsMapVC.m */; };
 		DCD09E711866012300BAF511 /* EventLogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD09E701866012300BAF511 /* EventLogVC.m */; };
@@ -98,10 +104,14 @@
 		DC1B64FC1862FEAD009513F6 /* ActivateCaregiverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivateCaregiverVC.h; sourceTree = "<group>"; };
 		DC1B64FD1862FEAD009513F6 /* ActivateCaregiverVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivateCaregiverVC.m; sourceTree = "<group>"; };
 		DC1B65001863785B009513F6 /* logo-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-30.png"; sourceTree = "<group>"; };
+		DC24A18C1871C4F2000A707B /* HelpAssistVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpAssistVC.h; sourceTree = "<group>"; };
+		DC24A18D1871C4F2000A707B /* HelpAssistVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpAssistVC.m; sourceTree = "<group>"; };
 		DC2906B3186889B5005B090E /* TaskListTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTVC.h; sourceTree = "<group>"; };
 		DC2906B4186889B5005B090E /* TaskListTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTVC.m; sourceTree = "<group>"; };
 		DC2906BC18689FCB005B090E /* EditTaskVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTaskVC.h; sourceTree = "<group>"; };
 		DC2906BD18689FCB005B090E /* EditTaskVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTaskVC.m; sourceTree = "<group>"; };
+		DC33F4121871B8B200F1E359 /* logo-190.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-190.png"; sourceTree = "<group>"; };
+		DC33F4141871BBB700F1E359 /* home-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-50.png"; sourceTree = "<group>"; };
 		DC454C401866EEDB0084D7B3 /* play-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-30.png"; sourceTree = "<group>"; };
 		DC454C421866EEE70084D7B3 /* stop-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop-30.png"; sourceTree = "<group>"; };
 		DC454C4A1866F5D60084D7B3 /* EventLogCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventLogCell.h; sourceTree = "<group>"; };
@@ -167,6 +177,8 @@
 		DC8A5152186ECFE4000DF878 /* status-warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-warning.png"; sourceTree = "<group>"; };
 		DC8A5153186ECFE4000DF878 /* stop-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stop-80.png"; sourceTree = "<group>"; };
 		DC8A515C186ED081000DF878 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		DC96A6391871BECF00372031 /* home-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-30.png"; sourceTree = "<group>"; };
+		DC96A63B1871BEDD00372031 /* location-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-30.png"; sourceTree = "<group>"; };
 		DC9D67471863A61F00B5EF6A /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		DC9D67481863A61F00B5EF6A /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		DCA5E29E18619A6400B28606 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -174,6 +186,8 @@
 		DCA5E2B41861CABA00B28606 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		DCA5E2BA18622F0200B28606 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		DCA5E2BB18622F0200B28606 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		DCCEE46A1871A7EE002A5180 /* AngelRequestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngelRequestVC.h; sourceTree = "<group>"; };
+		DCCEE46B1871A7EE002A5180 /* AngelRequestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngelRequestVC.m; sourceTree = "<group>"; };
 		DCD09E691865FFA700BAF511 /* TaskListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListVC.h; sourceTree = "<group>"; };
 		DCD09E6A1865FFA700BAF511 /* TaskListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListVC.m; sourceTree = "<group>"; };
 		DCD09E6C1866010D00BAF511 /* AngelsMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngelsMapVC.h; sourceTree = "<group>"; };
@@ -263,6 +277,8 @@
 				DCF344211860FAAE00C87879 /* MainStoryboard.storyboard */,
 				DC1B64FC1862FEAD009513F6 /* ActivateCaregiverVC.h */,
 				DC1B64FD1862FEAD009513F6 /* ActivateCaregiverVC.m */,
+				DCCEE46A1871A7EE002A5180 /* AngelRequestVC.h */,
+				DCCEE46B1871A7EE002A5180 /* AngelRequestVC.m */,
 				DCD09E6C1866010D00BAF511 /* AngelsMapVC.h */,
 				DCD09E6D1866010D00BAF511 /* AngelsMapVC.m */,
 				DCF29CF218678E6F009342BF /* CaregiverTVC.h */,
@@ -281,6 +297,8 @@
 				DCDA3E3018625D8D0009CE00 /* ElderStatusVC.m */,
 				DCF3441B1860F69400C87879 /* GuardianRegistrationVC.h */,
 				DCF3441C1860F69400C87879 /* GuardianRegistrationVC.m */,
+				DC24A18C1871C4F2000A707B /* HelpAssistVC.h */,
+				DC24A18D1871C4F2000A707B /* HelpAssistVC.m */,
 				DC52D110186C760400CA9C9D /* HelpListTVC.h */,
 				DC52D111186C760400CA9C9D /* HelpListTVC.m */,
 				DC52D10D186C759C00CA9C9D /* HelpListVC.h */,
@@ -327,11 +345,15 @@
 				DC8A512C186ECE78000DF878 /* close-event.png */,
 				DC8A512D186ECE78000DF878 /* edit-30.png */,
 				DC8A512E186ECE78000DF878 /* event-log-50.png */,
+				DC96A6391871BECF00372031 /* home-30.png */,
+				DC33F4141871BBB700F1E359 /* home-50.png */,
 				DC8A512F186ECE78000DF878 /* listen-30.png */,
 				DC8A5130186ECE78000DF878 /* listen-80.png */,
+				DC96A63B1871BEDD00372031 /* location-30.png */,
 				DC8A5131186ECE78000DF878 /* location-50.png */,
 				DC1B65001863785B009513F6 /* logo-30.png */,
 				DCA5E2AC1861B6A300B28606 /* logo-80.png */,
+				DC33F4121871B8B200F1E359 /* logo-190.png */,
 				DCF29CE618671BC3009342BF /* panic-30.png */,
 				DCF29CEA18672A86009342BF /* pause-30.png */,
 				DC8A5142186ECEF1000DF878 /* pause-80.png */,
@@ -503,14 +525,17 @@
 				DC8A5140186ECE78000DF878 /* listen-80.png in Resources */,
 				DC454C431866EEE70084D7B3 /* stop-30.png in Resources */,
 				DC8A5139186ECE78000DF878 /* call-80.png in Resources */,
+				DC33F4131871B8B200F1E359 /* logo-190.png in Resources */,
 				DC454C411866EEDB0084D7B3 /* play-30.png in Resources */,
 				DC8A513F186ECE78000DF878 /* listen-30.png in Resources */,
 				DC8A515A186ECFE4000DF878 /* status-warning.png in Resources */,
+				DC96A63A1871BECF00372031 /* home-30.png in Resources */,
 				DC8A5132186ECE78000DF878 /* angel-20.png in Resources */,
 				DC8A5137186ECE78000DF878 /* back-30.png in Resources */,
 				DC8A5135186ECE78000DF878 /* angel-80.png in Resources */,
 				DC8A514A186ECF94000DF878 /* record-80-stop.png in Resources */,
 				DCD09E761866145500BAF511 /* phone_book.png in Resources */,
+				DC33F4151871BBB700F1E359 /* home-50.png in Resources */,
 				DC8A5155186ECFE4000DF878 /* reminder-50.png in Resources */,
 				DC8A513E186ECE78000DF878 /* event-log-50.png in Resources */,
 				DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */,
@@ -535,6 +560,7 @@
 				DC8A5145186ECF1B000DF878 /* play-80.png in Resources */,
 				DC8A5138186ECE78000DF878 /* call-30.png in Resources */,
 				DC8A5141186ECE78000DF878 /* location-50.png in Resources */,
+				DC96A63C1871BEDD00372031 /* location-30.png in Resources */,
 				DC1B65021863785B009513F6 /* logo-30.png in Resources */,
 				DC454C4E1866F7E50084D7B3 /* play-30-disabled.png in Resources */,
 			);
@@ -547,6 +573,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC24A18E1871C4F2000A707B /* HelpAssistVC.m in Sources */,
 				DC2906B5186889B5005B090E /* TaskListTVC.m in Sources */,
 				DC1B64FE1862FEAD009513F6 /* ActivateCaregiverVC.m in Sources */,
 				DC65AC0D1864D9B60001AA97 /* ElderConfigurationVC.m in Sources */,
@@ -571,6 +598,7 @@
 				DC52D10F186C759C00CA9C9D /* HelpListVC.m in Sources */,
 				DC52D103186B61DB00CA9C9D /* LocationSingleton.m in Sources */,
 				DC482D8F1869643F00131796 /* ActionSheetStringPicker.m in Sources */,
+				DCCEE46C1871A7EE002A5180 /* AngelRequestVC.m in Sources */,
 				DCF3441D1860F69400C87879 /* GuardianRegistrationVC.m in Sources */,
 				DC52D100186B076500CA9C9D /* UIAlertView+WithBlock.m in Sources */,
 				DCF343EF1860E6B700C87879 /* main.m in Sources */,

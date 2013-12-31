@@ -256,9 +256,9 @@ NSString *b64Voice;
                     playStatus = Stopped;
                     NSLog(@"%@:Error in prapareToPlay", NSStringFromSelector(_cmd));
                 } else {
-                    //Save to local file
-                    [audio writeToURL:recorder.url atomically:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        //Save to local file
+                        [audio writeToURL:recorder.url atomically:YES];
                         [self startPlay];
                     });
                 }
@@ -349,6 +349,7 @@ NSString *b64Voice;
     [playButton setBackgroundImage:[UIImage imageNamed:@"play-80.png"] forState:UIControlStateNormal];
     playStatus = Stopped;
     [recordButton setEnabled:YES];
+    [self stopPlay:Stopped];
     [self updateProgress];
 }
 
@@ -371,13 +372,14 @@ NSString *b64Voice;
 
 -(void)stopPlay:(PlayStatus)status {
     playStatus = status;
-    [playButton setBackgroundImage:[UIImage imageNamed:@"pause-80.png"] forState:UIControlStateNormal];
+    [playButton setBackgroundImage:status==Stopped?[UIImage imageNamed:@"play-80.png"]:[UIImage imageNamed:@"pause-80.png"] forState:UIControlStateNormal];
     [recordButton setEnabled:YES];
     [audioTimer invalidate];
 }
 
 #pragma mark IBActions
 - (IBAction)backToParentClicked:(id)sender {
+    [player stop];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

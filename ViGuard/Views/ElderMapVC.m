@@ -35,7 +35,6 @@ NSString *guardianToken;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    userData = [DataUtils getUserData];
     [self getElderRoute];
     elderMapView.delegate = self;
     addressTxt.text = elderAddress;

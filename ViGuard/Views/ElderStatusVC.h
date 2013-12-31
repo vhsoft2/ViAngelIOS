@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *angelsStatusLbl;
 @property (weak, nonatomic) IBOutlet UILabel *angelsProximityLbl;
 @property (weak, nonatomic) IBOutlet UILabel *taskTimeLbl;
+@property (weak, nonatomic) IBOutlet UIButton *listenBtn;
+@property (weak, nonatomic) IBOutlet UILabel *versionLbl;
 
 -(void)panicStatusChanged:(NSNumber*)panic_id panic_status:(NSString*)pnic_status battery_status:(NSString*)battery_status comm_status:(NSString*)comm_status;
 

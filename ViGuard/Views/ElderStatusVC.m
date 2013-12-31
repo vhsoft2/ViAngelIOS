@@ -5,7 +5,7 @@
 //  Created by Ronen Shraga on 12/19/13.
 //  Copyright (c) 2013 Vitalitix. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 #import "ElderStatusVC.h"
 #import "DataUtils.h"
@@ -31,6 +31,8 @@
 @synthesize taskTimeLbl;
 @synthesize angelsStatusLbl;
 @synthesize angelsProximityLbl;
+@synthesize listenBtn;
+@synthesize versionLbl;
 
 UserData *userData;
 
@@ -42,9 +44,8 @@ double angelProximity;
 NSString *scheduleType;
 NSDate *scheduleStartDate;
 NSString *scheduleComments;
-
+NSNumber *listenEnabled;
 NSNumber *panicId;
-//NSNumber *angelId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,11 +62,16 @@ NSNumber *panicId;
 
     userData = [DataUtils getUserData];
     
-    //CALayer * l = [elderBtn.imageView layer];
-    //[l setMasksToBounds:YES];
-    //[l setCornerRadius:20.0];
-    
-    elderStatusBtn.enabled = NO;
+    /*CALayer * l = [elderBtn.imageView layer];
+    [l setMasksToBounds:YES];
+    [l setCornerRadius:20.0];
+    */
+    //Show the version
+    versionLbl.text = [NSString stringWithFormat:@"V(%@) B(%@)", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+    //Make elder image round
+    CALayer *btnLayer = [elderBtn layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:20.0f];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -134,6 +140,7 @@ NSNumber *panicId;
         scheduleType                = [jsonDict objectForKey:@"schedule_type"];
         scheduleStartDate           = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"schedule_start_date"]];
         scheduleComments            = [jsonDict objectForKey:@"schedule_comments"];
+        listenEnabled               = [jsonDict objectForKey:@"listen"];
         NSDate *elderImageUpdateTime   = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"elder_image_updated"]];
         if (userData.elderImageUpdated == nil || [userData.elderImageUpdated compare:elderImageUpdateTime ] != NSOrderedSame) {
             NSMutableDictionary *reqData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
@@ -176,6 +183,7 @@ NSNumber *panicId;
     angelsStatusLbl.text    = [NSString stringWithFormat:@"%d angels are nearby", angelCount];
     angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
     elderLastStatTmLbl.text =  [DataUtils strFromDate:userData.elderUpdateTime format:@"MM-dd HH:mm"];
+    listenBtn.enabled = ![listenEnabled isKindOfClass:[NSNull class]] && [listenEnabled isEqualToNumber:@1];
     //Reverse geocode location
     CLLocation *loc = [[CLLocation alloc] initWithLatitude:elderLat longitude:elderLon];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
