@@ -155,17 +155,17 @@ NSNumber *panicId;
                      [self displayElderStatus];
                  });
             } callbackErr:^(NSString *imgErrStr) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                     [[[UIAlertView alloc] initWithTitle:@"Get Elder Status" message:imgErrStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                 });
+                //dispatch_async(dispatch_get_main_queue(), ^{
+                //     [[[UIAlertView alloc] initWithTitle:@"Get Elder Status" message:imgErrStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                 //});
             }];
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                 [DataUtils saveAllData];
-                 [self displayElderStatus];
-             });
         }
-    } callbackErr:^(NSString* errStr) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DataUtils saveAllData];
+            [self displayElderStatus];
+        });
+   } callbackErr:^(NSString* errStr) {
         dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Get Elder Status" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
          });
@@ -179,10 +179,10 @@ NSNumber *panicId;
     }
     //elderStatusBtn          = ;
     tasksLbl.text           = [scheduleComments isKindOfClass:[NSString class]] ? scheduleComments:@"";
-    taskTimeLbl.text        = [DataUtils strFromDate:scheduleStartDate format:@"MM-dd HH:mm"];
+    taskTimeLbl.text        = [DataUtils strFromDate:scheduleStartDate format:@"dd-MM HH:mm"];
     angelsStatusLbl.text    = [NSString stringWithFormat:@"%d angels are nearby", angelCount];
     angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
-    elderLastStatTmLbl.text =  [DataUtils strFromDate:userData.elderUpdateTime format:@"MM-dd HH:mm"];
+    elderLastStatTmLbl.text =  [DataUtils strFromDate:userData.elderUpdateTime format:@"dd-MM HH:mm"];
     listenBtn.enabled = ![listenEnabled isKindOfClass:[NSNull class]] && [listenEnabled isEqualToNumber:@1];
     //Reverse geocode location
     CLLocation *loc = [[CLLocation alloc] initWithLatitude:elderLat longitude:elderLon];
@@ -191,7 +191,7 @@ NSNumber *panicId;
         if (error || placemarks.count == 0) {
             NSLog(@"%@:%@", NSStringFromSelector(_cmd), error);
         } else {
-            CLPlacemark *place = [placemarks objectAtIndex:0];
+            CLPlacemark *place = [placemarks firstObject];
             NSString *addrStr = @"";
             for (NSString *str in [place.addressDictionary objectForKey:@"FormattedAddressLines"]) {
                 addrStr = [[addrStr stringByAppendingString:@", "] stringByAppendingString:str];
@@ -219,18 +219,6 @@ NSNumber *panicId;
 
 - (IBAction)elderConfig:(id)sender {
     [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromElderStatusToElderConfiguration"];
-}
-
-- (IBAction)showElderMap:(id)sender {
-}
-
-- (IBAction)showTasks:(id)sender {
-}
-
-- (IBAction)showAngelsMap:(id)sender {
-}
-
-- (IBAction)showEventLog:(id)sender {
 }
 
 - (IBAction)elderStatusClicked:(id)sender {

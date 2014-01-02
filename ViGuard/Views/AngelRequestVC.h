@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *yesBtn;
 @property (weak, nonatomic) IBOutlet UIButton *noBtn;
 
+-(void)setData:(NSNumber*)distance elder_id:(NSNumber*)elder_id panic_id:(NSNumber*)panic_id status:(NSString*)status;
+
 @end

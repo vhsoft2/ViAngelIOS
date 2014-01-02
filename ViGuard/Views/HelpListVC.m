@@ -182,7 +182,7 @@ NSMutableDictionary *helpImages = nil;
 -(MKAnnotationView *) mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>) annotation
 {
     //Find the annotation
-    long annIdx = -1;//[[helpMap annotations] inde:annotation];
+    long annIdx = -1;
     for (int i=0;i<helpMap.annotations.count;i++) {
         if (annotation==helpMap.annotations[i]) {
             annIdx = i;
@@ -240,7 +240,7 @@ NSMutableDictionary *helpImages = nil;
     }
     if (indexPath.row>=0) {
         id<MKAnnotation> annonation = [angelsArr[indexPath.row] objectForKey:@"annotation"];
-        [helpMap selectAnnotation:annonation animated:NO];
+        [helpMap selectAnnotation:annonation animated:YES];
     }
     previousIndex = indexPath;
 }
@@ -275,10 +275,13 @@ NSMutableDictionary *helpImages = nil;
     UIImage *img = [helpImages objectForKey:[angelDict objectForKey:@"id"]];
     if (img)
         cell.angelImg.image = [DataUtils imageWithImage:img scaledToSize:CGSizeMake(17,17)];
-
-    //call async to get the image
-    //////
-     return cell;
+    NSString *status = [angelDict objectForKey:@"going"];
+    if ([status isEqualToString:@"willing"]) {
+        cell.angelStatusImg.hidden = YES;;
+    } else {//if ([status isEqualToString:@"willing"])
+        cell.angelStatusImg.hidden = NO;;
+    }
+    return cell;
 }
 
 #pragma mark - IBActions

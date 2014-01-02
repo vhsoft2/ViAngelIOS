@@ -72,6 +72,7 @@
 		DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA5E2B41861CABA00B28606 /* MapKit.framework */; };
 		DCA5E2BC18622F0200B28606 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA5E2BA18622F0200B28606 /* NSDataAdditions.m */; };
 		DCCEE46C1871A7EE002A5180 /* AngelRequestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCEE46B1871A7EE002A5180 /* AngelRequestVC.m */; };
+		DCD0044218757D500013CE19 /* AngelWaitVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD0044118757D500013CE19 /* AngelWaitVC.m */; };
 		DCD09E6B1865FFA700BAF511 /* TaskListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD09E6A1865FFA700BAF511 /* TaskListVC.m */; };
 		DCD09E6E1866010D00BAF511 /* AngelsMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD09E6D1866010D00BAF511 /* AngelsMapVC.m */; };
 		DCD09E711866012300BAF511 /* EventLogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD09E701866012300BAF511 /* EventLogVC.m */; };
@@ -188,6 +189,8 @@
 		DCA5E2BB18622F0200B28606 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		DCCEE46A1871A7EE002A5180 /* AngelRequestVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngelRequestVC.h; sourceTree = "<group>"; };
 		DCCEE46B1871A7EE002A5180 /* AngelRequestVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngelRequestVC.m; sourceTree = "<group>"; };
+		DCD0044018757D500013CE19 /* AngelWaitVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngelWaitVC.h; sourceTree = "<group>"; };
+		DCD0044118757D500013CE19 /* AngelWaitVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngelWaitVC.m; sourceTree = "<group>"; };
 		DCD09E691865FFA700BAF511 /* TaskListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListVC.h; sourceTree = "<group>"; };
 		DCD09E6A1865FFA700BAF511 /* TaskListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListVC.m; sourceTree = "<group>"; };
 		DCD09E6C1866010D00BAF511 /* AngelsMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngelsMapVC.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				DCCEE46B1871A7EE002A5180 /* AngelRequestVC.m */,
 				DCD09E6C1866010D00BAF511 /* AngelsMapVC.h */,
 				DCD09E6D1866010D00BAF511 /* AngelsMapVC.m */,
+				DCD0044018757D500013CE19 /* AngelWaitVC.h */,
+				DCD0044118757D500013CE19 /* AngelWaitVC.m */,
 				DCF29CF218678E6F009342BF /* CaregiverTVC.h */,
 				DCF29CF318678E6F009342BF /* CaregiverTVC.m */,
 				DC2906BC18689FCB005B090E /* EditTaskVC.h */,
@@ -606,6 +611,7 @@
 				DCF343F61860E6B700C87879 /* ViGuard.xcdatamodeld in Sources */,
 				DC65AC0A186497BC0001AA97 /* ElderMapVC.m in Sources */,
 				DC482D8D1869643F00131796 /* ActionSheetDatePicker.m in Sources */,
+				DCD0044218757D500013CE19 /* AngelWaitVC.m in Sources */,
 				DCD09E7418660E4100BAF511 /* ShareContactsVC.m in Sources */,
 				DC9D67491863A61F00B5EF6A /* UserData.m in Sources */,
 			);

@@ -349,7 +349,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo-30.png" translatesAutoresizingMaskIntoConstraints="NO" id="HsU-dd-HOa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="49"/>
+                                                    <rect key="frame" x="4" y="4" width="42" height="41"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZa-0c-txN">
@@ -452,8 +452,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showAngelsMap:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="4I6-ts-bTe"/>
-                                    <action selector="showElderMap:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="hu8-P6-UBb"/>
                                     <segue destination="hW4-XZ-gH4" kind="push" identifier="fromElderStatusToElderMap" id="VY3-GT-sxP"/>
                                 </connections>
                             </button>
@@ -474,7 +472,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WX-cC-G4z">
-                                <rect key="frame" x="21" y="392" width="80" height="65"/>
+                                <rect key="frame" x="22" y="392" width="65" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="call-80.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -484,7 +482,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZW-F4-cVj">
-                                <rect key="frame" x="220" y="392" width="80" height="65"/>
+                                <rect key="frame" x="235" y="397" width="65" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="listen-80.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -500,8 +498,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showAngelsMap:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="Hf1-Wl-JJr"/>
-                                    <action selector="showTasks:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="rxs-iF-AYW"/>
                                     <segue destination="CjO-Dw-Kkx" kind="push" identifier="fromElderStatusToTaskList" id="f4k-Pr-m7q"/>
                                 </connections>
                             </button>
@@ -522,8 +518,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showAngelsMap:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="14W-e6-m3l"/>
-                                    <segue destination="dV3-Gl-t9p" kind="push" identifier="fromElderStatusToAngelsMap" id="OIM-44-EjD"/>
+                                    <segue destination="dV3-Gl-t9p" kind="push" id="skE-gD-2Pc"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="angel-50.png" translatesAutoresizingMaskIntoConstraints="NO" id="htT-S4-FYs">
@@ -555,8 +550,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showAngelsMap:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="5FG-62-MPL"/>
-                                    <action selector="showEventLog:" destination="ok5-2Q-PI9" eventType="touchUpInside" id="c2L-H7-fpS"/>
                                     <segue destination="gtr-Qb-VjW" kind="push" identifier="fromElderStatusToEventLog" id="JeT-oh-Gtm"/>
                                 </connections>
                             </button>
@@ -629,11 +622,12 @@
                         <outlet property="tasksLbl" destination="L38-EW-t59" id="l5e-fU-A88"/>
                         <outlet property="versionLbl" destination="Yqr-xI-9hQ" id="BCk-le-oGp"/>
                         <segue destination="QFO-0D-BsJ" kind="push" identifier="fromElderStatusToPanicHandle" id="npo-fv-ffN"/>
+                        <segue destination="th8-Ml-xyz" kind="push" identifier="fromElderStatusToAngelRequest" id="RJr-9b-xUH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55O-vv-Y7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="437" y="954"/>
+            <point key="canvasLocation" x="321" y="954"/>
         </scene>
         <!--Activate CaregiverVC-->
         <scene sceneID="5b2-4Q-5YN">
@@ -806,8 +800,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="191" translatesAutoresizingMaskIntoConstraints="NO" id="gbk-Zs-jkS">
-                                <rect key="frame" x="65" y="95" width="191" height="61"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="213" translatesAutoresizingMaskIntoConstraints="NO" id="gbk-Zs-jkS">
+                                <rect key="frame" x="54" y="95" width="213" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="AN ELDER CLOSE BY ">
@@ -820,7 +814,8 @@
                                     <fragment content="NEEDS YOUR HELP!">
                                         <attributes>
                                             <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <font key="NSFont" size="23" name="AvenirNextCondensed-Regular"/>
+                                            <font key="NSFont" size="28" name="AvenirNextCondensed-Regular"/>
+                                            <font key="NSOriginalFont" size="28" name="AvenirNextCondensed-Regular"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
@@ -839,9 +834,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
-                                    <barButtonItem image="logo-30.png" id="XVA-pa-5Zw">
+                                    <barButtonItem image="back-30.png" id="XVA-pa-5Zw">
                                         <connections>
-                                            <action selector="backToElderStatusClicked:" destination="QFO-0D-BsJ" id="YWg-HH-SED"/>
+                                            <action selector="backClicked:" destination="th8-Ml-xyz" id="24r-z0-zkw"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="VITALITIX" width="206" style="plain" id="QnY-cJ-VL8"/>
@@ -895,21 +890,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Mcs-oU-V8q"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="elderDistanceLbl" destination="ZIc-Co-Ddx" id="OgY-Ni-UAm"/>
                         <outlet property="noBtn" destination="MPE-nN-QjQ" id="mc5-Ko-eSk"/>
                         <outlet property="yesBtn" destination="3ac-fO-8Qi" id="9Oq-nu-64Z"/>
+                        <segue destination="CaI-8E-wWY" kind="push" identifier="fromAngelRequestToAngelWait" id="HFD-ce-Yw4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yQ2-Zh-eCH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1341" y="-935"/>
         </scene>
-        <!--View Controller-->
+        <!--Angel WaitVC-->
         <scene sceneID="aKb-Ym-fVZ">
             <objects>
-                <viewController storyboardIdentifier="AngelWaitVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CaI-8E-wWY" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AngelWaitVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CaI-8E-wWY" customClass="AngelWaitVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mh2-F3-DyQ"/>
                         <viewControllerLayoutGuide type="bottom" id="luI-GA-WNu"/>
@@ -925,7 +922,7 @@
                                 <items>
                                     <barButtonItem image="logo-30.png" id="j0Y-yz-nny">
                                         <connections>
-                                            <action selector="backToElderStatusClicked:" destination="QFO-0D-BsJ" id="2YI-T2-TQB"/>
+                                            <action selector="toElderStatusBtn:" destination="CaI-8E-wWY" id="VrQ-pD-alP"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="VITALITIX" width="206" style="plain" id="jew-lt-5fV"/>
@@ -953,7 +950,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dqs-tk-Lch"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="Jsc-tM-yfn" kind="push" identifier="fromAngelWaitToHelpAssist" id="NuJ-rc-aBj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xa3-r1-eL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -992,11 +993,12 @@
                                     <outlet property="delegate" destination="Jsc-tM-yfn" id="B0U-7L-2Oy"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sa3-lk-7Hb">
-                                <rect key="frame" x="126" y="173" width="194" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Sa3-lk-7Hb">
+                                <rect key="frame" x="110" y="163" width="210" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="15"/>
-                                <state key="normal" title=" ..." image="location-30.png">
+                                <state key="normal" title="... ... ... ..." image="location-30.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1004,43 +1006,64 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo-80.png" translatesAutoresizingMaskIntoConstraints="NO" id="xjV-EF-KSt">
-                                <rect key="frame" x="3" y="76" width="120" height="120"/>
+                                <rect key="frame" x="2" y="103" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uB1-gW-soK">
-                                <rect key="frame" x="126" y="141" width="194" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uB1-gW-soK">
+                                <rect key="frame" x="110" y="103" width="210" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="15"/>
-                                <state key="normal" title=" ..." image="home-30.png">
+                                <state key="normal" title="... ... ... ... ... ... ... ..." image="home-30.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="elderHomeAddrClicked:" destination="Jsc-tM-yfn" eventType="touchUpInside" id="IHl-BK-tW8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-bD-13f">
-                                <rect key="frame" x="126" y="69" width="194" height="36"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Steve" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-bD-13f">
+                                <rect key="frame" x="2" y="64" width="168" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="909-jI-9aJ">
-                                <rect key="frame" x="126" y="108" width="194" height="30"/>
+                                <rect key="frame" x="172" y="67" width="162" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="15"/>
-                                <state key="normal" title=" ...">
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="22"/>
+                                <state key="normal" title=" ... ... ... ..." image="call-30.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="elderPhoneClicked:" destination="Jsc-tM-yfn" eventType="touchUpInside" id="078-aC-2iZ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperating-line.png" translatesAutoresizingMaskIntoConstraints="NO" id="C9k-nF-pZW">
+                                <rect key="frame" x="2" y="98" width="318" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperating-line.png" translatesAutoresizingMaskIntoConstraints="NO" id="FLU-4p-dLT">
+                                <rect key="frame" x="110" y="153" width="210" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Vu-mk-7Lg">
+                                <rect key="frame" x="125" y="439" width="70" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="2" height="2"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="l7o-Th-Skj"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="distanceLbl" destination="8Vu-mk-7Lg" id="9N8-bf-Zig"/>
                         <outlet property="elderCurrentAddrBtn" destination="Sa3-lk-7Hb" id="BeV-W5-PmF"/>
                         <outlet property="elderHomeAddrBtn" destination="uB1-gW-soK" id="s7t-zo-r64"/>
                         <outlet property="elderImg" destination="xjV-EF-KSt" id="3tv-zo-9nZ"/>
@@ -1168,11 +1191,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="angel-50.png" translatesAutoresizingMaskIntoConstraints="NO" id="nBd-Ry-QP2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                    <rect key="frame" x="4" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVd-Fk-Mow">
-                                                    <rect key="frame" x="51" y="0.0" width="208" height="43"/>
+                                                    <rect key="frame" x="51" y="0.0" width="179" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1185,12 +1208,17 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="send-angel-50.png" translatesAutoresizingMaskIntoConstraints="NO" id="Cxd-hG-6c0">
+                                                    <rect key="frame" x="230" y="6" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="angelDistanceLbl" destination="qxk-qL-0DZ" id="zQi-AO-c9n"/>
                                             <outlet property="angelImg" destination="nBd-Ry-QP2" id="WOm-nR-V8x"/>
                                             <outlet property="angelNameLbl" destination="fVd-Fk-Mow" id="7w2-Sw-07k"/>
+                                            <outlet property="angelStatusImg" destination="Cxd-hG-6c0" id="pWC-8X-bsh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1529,7 +1557,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="reminder-30.png" translatesAutoresizingMaskIntoConstraints="NO" id="u39-Y4-ZPw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                    <rect key="frame" x="4" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cdy-Sk-xoP">
@@ -1540,7 +1568,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="play-30.png" translatesAutoresizingMaskIntoConstraints="NO" id="co1-Ib-y0n">
-                                                    <rect key="frame" x="277" y="0.0" width="43" height="43"/>
+                                                    <rect key="frame" x="281" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1826,7 +1854,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="reminder-30.png" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-fy-Tq5">
-                                                    <rect key="frame" x="1" y="0.0" width="43" height="43"/>
+                                                    <rect key="frame" x="5" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kup-iI-cZ6">
@@ -1837,7 +1865,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="edit-30.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fil-af-JTm">
-                                                    <rect key="frame" x="276" y="0.0" width="43" height="43"/>
+                                                    <rect key="frame" x="280" y="4" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1875,6 +1903,7 @@
         <image name="angel-80.png" width="80" height="80"/>
         <image name="ask-for-help.png" width="311" height="402"/>
         <image name="back-30.png" width="30" height="30"/>
+        <image name="call-30.png" width="30" height="30"/>
         <image name="call-80.png" width="80" height="80"/>
         <image name="call-ems.png" width="309" height="363"/>
         <image name="close-event.png" width="323" height="71"/>
@@ -1896,6 +1925,7 @@
         <image name="record-80.png" width="80" height="80"/>
         <image name="reminder-30.png" width="30" height="30"/>
         <image name="reminder-50.png" width="50" height="50"/>
+        <image name="send-angel-50.png" width="50" height="50"/>
         <image name="seperating-line.png" width="712" height="2"/>
         <image name="splash.png" width="578" height="493"/>
         <image name="status-ok.png" width="200" height="200"/>

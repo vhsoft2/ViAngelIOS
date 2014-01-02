@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *angelImg;
 @property (weak, nonatomic) IBOutlet UILabel *angelNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *angelDistanceLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *angelStatusImg;
 
 @end

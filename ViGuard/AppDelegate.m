@@ -12,6 +12,9 @@
 #import "LocationSingleton.h"
 #import "HttpService.h"
 #import "DataUtils.h"
+#import "AngelRequestVC.h"
+#import "AngelWaitVC.h"
+#import "HelpAssistVC.h"
 
 @implementation AppDelegate
 
@@ -24,6 +27,10 @@ UserData *userData;
 UIStoryboard *storyboard;
 NSString *lastPanicStatus = @"OK";
 ElderStatusVC *elderStatusVC;
+AngelRequestVC *angelRequestVC;
+AngelWaitVC *angelWaitVC;
+HelpAssistVC *helpAssistVC;
+NSTimeInterval postStatusInterval = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -79,14 +86,17 @@ ElderStatusVC *elderStatusVC;
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    /*UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     //check to see if navbar "get" worked
     if (navigationController.viewControllers)
         //look for the nav controller in tab bar views
         for (UINavigationController *view in navigationController.viewControllers) {
                     if ([view isKindOfClass:[ElderStatusVC class]])
                         elderStatusVC = (ElderStatusVC *) view;
-        }
+        }*/
+    if (!elderStatusVC) {
+        elderStatusVC = (ElderStatusVC*)[self getViewControler:[ElderStatusVC class] storyboardId:@"ElderStatusVC"];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -108,11 +118,29 @@ ElderStatusVC *elderStatusVC;
         } 
     }
 }
+
+#pragma mark - Utils
+
+-(UIViewController*)getViewControler:(Class)class storyboardId:(NSString*)storyboardId {
+    UIViewController *vc = nil;
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    if (navigationController.viewControllers)
+        //look for the nav controller in tab bar views
+        for (UINavigationController *view in navigationController.viewControllers) {
+            if ([view isKindOfClass:class])
+                vc = view;
+        }
+    if (!vc) {
+        vc = [storyboard instantiateViewControllerWithIdentifier:storyboardId];
+    }
+    return vc;
+}
+
 #pragma mark - Handle server messages
 #pragma mark - HTTP
 
 - (void)timerAction:(NSTimer*)timer {
-    statusTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timerAction:) userInfo:nil repeats:NO];
+    statusTimer = [NSTimer scheduledTimerWithTimeInterval:postStatusInterval target:self selector:@selector(timerAction:) userInfo:nil repeats:NO];
     [self sendStatus:nil];
 }
 
@@ -120,6 +148,10 @@ ElderStatusVC *elderStatusVC;
     if (userData.guardianToken) {
         CLLocation *loc = [LocationSingleton sharedSingleton].locationManager.location;
         HttpService *httpService = [[HttpService alloc] init];
+        if (!elderStatusVC)
+            elderStatusVC = (ElderStatusVC*)[self getViewControler:[ElderStatusVC class] storyboardId:@"ElderStatusVC"];
+        if (!angelRequestVC)
+            angelRequestVC = (AngelRequestVC*)[self getViewControler:[AngelRequestVC class] storyboardId:@"AngelRequestVC"];
         //token":"","tm":"11","lat":"32","lon":"34","alt":"20.0","spd":"0.0","dir":"0.0","acc":"20.0","stat":""
         [httpService postJsonRequest:@"guardian_status" postDict:[[NSMutableDictionary alloc] initWithDictionary:
                                                                   @{@"token":userData.guardianToken,
@@ -132,21 +164,20 @@ ElderStatusVC *elderStatusVC;
                                                                     @"acc":[NSNumber numberWithDouble:loc.horizontalAccuracy],
                                                                     @"stat":@"iPhone rocks (not)"}] callbackOK:^(NSDictionary *jsonDict) {
             //{ "angel_status": [ { "panic_id": 1, "elder_id": 132, "distance": 74.8255, "angel_status": "request" } ], "elder_status": [ { "panic_id": 1, "panic_status": "in_process", "battery_status": "OK", "comm_status": "OK" } ] }
-            //NSDictionary *angelDict = [jsonDict objectForKey:@"angel_status"];
             NSArray *elderStatusArr = [jsonDict objectForKey:@"elder_status"];
+            NSNumber *elderPanicId = nil;
             if (elderStatusArr) {
-                NSDictionary *elderDict = [elderStatusArr objectAtIndex:0];
+                NSDictionary *elderDict = [elderStatusArr firstObject];
                 if (elderDict) {
-                    NSNumber *panicId = [elderDict objectForKey:@"panic_id"];
+                    elderPanicId = [elderDict objectForKey:@"panic_id"];
                     NSString *battStat = [elderDict objectForKey:@"battery_status"];
                     NSString *commStat = [elderDict objectForKey:@"comm_status"];
                     NSString *panicStat = [elderDict objectForKey:@"panic_status"];
-                    if (panicId || ![lastPanicStatus isEqualToString:panicStat]) {
+                    if (elderPanicId || ![lastPanicStatus isEqualToString:panicStat]) {
                         lastPanicStatus = panicStat;
-                        if (!elderStatusVC)
-                            elderStatusVC = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
+                            //elderStatusVC = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [elderStatusVC panicStatusChanged:panicId panic_status:panicStat battery_status:battStat comm_status:commStat];
+                            [elderStatusVC panicStatusChanged:elderPanicId panic_status:panicStat battery_status:battStat comm_status:commStat];
                             //[(UINavigationController*)self.window.rootViewController presentViewController:elderStatusVC animated:NO completion:nil];
                             //[(UINavigationController*)self.window.rootViewController pushViewController:elderStatusVC animated:NO];
                         });
@@ -157,13 +188,52 @@ ElderStatusVC *elderStatusVC;
             } else {
                 NSLog(@"%@ json parse error2:%@", NSStringFromSelector(_cmd), elderStatusArr);
             }
+            //Take care of angels only if no elder panic exists
+            NSNumber *angelPanicId = nil;
+            if ([elderPanicId isKindOfClass:[NSNull  class]]) {
+                NSArray *angelStatusArr = [jsonDict objectForKey:@"angel_status"];
+                NSDictionary *angelDict = [angelStatusArr firstObject];
+                if (angelDict) {
+                    angelPanicId = [angelDict objectForKey:@"panic_id"];
+                    NSNumber *angelElderId = [angelDict objectForKey:@"elder_id"];
+                    NSNumber *angelDistance = [angelDict objectForKey:@"distance"];
+                    NSString *angelStatus = [angelDict objectForKey:@"angel_status"];
+                    if (![angelPanicId isKindOfClass:[NSNull class]]) {
+                        [angelRequestVC setData:angelDistance elder_id:angelElderId panic_id:angelPanicId status:angelStatus];
+                        if ([angelStatus isEqualToString:@"assigned"] || [angelStatus isEqualToString:@"going"]) {
+                            UIViewController *topView = [(UINavigationController*)self.window.rootViewController topViewController];
+                            if ([topView isKindOfClass:[AngelWaitVC class]]) {
+                                angelWaitVC = (AngelWaitVC*)topView;
+                                [angelWaitVC setData:userData.guardianToken elder_id:angelElderId panic_id:angelPanicId status:angelStatus];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [angelWaitVC performSegueWithIdentifier:@"fromAngelWaitToHelpAssist"sender:self];
+                                });
+                            } else if ([topView isKindOfClass:[HelpAssistVC class]]) {
+                                helpAssistVC = (HelpAssistVC*)topView;
+                                //NSLog(@"%@:%@", NSStringFromSelector(_cmd), helpAssistVC);
+                                [helpAssistVC setData:userData.guardianToken elder_id:angelElderId panic_id:angelPanicId status:angelStatus];
+                            }
+                        }
+                        if (!(angelRequestVC.isViewLoaded && angelRequestVC.view.window) && (elderStatusVC.view.window)) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [elderStatusVC performSegueWithIdentifier:@"fromElderStatusToAngelRequest"sender:self];
+                            });
+                        }
+                        //NSLog(@"%@:%@,%@,%@,%@", NSStringFromSelector(_cmd), angelPanicId, angelElderId, angelDistance, angelStatus);
+                    }
+                }
+            }
             if (completionHandler) {
                 completionHandler(UIBackgroundFetchResultNewData);
             }
-
+            //Increase time interval if panic
+            if (elderPanicId || angelPanicId) {
+                postStatusInterval = 10;
+            } else
+                postStatusInterval = 30;
         } callbackErr:^(NSString* errStr) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[[UIAlertView alloc] initWithTitle:@"Delete Task" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Send Status" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             });
             if (completionHandler) {
                 completionHandler(UIBackgroundFetchResultFailed);
