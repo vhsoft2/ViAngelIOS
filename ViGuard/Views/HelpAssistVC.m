@@ -11,6 +11,7 @@
 #import "HttpService.h"
 #import "LocationSingleton.h"
 #import "UIAlertView+WithBlock.h"
+#import "ElderStatusVC.h"
 
 @interface HelpAssistVC ()
 
@@ -182,7 +183,23 @@ MKPointAnnotation *angelAnn;
     }];
 }
 
+-(UIViewController*)getViewControler:(Class)class {
+    UIViewController *vc = nil;
+    UINavigationController *navigationController = (UINavigationController *)self.view.window.rootViewController;
+    if (navigationController.viewControllers)
+        //look for the nav controller in tab bar views
+        for (UINavigationController *view in navigationController.viewControllers) {
+            if ([view isKindOfClass:class])
+                vc = view;
+        }
+    return vc;
+}
+
 #pragma mark IBActions
+- (IBAction)backToElderStatusClicked:(id)sender {
+    ElderStatusVC *evc = (ElderStatusVC*)[self getViewControler:[ElderStatusVC class]];
+    [self.navigationController popToViewController:evc animated:YES];
+}
 
 - (IBAction)elderPhoneClicked:(id)sender {
     [[[UIAlertView alloc] initWithTitle:@"OK to Call?" message:@"" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {

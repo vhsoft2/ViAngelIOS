@@ -979,7 +979,7 @@
                                 <items>
                                     <barButtonItem image="logo-30.png" id="CgR-Mq-1C4">
                                         <connections>
-                                            <action selector="backToElderStatusClicked:" destination="QFO-0D-BsJ" id="K0l-wr-di0"/>
+                                            <action selector="backToElderStatusClicked:" destination="Jsc-tM-yfn" id="EIz-Oc-PYT"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="VITALITIX" width="206" style="plain" id="HWj-w6-WtT"/>
