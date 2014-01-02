@@ -227,10 +227,10 @@ NSTimeInterval postStatusInterval = 10;
                 completionHandler(UIBackgroundFetchResultNewData);
             }
             //Increase time interval if panic
-            if (elderPanicId || angelPanicId) {
-                postStatusInterval = 10;
+            if (([elderPanicId isKindOfClass:[NSNull class]] || !elderPanicId) && ([angelPanicId isKindOfClass:[NSNull class]] || !angelPanicId)) {
+                postStatusInterval = 40;
             } else
-                postStatusInterval = 30;
+                postStatusInterval = 10;
         } callbackErr:^(NSString* errStr) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[[UIAlertView alloc] initWithTitle:@"Send Status" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
