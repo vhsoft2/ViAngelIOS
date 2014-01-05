@@ -67,7 +67,7 @@ bool helpRequestSubmitted = false;
                     });
                 } else if ([action isEqualToString:@"ask_for_help"]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self performSegueWithIdentifier:@"fromPanicHandleToHelpList"sender:self];
+                        [self performSegueWithIdentifier:@"fromPanicHandleToHelpList" sender:self];
                     });
                 }
             } callbackErr:^(NSString* errStr) {
@@ -98,7 +98,7 @@ bool helpRequestSubmitted = false;
         [self doPanicAction:@"ask_for_help" panic_id:panicId angel_id:angelId comments:@"iPhone is a mess"];
         helpRequestSubmitted = YES;
     } else {
-        [self performSegueWithIdentifier:@"fromPanicHandleToHelpList"sender:self];
+        [self performSegueWithIdentifier:@"fromPanicHandleToHelpList" sender:self];
     }
 }
 

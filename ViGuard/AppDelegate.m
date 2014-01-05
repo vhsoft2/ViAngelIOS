@@ -166,30 +166,23 @@ NSTimeInterval postStatusInterval = 10;
             //{ "angel_status": [ { "panic_id": 1, "elder_id": 132, "distance": 74.8255, "angel_status": "request" } ], "elder_status": [ { "panic_id": 1, "panic_status": "in_process", "battery_status": "OK", "comm_status": "OK" } ] }
             NSArray *elderStatusArr = [jsonDict objectForKey:@"elder_status"];
             NSNumber *elderPanicId = nil;
-            if (elderStatusArr) {
-                NSDictionary *elderDict = [elderStatusArr firstObject];
-                if (elderDict) {
-                    elderPanicId = [elderDict objectForKey:@"panic_id"];
-                    NSString *battStat = [elderDict objectForKey:@"battery_status"];
-                    NSString *commStat = [elderDict objectForKey:@"comm_status"];
-                    NSString *panicStat = [elderDict objectForKey:@"panic_status"];
-                    if (elderPanicId || ![lastPanicStatus isEqualToString:panicStat]) {
-                        lastPanicStatus = panicStat;
-                            //elderStatusVC = [storyboard instantiateViewControllerWithIdentifier:@"ElderStatusVC"];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [elderStatusVC panicStatusChanged:elderPanicId panic_status:panicStat battery_status:battStat comm_status:commStat];
-                            //[(UINavigationController*)self.window.rootViewController presentViewController:elderStatusVC animated:NO completion:nil];
-                            //[(UINavigationController*)self.window.rootViewController pushViewController:elderStatusVC animated:NO];
-                        });
-                    }
-                } else {
-                    NSLog(@"%@ json parse error1:%@", NSStringFromSelector(_cmd), elderDict);
+            NSDictionary *elderDict = [elderStatusArr firstObject];
+            if (elderDict) {
+                elderPanicId = [elderDict objectForKey:@"panic_id"];
+                NSString *battStat = [elderDict objectForKey:@"battery_status"];
+                NSString *commStat = [elderDict objectForKey:@"comm_status"];
+                NSString *panicStat = [elderDict objectForKey:@"panic_status"];
+                if (elderPanicId || ![lastPanicStatus isEqualToString:panicStat]) {
+                    lastPanicStatus = panicStat;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [elderStatusVC panicStatusChanged:elderPanicId panic_status:panicStat battery_status:battStat comm_status:commStat];
+                    });
                 }
             } else {
-                NSLog(@"%@ json parse error2:%@", NSStringFromSelector(_cmd), elderStatusArr);
+                NSLog(@"%@ json parse error1:%@", NSStringFromSelector(_cmd), elderDict);
             }
-            //Take care of angels only if no elder panic exists
             NSNumber *angelPanicId = nil;
+            //Take care of angels only if no elder panic exists
             if ([elderPanicId isKindOfClass:[NSNull  class]]) {
                 NSArray *angelStatusArr = [jsonDict objectForKey:@"angel_status"];
                 NSDictionary *angelDict = [angelStatusArr firstObject];
@@ -206,20 +199,18 @@ NSTimeInterval postStatusInterval = 10;
                                 angelWaitVC = (AngelWaitVC*)topView;
                                 [angelWaitVC setData:userData.guardianToken elder_id:angelElderId panic_id:angelPanicId status:angelStatus];
                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                    [angelWaitVC performSegueWithIdentifier:@"fromAngelWaitToHelpAssist"sender:self];
+                                    [angelWaitVC performSegueWithIdentifier:@"fromAngelWaitToHelpAssist" sender:angelWaitVC];
                                 });
                             } else if ([topView isKindOfClass:[HelpAssistVC class]]) {
                                 helpAssistVC = (HelpAssistVC*)topView;
-                                //NSLog(@"%@:%@", NSStringFromSelector(_cmd), helpAssistVC);
                                 [helpAssistVC setData:userData.guardianToken elder_id:angelElderId panic_id:angelPanicId status:angelStatus];
                             }
                         }
                         if (!(angelRequestVC.isViewLoaded && angelRequestVC.view.window) && (elderStatusVC.view.window)) {
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                [elderStatusVC performSegueWithIdentifier:@"fromElderStatusToAngelRequest"sender:self];
+                                [elderStatusVC performSegueWithIdentifier:@"fromElderStatusToAngelRequest" sender:elderStatusVC];
                             });
                         }
-                        //NSLog(@"%@:%@,%@,%@,%@", NSStringFromSelector(_cmd), angelPanicId, angelElderId, angelDistance, angelStatus);
                     }
                 }
             }
@@ -227,9 +218,9 @@ NSTimeInterval postStatusInterval = 10;
                 completionHandler(UIBackgroundFetchResultNewData);
             }
             //Increase time interval if panic
-            if (([elderPanicId isKindOfClass:[NSNull class]] || !elderPanicId) && ([angelPanicId isKindOfClass:[NSNull class]] || !angelPanicId)) {
+            if (([elderPanicId isKindOfClass:[NSNull class]] || !elderPanicId) && ([angelPanicId isKindOfClass:[NSNull class]] || !angelPanicId))
                 postStatusInterval = 40;
-            } else
+            else
                 postStatusInterval = 10;
         } callbackErr:^(NSString* errStr) {
             dispatch_async(dispatch_get_main_queue(), ^{

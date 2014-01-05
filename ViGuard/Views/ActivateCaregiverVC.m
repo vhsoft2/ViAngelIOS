@@ -30,7 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,6 +37,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 //Dismiss keyboard on tap outside the edit box
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -61,7 +61,7 @@
         //}];
         dispatch_async(dispatch_get_main_queue(), ^{
              if ([[jsonDict objectForKey:@"assigned"]  isEqual: @"true"]) {
-                 [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromActivateElderToShareContacts"];
+                 [self performSegueWithIdentifier:@"fromActivateElderToShareContacts" sender:self];
              } else {
                  [[[UIAlertView alloc] initWithTitle:@"ERROR" message:@"Can't assign to elder" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
              }

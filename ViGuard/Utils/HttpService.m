@@ -69,9 +69,13 @@ NSString *serverAddress = @"http://109.226.62.3/";
         if (!error) {
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
             if (httpResp.statusCode == 200) {
-                if (data.length)
-                    callbackOK([NSString stringWithUTF8String:[data bytes]]);
-                else
+                if (data.length) {
+                    //NSString *str = [NSString stringWithUTF8String:[data bytes]];
+                    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    callbackOK(str);
+
+                    //NSLog(@"%@:%lu,%lu", NSStringFromSelector(_cmd), (unsigned long)str.length,(unsigned long)data.length);
+                } else
                     callbackOK(@"");
             } else {
                 NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

@@ -33,7 +33,7 @@ UserData *userData = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [codeTxt becomeFirstResponder];
     userData = [DataUtils getUserData];
 }
 
@@ -51,19 +51,25 @@ UserData *userData = nil;
 #pragma mark IBActions
 
 - (IBAction)activateGuardian:(id)sender {
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner.center = CGPointMake(160, 240);
+    spinner.hidesWhenStopped = YES;
+    [self.view addSubview:spinner];
+    [spinner startAnimating];
     NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                              userData.guardianToken,    @"token",
                              codeTxt.text,              @"code", nil];
     HttpService *httpService = [[HttpService alloc] init];
     [httpService postJsonRequest:@"verify_code" postDict:mapData callbackOK:^(NSDictionary *jsonDict) {
-        NSLog(@"%@", jsonDict);
         //Run on main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-             [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromVerifyCodeToActivateElder"];
+            [self performSegueWithIdentifier:@"fromVerifyCodeToActivateElder" sender:self];
+            [spinner stopAnimating];
          });
     } callbackErr:^(NSString* errStr) {
         dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Activation error" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [spinner stopAnimating];
          });
     }];
 }

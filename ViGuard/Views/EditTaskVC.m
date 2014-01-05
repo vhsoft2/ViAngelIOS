@@ -431,6 +431,7 @@ NSString *b64Voice;
     [self saveTask];
 }
 - (IBAction)cancelClicked:(id)sender {
+    [player stop];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)deleteClicked:(id)sender {

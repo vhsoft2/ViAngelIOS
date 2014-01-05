@@ -80,7 +80,7 @@ NSString *guardianToken;
             [[[HttpService alloc] init] postJsonRequest:@"add_panic_action" postDict:[[NSMutableDictionary alloc] initWithDictionary: @{@"token":guardianToken, @"panic_id":panic_id, @"action":action, @"angel_id":angel_id?angel_id:@0, @"comments":comments}] callbackOK:^(NSDictionary *jsonDict) {
                 if ([action isEqualToString:@"willing_to_help"]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self performSegueWithIdentifier:@"fromAngelRequestToAngelWait"sender:self];
+                        [self performSegueWithIdentifier:@"fromAngelRequestToAngelWait" sender:self];
                     });
                 } else if ([action isEqualToString:@"cancel"]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -103,7 +103,7 @@ NSString *guardianToken;
 
 - (IBAction)yesClicked:(id)sender {
     if ([angelStatus isEqualToString:@"assigned"] || [angelStatus isEqualToString:@"willing"])
-        [self performSegueWithIdentifier:@"fromAngelRequestToAngelWait"sender:self];
+        [self performSegueWithIdentifier:@"fromAngelRequestToAngelWait" sender:self];
     else
         [self doPanicAction:@"willing_to_help" act_str:@"HELP" panic_id:elderPanicId angel_id:nil comments:@"willing from iPhone app"];
 }

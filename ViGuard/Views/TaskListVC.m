@@ -87,7 +87,7 @@ bool rowClicked;
 }
 - (IBAction)newTaskClicked:(id)sender {
     rowClicked = false;
-    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromTaskListToEditTask"];
+    [self performSegueWithIdentifier:@"fromTaskListToEditTask" sender:self];
 }
 
 #pragma mark UITableView delegate
@@ -95,7 +95,7 @@ bool rowClicked;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
 {
     rowClicked = true;
-    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromTaskListToEditTask"];
+    [self performSegueWithIdentifier:@"fromTaskListToEditTask" sender:self];
 }
 
 

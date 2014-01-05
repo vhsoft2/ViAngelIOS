@@ -116,19 +116,19 @@ NSString *guardianToken;
                 // Display an alert telling user the contact could not be added
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-               [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromShareContactsToElderStatus"];
+                [self performSegueWithIdentifier:@"fromShareContactsToElderStatus" sender:self];
             });
         });
     } else if (authorizationStatus == kABAuthorizationStatusAuthorized) {
         [self loadPhoneBook:addressBookRef];
         dispatch_async(dispatch_get_main_queue(), ^{
-             [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromShareContactsToElderStatus"];
+            [self performSegueWithIdentifier:@"fromShareContactsToElderStatus" sender:self];
          });
     }
 }
 
 - (IBAction)noThanks:(id)sender {
-    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromShareContactsToElderStatus"];
+    [self performSegueWithIdentifier:@"fromShareContactsToElderStatus" sender:self];
 }
 
 @end

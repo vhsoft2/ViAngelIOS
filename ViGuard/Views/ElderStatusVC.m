@@ -218,11 +218,11 @@ NSNumber *panicId;
 }
 
 - (IBAction)elderConfig:(id)sender {
-    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromElderStatusToElderConfiguration"];
+    [self performSegueWithIdentifier:@"fromElderStatusToElderConfiguration" sender:self];
 }
 
 - (IBAction)elderStatusClicked:(id)sender {
-    [self performSelector:@selector(performSegueWithIdentifier:sender:) withObject:@"fromElderStatusToPanicHandle"];
+    [self performSegueWithIdentifier:@"fromElderStatusToPanicHandle" sender:self];
 }
 
 - (IBAction)callElder:(id)sender {

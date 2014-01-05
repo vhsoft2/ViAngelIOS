@@ -151,6 +151,13 @@ bool imageChanged = false;
     
     //Save changes to core data
     [self setUserData];
+    //Set wait
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner.center = CGPointMake(160, 240);
+    spinner.hidesWhenStopped = YES;
+    [self.view addSubview:spinner];
+    [spinner startAnimating];
+    usleep(1000000); //This is solving an issue with userData.elderImage beeing null
     //Save to server
     NSMutableDictionary *mapData1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                              userData.guardianToken,    @"token",
@@ -164,36 +171,23 @@ bool imageChanged = false;
     HttpService *httpService1 = [[HttpService alloc] init];
     [httpService1 postJsonRequest:@"update_elder_details" postDict:mapData1 callbackOK:^(NSDictionary *jsonDict1) {
         if (imageChanged) {
-            NSMutableDictionary *mapData2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                      userData.guardianToken, @"token",
-                                      @"elder", @"type",
-                                      userData.elderImage, @"image", nil];
-            HttpService *httpService2 = [[HttpService alloc] init];
-            [httpService2 postJsonRequest:@"load_image" postDict:mapData2 callbackOK:^(NSDictionary *jsonDict2) {
+            [[[HttpService alloc] init] postJsonRequest:@"load_image" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token": userData.guardianToken, @"type":@"elder", @"image":userData.elderImage}] callbackOK:^(NSDictionary *jsonDict2) {
                 imageChanged = false;
-                //        dispatch_async(dispatch_get_main_queue(), ^{
-                 //{
-                     //Go to parent screen
-                     //[self.navigationController popViewControllerAnimated:YES];
-                 //});
             } callbackErr:^(NSString * errStr) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                      [[[UIAlertView alloc] initWithTitle:@"Update Elder Image" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                  });
             }];
-        } else {
-            //dispatch_async(dispatch_get_main_queue(), ^{
-
-                 //Go to parent screen
-                 //[self.navigationController popViewControllerAnimated:YES];
-             //});
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     } callbackErr:^(NSString * errStr) {
         dispatch_async(dispatch_get_main_queue(), ^{
              [[[UIAlertView alloc] initWithTitle:@"Update Elder Detail" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
          });
+        [spinner stopAnimating];
     }];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)backToElderStatus:(id)sender {
