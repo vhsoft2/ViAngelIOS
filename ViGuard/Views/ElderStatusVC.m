@@ -61,11 +61,6 @@ NSNumber *panicId;
     [super viewDidLoad];
 
     userData = [DataUtils getUserData];
-    
-    /*CALayer * l = [elderBtn.imageView layer];
-    [l setMasksToBounds:YES];
-    [l setCornerRadius:20.0];
-    */
     //Show the version
     versionLbl.text = [NSString stringWithFormat:@"V(%@) B(%@)", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
     //Make elder image round
@@ -98,7 +93,7 @@ NSNumber *panicId;
         [elderStatusBtn setBackgroundImage:[UIImage imageNamed:@"status-panic.png"] forState:UIControlStateNormal];
     } else {
         elderStatusBtn.enabled = NO;
-        [elderStatusBtn setBackgroundImage:[UIImage imageNamed:@"status-ok.png"] forState:UIControlStateNormal];
+        [elderStatusBtn setBackgroundImage:[UIImage imageNamed:[battery_status isEqualToString:@"OK"] && [comm_status isEqualToString:@"OK"]?@"status-ok.png":@"status-warning.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -128,15 +123,15 @@ NSNumber *panicId;
         userData.elderMobilePhone   = [jsonDict objectForKey:@"phone"];
         userData.elderFirstName     = [jsonDict objectForKey:@"first_name"];
         userData.elderLastName      = [jsonDict objectForKey:@"last_name"];
-        userData.elderGender        = [jsonDict objectForKey:@"gender"];
+        userData.elderGender        = [[jsonDict objectForKey:@"gender"] isKindOfClass:NSString.class] ? [jsonDict objectForKey:@"gender"] : @"Female";
         userData.elderDateOfBirth   = [DataUtils dateFromStr:[jsonDict objectForKey:@"dob"]];
         userData.elderHomeAddress   = [jsonDict objectForKey:@"address"];
         userData.elderUpdateTime    = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"update_time"]];
         //Set local variables
         elderLat                    = [[jsonDict objectForKey:@"lat"] doubleValue];
         elderLon                    = [[jsonDict objectForKey:@"lon"] doubleValue];;
-        angelCount                  = [[jsonDict objectForKey:@"angel_count"] intValue];
-        angelProximity              = [[jsonDict objectForKey:@"shortest_distance"] floatValue];
+        angelCount                  = [[jsonDict objectForKey:@"angel_count"]isKindOfClass:NSNumber.class ] ? [[jsonDict objectForKey:@"angel_count"] intValue] : 0;
+        angelProximity              = [[jsonDict objectForKey:@"shortest_distance"] isKindOfClass:NSNumber.class] ? [[jsonDict objectForKey:@"shortest_distance"] floatValue] : -1;
         scheduleType                = [jsonDict objectForKey:@"schedule_type"];
         scheduleStartDate           = [DataUtils dateFromMilliSeconds:[jsonDict objectForKey:@"schedule_start_date"]];
         scheduleComments            = [jsonDict objectForKey:@"schedule_comments"];
@@ -181,7 +176,8 @@ NSNumber *panicId;
     tasksLbl.text           = [scheduleComments isKindOfClass:[NSString class]] ? scheduleComments:@"";
     taskTimeLbl.text        = [DataUtils strFromDate:scheduleStartDate format:@"dd-MM HH:mm"];
     angelsStatusLbl.text    = [NSString stringWithFormat:@"%d angels are nearby", angelCount];
-    angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
+    if (angelProximity>=0)
+        angelsProximityLbl.text = [NSString stringWithFormat:@"%.1f%@",(angelProximity>1000.0) ? angelProximity/1000.0:angelProximity, (angelProximity>1000.0) ? @"km":@"m"];
     elderLastStatTmLbl.text =  [DataUtils strFromDate:userData.elderUpdateTime format:@"dd-MM HH:mm"];
     listenBtn.enabled = ![listenEnabled isKindOfClass:[NSNull class]] && [listenEnabled isEqualToNumber:@1];
     //Reverse geocode location
@@ -244,7 +240,7 @@ NSNumber *panicId;
 - (IBAction)listenToElder:(id)sender {
     [[[UIAlertView alloc] initWithTitle:@"OK to Listen?" message:@"" delegate:nil cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [[[HttpService alloc] init] postJsonRequest:@"add_update_elder_task" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token":userData.guardianToken,@"schedule_type":@"listen",@"to":@"elder",@"title":@"App listen",@"timeout":@30}] callbackOK:^(NSDictionary *jsonDict) {
+            [[[HttpService alloc] init] postJsonRequest:@"add_update_elder_task" postDict:[[NSMutableDictionary alloc] initWithDictionary:@{@"token":userData.guardianToken,@"schedule_type":@"listen",@"to":@"guardian",@"title":@"App listen",@"timeout":@120}] callbackOK:^(NSDictionary *jsonDict) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[[UIAlertView alloc] initWithTitle:@"Listen request accepted" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 });
