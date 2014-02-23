@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "GAITrackedViewController.h"
 
-@interface AngelsMapVC : UIViewController <UITableViewDataSource,UITableViewDelegate,MKMapViewDelegate>
+@interface AngelsMapVC : GAITrackedViewController <UITableViewDataSource,UITableViewDelegate,MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *caregiversTV;
 @property (weak, nonatomic) IBOutlet MKMapView *angelsMap;

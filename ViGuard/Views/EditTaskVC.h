@@ -10,8 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ActionSheetPicker.h"
 #import "DataUtils.h"
+#import "GAITrackedViewController.h"
 
-@interface EditTaskVC : UIViewController <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
+@interface EditTaskVC : GAITrackedViewController <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *taskTitleTxt;
 @property (weak, nonatomic) IBOutlet UITextField *taskStartDateTxt;

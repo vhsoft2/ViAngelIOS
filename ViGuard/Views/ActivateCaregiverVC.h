@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface ActivateCaregiverVC : UIViewController
+@interface ActivateCaregiverVC : GAITrackedViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *caregiverCodeTxt;
 

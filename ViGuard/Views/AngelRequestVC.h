@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface AngelRequestVC : UIViewController
+@interface AngelRequestVC : GAITrackedViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *elderDistanceLbl;
 @property (weak, nonatomic) IBOutlet UIButton *yesBtn;

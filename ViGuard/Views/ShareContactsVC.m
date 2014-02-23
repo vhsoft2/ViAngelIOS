@@ -31,6 +31,8 @@ NSString *guardianToken;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Share Contacts";
+    
 	// Do any additional setup after loading the view.
 }
 

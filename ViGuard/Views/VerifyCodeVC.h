@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface VerifyCodeVC : UIViewController
+@interface VerifyCodeVC : GAITrackedViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *codeTxt;
 

@@ -59,7 +59,8 @@ NSNumber *panicId;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.screenName = @"Elder Status";
+    
     userData = [DataUtils getUserData];
     //Show the version
     versionLbl.text = [NSString stringWithFormat:@"V(%@) B(%@)", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];

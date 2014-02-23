@@ -34,6 +34,8 @@ NSString *guardianToken;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Elder Map";
+    
 	// Do any additional setup after loading the view.
     [self getElderRoute];
     elderMapView.delegate = self;

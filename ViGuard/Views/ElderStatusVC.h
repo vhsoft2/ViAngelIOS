@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OGActionChooser.h"
+#import "GAITrackedViewController.h"
 
-@interface ElderStatusVC : UIViewController
+@interface ElderStatusVC : GAITrackedViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *elderNameLbl;
 @property (weak, nonatomic) IBOutlet UIButton *elderStatusBtn;

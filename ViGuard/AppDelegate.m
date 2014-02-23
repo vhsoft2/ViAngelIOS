@@ -15,6 +15,7 @@
 #import "AngelRequestVC.h"
 #import "AngelWaitVC.h"
 #import "HelpAssistVC.h"
+#import "GAI.h"
 
 @implementation AppDelegate
 
@@ -34,6 +35,26 @@ NSTimeInterval postStatusInterval = 10;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    ///
+    ///Google Analytics
+    ///
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker.
+    //id<GAITracker> tracker =
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-48290866-1"];
+
+    [[GAI sharedInstance].logger setLogLevel:kGAILogLevelWarning];
+    
+    
+    
     // Get a reference to the stardard user defaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     //Get the storyboard

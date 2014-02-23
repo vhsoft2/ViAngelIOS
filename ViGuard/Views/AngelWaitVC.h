@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface AngelWaitVC : UIViewController
+@interface AngelWaitVC : GAITrackedViewController
 
 -(void)setData:(NSString*)token elder_id:(NSNumber*)elder_id panic_id:(NSNumber*)panic_id status:(NSString*)status;
 

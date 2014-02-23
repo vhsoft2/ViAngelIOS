@@ -38,6 +38,8 @@ double elderLon;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Angels Map";
+    
     [angelsMap setDelegate:self];
     userData = [DataUtils getUserData];
     [self getAngels];

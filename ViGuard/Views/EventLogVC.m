@@ -39,6 +39,8 @@ UserData *userData;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Event Log";
+    
 	// Do any additional setup after loading the view.
     userData = [DataUtils getUserData];
     eventLogArr = [[NSArray alloc] init];
@@ -66,10 +68,10 @@ UserData *userData;
     }];
 }
 
--(void)loadEventAudio:(NSNumber*)eventLogId {
-    NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys: userData.guardianToken, @"token", eventLogId,@"event_log_id",@"iPhone",@"platform",nil];
-    HttpService *httpService = [[HttpService alloc] init];
-    [httpService postDataRequest:@"get_event_audio" postDict:mapData callbackOK:^(NSString *audioStr) {
+-(void)loadEventAudio:(NSNumber*)eventLogId taskType:(NSString*)taskType reminderId:(NSString*)reminderId {
+    
+   
+    void (^okBlock)(NSString* audioStr) = ^(NSString* audioStr){
         NSLog(@"%@: Audio Size:%lu", NSStringFromSelector(_cmd), (unsigned long)audioStr.length);
         if (audioStr.length > 0) {
             if (audioIdx >=0 ) {
@@ -81,7 +83,7 @@ UserData *userData;
                 {
                     audioStatus = AudioOff;
                     NSLog(@"Error in audioPlayer: %@", [error localizedDescription]);
-               } else {
+                } else {
                     audioPlayer.delegate = self;
                     if (![audioPlayer play]) {
                         audioStatus = AudioOff;
@@ -93,15 +95,26 @@ UserData *userData;
             audioStatus = AudioOff;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-             [eventLogTV reloadData];
-         });
-    } callbackErr:^(NSString* errStr) {
+            [eventLogTV reloadData];
+        });
+    };
+
+    void (^errBlock)(NSString* errStr) = ^(NSString* errStr){
         dispatch_async(dispatch_get_main_queue(), ^{
-             [[[UIAlertView alloc] initWithTitle:@"Get Event Audio" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-             audioStatus = AudioOff;
-             [eventLogTV reloadData];
-         });
-    }];
+            [[[UIAlertView alloc] initWithTitle:@"Get Event Audio" message:errStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            audioStatus = AudioOff;
+            [eventLogTV reloadData];
+        });
+    };
+    
+    HttpService *httpService = [[HttpService alloc] init];
+    if ([taskType isEqualToString:@"reminder"]) {
+        [httpService postDataRequest:@"get_task_audio" postDict:[[NSMutableDictionary alloc] initWithDictionary: @{@"token":userData.guardianToken,@"task_id":reminderId,@"platform":@"iPhone"}] callbackOK:okBlock callbackErr:errBlock];
+    } else {
+        NSMutableDictionary *mapData = [[NSMutableDictionary alloc] initWithObjectsAndKeys: userData.guardianToken, @"token", eventLogId,@"event_log_id",@"iPhone",@"platform",nil];
+        [httpService postDataRequest:@"get_event_audio" postDict:mapData callbackOK:okBlock callbackErr:errBlock];
+    }
+    return;
 }
 
 #pragma mark IBActions
@@ -161,7 +174,7 @@ UserData *userData;
             audioStatus = AudioLoading;
         }
         if (audioStatus == AudioLoading) {
-            [self loadEventAudio:@([[eventLogArr[idx] objectForKey:@"id"] intValue])];
+            [self loadEventAudio:@([[eventLogArr[idx] objectForKey:@"id"] intValue]) taskType:[eventLogArr[idx] objectForKey:@"schedule_type"] reminderId:[eventLogArr[idx] objectForKey:@"recording"]];
         }
         [eventLogTV reloadData];
     }
@@ -202,7 +215,7 @@ UserData *userData;
         [cell.eventLogImg setImage:[UIImage imageNamed:@"panic-30.png"]];
     }
     NSString *audio =[cellDict objectForKey:@"recording"];
-    if ([audio isKindOfClass:[NSNull class]]) {
+    if ([audio isKindOfClass:[NSNull class]] && ![scheduleType isEqualToString:@"reminder"]) {
         cell.playImg.image = nil;
     } else {
         if (audioStatus == AudioOff || indexPath.row != audioIdx) {

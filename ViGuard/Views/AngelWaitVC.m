@@ -33,6 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Angel Wait";
 	// Do any additional setup after loading the view.
 }
 

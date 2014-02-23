@@ -8,8 +8,9 @@
 
 #import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface HelpListVC : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
+@interface HelpListVC : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *helpListTV;
 @property (weak, nonatomic) IBOutlet MKMapView *helpMap;

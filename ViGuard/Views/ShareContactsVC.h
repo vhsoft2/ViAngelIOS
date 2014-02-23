@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface ShareContactsVC : UIViewController
+@interface ShareContactsVC : GAITrackedViewController
 
 @end

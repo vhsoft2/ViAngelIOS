@@ -51,7 +51,8 @@ bool imageChanged = false;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.screenName = @"Elder Configuration";
+    
     genderTypesArr = @[@"Male",@"Female"];
 
     userData = [DataUtils getUserData];

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "GAITrackedViewController.h"
 
-@interface EventLogVC : UIViewController <UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate>
+@interface EventLogVC : GAITrackedViewController <UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate>
 
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 

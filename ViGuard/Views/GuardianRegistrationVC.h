@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ActionSheetPicker.h"
+#import "GAITrackedViewController.h"
 
-@interface GuardianRegistrationVC : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
+@interface GuardianRegistrationVC : GAITrackedViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (weak, nonatomic) IBOutlet UIButton *guardianImageBtn;

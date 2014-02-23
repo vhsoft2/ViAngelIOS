@@ -39,7 +39,8 @@ NSString *guardianToken;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.screenName = @"Angle Request";
+    
     //Beautify the yes button
     [[yesBtn layer] setBorderWidth:2.0f];
     [[yesBtn layer] setBorderColor:[UIColor colorWithRed:66.0/255 green:152.0/255 blue:252.0/255 alpha:1].CGColor];

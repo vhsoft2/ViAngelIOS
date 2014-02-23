@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ActionSheetPicker.h"
+#import "GAITrackedViewController.h"
 
-@interface ElderConfigurationVC : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
+@interface ElderConfigurationVC : GAITrackedViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTxt;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTxt;

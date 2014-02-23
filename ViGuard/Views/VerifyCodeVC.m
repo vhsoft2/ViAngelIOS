@@ -33,6 +33,8 @@ UserData *userData = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Verify Code";
+    
     [codeTxt becomeFirstResponder];
     userData = [DataUtils getUserData];
 }

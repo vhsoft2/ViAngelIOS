@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Activate Caregiver";
 }
 
 - (void)didReceiveMemoryWarning

@@ -66,6 +66,9 @@
 		DC8A515D186ED081000DF878 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8A515C186ED081000DF878 /* splash.png */; };
 		DC96A63A1871BECF00372031 /* home-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC96A6391871BECF00372031 /* home-30.png */; };
 		DC96A63C1871BEDD00372031 /* location-30.png in Resources */ = {isa = PBXBuildFile; fileRef = DC96A63B1871BEDD00372031 /* location-30.png */; };
+		DC99480518B9A4DB00792670 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC99480418B9A4DB00792670 /* libGoogleAnalyticsServices.a */; };
+		DC99480718B9A50F00792670 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC99480618B9A50F00792670 /* SystemConfiguration.framework */; };
+		DC99480918B9A52600792670 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC99480818B9A52600792670 /* libz.dylib */; };
 		DC9D67491863A61F00B5EF6A /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9D67481863A61F00B5EF6A /* UserData.m */; };
 		DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E29E18619A6400B28606 /* Media.xcassets */; };
 		DCA5E2AD1861B6A300B28606 /* logo-80.png in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E2AC1861B6A300B28606 /* logo-80.png */; };
@@ -180,6 +183,15 @@
 		DC8A515C186ED081000DF878 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		DC96A6391871BECF00372031 /* home-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-30.png"; sourceTree = "<group>"; };
 		DC96A63B1871BEDD00372031 /* location-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-30.png"; sourceTree = "<group>"; };
+		DC9947FE18B9A2EA00792670 /* GAI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		DC9947FF18B9A2EA00792670 /* GAITrackedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		DC99480018B9A2EA00792670 /* GAITracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		DC99480118B9A49300792670 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		DC99480218B9A49300792670 /* GAIFields.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		DC99480318B9A49300792670 /* GAILogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		DC99480418B9A4DB00792670 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		DC99480618B9A50F00792670 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DC99480818B9A52600792670 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		DC9D67471863A61F00B5EF6A /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		DC9D67481863A61F00B5EF6A /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		DCA5E29E18619A6400B28606 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -233,9 +245,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC99480918B9A52600792670 /* libz.dylib in Frameworks */,
+				DC99480718B9A50F00792670 /* SystemConfiguration.framework in Frameworks */,
 				DCF29CED1867445A009342BF /* AVFoundation.framework in Frameworks */,
 				DCF343E31860E6B700C87879 /* CoreGraphics.framework in Frameworks */,
 				DCF343E71860E6B700C87879 /* CoreData.framework in Frameworks */,
+				DC99480518B9A4DB00792670 /* libGoogleAnalyticsServices.a in Frameworks */,
 				DCA5E2B51861CABA00B28606 /* MapKit.framework in Frameworks */,
 				DCF343E51860E6B700C87879 /* UIKit.framework in Frameworks */,
 				DCF343E11860E6B700C87879 /* Foundation.framework in Frameworks */,
@@ -272,6 +287,20 @@
 				DC482D8A1869643F00131796 /* DistancePickerView.m */,
 			);
 			path = Pickers;
+			sourceTree = "<group>";
+		};
+		DC9947FD18B9A1E400792670 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				DC9947FE18B9A2EA00792670 /* GAI.h */,
+				DC99480118B9A49300792670 /* GAIDictionaryBuilder.h */,
+				DC99480218B9A49300792670 /* GAIFields.h */,
+				DC99480318B9A49300792670 /* GAILogger.h */,
+				DC9947FF18B9A2EA00792670 /* GAITrackedViewController.h */,
+				DC99480018B9A2EA00792670 /* GAITracker.h */,
+				DC99480418B9A4DB00792670 /* libGoogleAnalyticsServices.a */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		DCA5E2971861005200B28606 /* Views */ = {
@@ -422,6 +451,8 @@
 		DCF343DF1860E6B700C87879 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC99480818B9A52600792670 /* libz.dylib */,
+				DC99480618B9A50F00792670 /* SystemConfiguration.framework */,
 				DCF29CEC1867445A009342BF /* AVFoundation.framework */,
 				DCA5E2B41861CABA00B28606 /* MapKit.framework */,
 				DCF343E01860E6B700C87879 /* Foundation.framework */,
@@ -436,6 +467,7 @@
 		DCF343E81860E6B700C87879 /* ViGuard */ = {
 			isa = PBXGroup;
 			children = (
+				DC9947FD18B9A1E400792670 /* Analytics */,
 				DCA5E2B918621F6000B28606 /* Utils */,
 				DCA5E2AE1861B6AA00B28606 /* Images */,
 				DCA5E2A11861A1DF00B28606 /* Data */,
@@ -714,6 +746,10 @@
 				GCC_PREFIX_HEADER = "ViGuard/ViGuard-Prefix.pch";
 				INFOPLIST_FILE = "ViGuard/ViGuard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/mobiletecinternationalinc/Documents/DEV/ViGuard/ViGuard/Analytics,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -732,6 +768,10 @@
 				GCC_PREFIX_HEADER = "ViGuard/ViGuard-Prefix.pch";
 				INFOPLIST_FILE = "ViGuard/ViGuard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/mobiletecinternationalinc/Documents/DEV/ViGuard/ViGuard/Analytics,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

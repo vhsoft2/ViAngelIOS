@@ -66,6 +66,8 @@ NSString *b64Voice;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Edit Task";
+    
     //initialize picker arrays
     toOptionsArr = @[@"elder",@"both"];
     repeatTypesArr = @[@"none", @"daily",@"weekly"];

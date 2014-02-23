@@ -44,6 +44,8 @@ NSMutableDictionary *helpImages = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Help List";
+    
     previousIndex = nil;
     if (!helpImages)
         helpImages = [[NSMutableDictionary alloc] init];

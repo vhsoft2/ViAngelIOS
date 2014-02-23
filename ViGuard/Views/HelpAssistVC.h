@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "GAITrackedViewController.h"
 
-@interface HelpAssistVC : UIViewController <MKMapViewDelegate>
+@interface HelpAssistVC : GAITrackedViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *elderHomeAddrBtn;
 @property (weak, nonatomic) IBOutlet UIButton *elderCurrentAddrBtn;

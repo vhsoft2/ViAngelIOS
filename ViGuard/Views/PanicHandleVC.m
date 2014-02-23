@@ -37,6 +37,8 @@ bool helpRequestSubmitted = false;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Panic Handle";
+    
 	// Do any additional setup after loading the view.
 }
 

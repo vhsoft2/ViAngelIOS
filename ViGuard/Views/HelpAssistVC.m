@@ -51,6 +51,7 @@ MKPointAnnotation *angelAnn;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Help Assist";
     
     elderImg.layer.cornerRadius = 20.0f;
     elderImg.layer.masksToBounds = YES;

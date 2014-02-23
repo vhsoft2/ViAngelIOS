@@ -63,7 +63,8 @@ bool firstTime = true;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	self.screenName = @"Guardian Registration";
+    
     genderTypesArr = @[@"Male",@"Female"];
     
     NSInteger count = [self.navigationController.viewControllers count];

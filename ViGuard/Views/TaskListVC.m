@@ -37,6 +37,8 @@ bool rowClicked;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.screenName = @"Task List";
+    
     userData = [DataUtils getUserData];
     rowClicked = false;
 }

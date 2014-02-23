@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface ElderMapVC : UIViewController <MKMapViewDelegate>
+@interface ElderMapVC : GAITrackedViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *elderMapView;
 @property (weak, nonatomic) IBOutlet UILabel *addressTxt;
