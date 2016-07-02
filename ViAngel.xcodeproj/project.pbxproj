@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		36CDEF861D27FF6300A5F944 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC99480418B9A4DB00792670 /* libGoogleAnalyticsServices.a */; };
-		36CDEF891D28003B00A5F944 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CDEF871D28002100A5F944 /* libz.tbd */; };
-		36CDEF8C1D2800AC00A5F944 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E61860E6B700C87879 /* CoreData.framework */; };
+		36084BCE1D280A3200B4B065 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CDEF871D28002100A5F944 /* libz.tbd */; };
+		36084BCF1D280AE300B4B065 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC99480418B9A4DB00792670 /* libGoogleAnalyticsServices.a */; };
 		36CDEF8D1D2800B900A5F944 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF29CEC1867445A009342BF /* AVFoundation.framework */; };
 		36CDEF8E1D2800DC00A5F944 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E41860E6B700C87879 /* UIKit.framework */; };
 		36CDEF8F1D2800ED00A5F944 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF343E21860E6B700C87879 /* CoreGraphics.framework */; };
@@ -205,13 +204,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36084BCF1D280AE300B4B065 /* libGoogleAnalyticsServices.a in Frameworks */,
+				36084BCE1D280A3200B4B065 /* libz.tbd in Frameworks */,
 				36CDEF901D28019F00A5F944 /* SystemConfiguration.framework in Frameworks */,
 				36CDEF8F1D2800ED00A5F944 /* CoreGraphics.framework in Frameworks */,
 				36CDEF8E1D2800DC00A5F944 /* UIKit.framework in Frameworks */,
 				36CDEF8D1D2800B900A5F944 /* AVFoundation.framework in Frameworks */,
-				36CDEF8C1D2800AC00A5F944 /* CoreData.framework in Frameworks */,
-				36CDEF891D28003B00A5F944 /* libz.tbd in Frameworks */,
-				36CDEF861D27FF6300A5F944 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +666,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/mobiletecinternationalinc/Documents/DEV/ViAngel/ViAngel/Analytics,
 					"$(PROJECT_DIR)/ViAngel/Analytics",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "vitalitix.com.${PRODUCT_NAME:rfc1034identifier}";
@@ -692,7 +689,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/mobiletecinternationalinc/Documents/DEV/ViAngel/ViAngel/Analytics,
 					"$(PROJECT_DIR)/ViAngel/Analytics",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "vitalitix.com.${PRODUCT_NAME:rfc1034identifier}";
