@@ -1,0 +1,60 @@
+
+/* Class = "UILabel"; text = "Date of birth"; ObjectID = "3F2-Bb-f9V"; */
+"3F2-Bb-f9V.text" = "Date of birth";
+
+/* Class = "UITextField"; placeholder = "..."; ObjectID = "6Lh-f8-qKv"; */
+"6Lh-f8-qKv.placeholder" = "...";
+
+/* Class = "UIButton"; normalTitle = "Go"; ObjectID = "7Lu-Fp-wqI"; */
+"7Lu-Fp-wqI.normalTitle" = "Go";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "8Ss-AP-kxx"; */
+"8Ss-AP-kxx.text" = "Email";
+
+/* Class = "UILabel"; text = "Caregiver code"; ObjectID = "9aD-SM-9ce"; */
+"9aD-SM-9ce.text" = "Caregiver code";
+
+/* Class = "UILabel"; text = "SMS VERIFICATIO CODE WAS SENT TO YOUR PHONE. PLEASE TYPE THAT CODE BELOW"; ObjectID = "CKa-2f-XVg"; */
+"CKa-2f-XVg.text" = "SMS VERIFICATIO CODE WAS SENT TO YOUR PHONE. PLEASE TYPE THAT CODE BELOW";
+
+/* Class = "UIButton"; normalTitle = "?"; ObjectID = "Gji-oY-bYg"; */
+"Gji-oY-bYg.normalTitle" = "?";
+
+/* Class = "UILabel"; text = "*"; ObjectID = "KCE-SI-5GA"; */
+"KCE-SI-5GA.text" = "*";
+
+/* Class = "UILabel"; text = "Gender"; ObjectID = "PCH-vB-Duv"; */
+"PCH-vB-Duv.text" = "Gender";
+
+/* Class = "UILabel"; text = "Last Name"; ObjectID = "QgJ-Qu-9Hn"; */
+"QgJ-Qu-9Hn.text" = "Last Name";
+
+/* Class = "UILabel"; text = "*"; ObjectID = "Uxj-ih-YAB"; */
+"Uxj-ih-YAB.text" = "*";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "V8n-sP-sMn"; */
+"V8n-sP-sMn.normalTitle" = "Register";
+
+/* Class = "UILabel"; text = "First Name"; ObjectID = "YLM-LW-HeV"; */
+"YLM-LW-HeV.text" = "First Name";
+
+/* Class = "UILabel"; text = "Mobile Phone"; ObjectID = "haa-Ni-WPq"; */
+"haa-Ni-WPq.text" = "Mobile Phone";
+
+/* Class = "UITextField"; placeholder = "specific elder code"; ObjectID = "ioT-WR-LjH"; */
+"ioT-WR-LjH.placeholder" = "specific elder code";
+
+/* Class = "UIBarButtonItem"; title = "VITALITIX"; ObjectID = "tf4-53-15s"; */
+"tf4-53-15s.title" = "VITALITIX";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "uON-tm-6bR"; */
+"uON-tm-6bR.text" = "Address";
+
+/* Class = "UIBarButtonItem"; title = "VITALITIX"; ObjectID = "ut8-Y5-gze"; */
+"ut8-Y5-gze.title" = "VITALITIX";
+
+/* Class = "UILabel"; text = "*"; ObjectID = "x98-xH-4GH"; */
+"x98-xH-4GH.text" = "*";
+
+/* Class = "UIBarButtonItem"; title = "VITALITX"; ObjectID = "xbE-2s-gxj"; */
+"xbE-2s-gxj.title" = "VITALITX";
