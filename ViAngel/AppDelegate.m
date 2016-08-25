@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DataUtils.h"
-
+#import "AgreementVC.h"
 
 @implementation AppDelegate
 
@@ -27,8 +27,25 @@ NSTimeInterval postStatusInterval = 10;
     ///
     // Optional: automatically send uncaught exceptions to Google Analytics.
     
-    
-    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//
+    if ([prefs boolForKey:@"hasRunBefore"] != YES)
+    {
+        // Add our default user object in Core Data
+        userData = (UserData *)[NSEntityDescription insertNewObjectForEntityForName:@"UserData" inManagedObjectContext:self.managedObjectContext];
+        [userData setGuardianFirstName:@""];
+        [userData setGuardianLastName:@""];
+        [userData setGuardianMobilePhone:@""];
+        // Commit to core data
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
+            NSLog(@"Failed to add default user with error: %@", [error domain]);
+        else {
+            AgreementVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"AgreementVC"];
+            [(UINavigationController*)self.window.rootViewController pushViewController:vc animated:NO];
+        }
+    }
     
     // Get a reference to the stardard user defaults
 //    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];

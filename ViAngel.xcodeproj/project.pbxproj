@@ -58,6 +58,8 @@
 		6BFFF8BD1D6B7B3400B5B1AE /* logo-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BFFF8BC1D6B7B3400B5B1AE /* logo-30.png */; };
 		DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCA5E29E18619A6400B28606 /* Media.xcassets */; };
 		E379804C1D6F86640017E840 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E379804E1D6F86640017E840 /* Main.storyboard */; };
+		E37980551D6F880D0017E840 /* AgreementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E37980541D6F880D0017E840 /* AgreementVC.m */; };
+		E37980571D6F8A8B0017E840 /* document.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E37980561D6F8A8B0017E840 /* document.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +142,9 @@
 		E379804F1D6F86750017E840 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E37980501D6F86920017E840 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
 		E37980521D6F86B50017E840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		E37980531D6F880D0017E840 /* AgreementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreementVC.h; sourceTree = "<group>"; };
+		E37980541D6F880D0017E840 /* AgreementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreementVC.m; sourceTree = "<group>"; };
+		E37980561D6F8A8B0017E840 /* document.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = document.pdf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +207,8 @@
 				6BFFF85F1D6B746800B5B1AE /* ActionSheetPicker.h */,
 				6BFFF8641D6B74D200B5B1AE /* ActionSheetDatePicker.h */,
 				6BFFF8651D6B74D200B5B1AE /* ActionSheetDatePicker.m */,
+				E37980531D6F880D0017E840 /* AgreementVC.h */,
+				E37980541D6F880D0017E840 /* AgreementVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -290,6 +297,7 @@
 		DCF343E91860E6B700C87879 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E37980561D6F8A8B0017E840 /* document.pdf */,
 				6BFFF84F1D6B709A00B5B1AE /* main.m */,
 				6BFFF8511D6B70B000B5B1AE /* Angel-Prefix.pch */,
 				6BFFF8581D6B714400B5B1AE /* ViAngel-info.plist */,
@@ -367,6 +375,7 @@
 				6BFFF8A71D6B7A6000B5B1AE /* button_new_pic.png in Resources */,
 				E379804C1D6F86640017E840 /* Main.storyboard in Resources */,
 				DCA5E29F18619A6400B28606 /* Media.xcassets in Resources */,
+				E37980571D6F8A8B0017E840 /* document.pdf in Resources */,
 				6BFFF8AC1D6B7A6000B5B1AE /* profile.png in Resources */,
 				6BFFF8AF1D6B7A6000B5B1AE /* angel-50.png in Resources */,
 				6BFFF8B01D6B7A6000B5B1AE /* angel-80.png in Resources */,
@@ -414,6 +423,7 @@
 				6BFFF8931D6B76A200B5B1AE /* SWActionSheet.m in Sources */,
 				6BFFF88D1D6B762400B5B1AE /* ElderMapVC.m in Sources */,
 				6BFFF87A1D6B759900B5B1AE /* ActionSheetLocalePicker.m in Sources */,
+				E37980551D6F880D0017E840 /* AgreementVC.m in Sources */,
 				6BFFF8871D6B75F400B5B1AE /* OGActionChooser.m in Sources */,
 				6BFFF86C1D6B74ED00B5B1AE /* NSDataAdditions.m in Sources */,
 				6BFFF8601D6B746800B5B1AE /* AbstractActionSheetPicker.m in Sources */,

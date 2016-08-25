@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7cx-pb-eP9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="7cx-pb-eP9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--AgreementVC-->
+        <scene sceneID="2TO-1F-vba">
+            <objects>
+                <viewController storyboardIdentifier="AgreementVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Wbx-Np-51Y" customClass="AgreementVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="McR-dS-cYB"/>
+                        <viewControllerLayoutGuide type="bottom" id="l15-4s-sFC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k1y-eG-WCt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8B4-BB-SxW">
+                                <rect key="frame" x="140" y="442" width="41" height="30"/>
+                                <state key="normal" title="Agree"/>
+                                <connections>
+                                    <action selector="agree:" destination="Wbx-Np-51Y" eventType="touchUpInside" id="drV-Dm-1Pd"/>
+                                </connections>
+                            </button>
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eeB-IT-Lef">
+                                <rect key="frame" x="0.0" y="20" width="320" height="415"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Wbx-Np-51Y" id="8V3-ga-f7w"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="eeB-IT-Lef" secondAttribute="trailing" constant="-20" id="5po-AP-XPb"/>
+                            <constraint firstItem="eeB-IT-Lef" firstAttribute="top" secondItem="McR-dS-cYB" secondAttribute="bottom" id="ADn-Lx-iS5"/>
+                            <constraint firstItem="l15-4s-sFC" firstAttribute="top" secondItem="8B4-BB-SxW" secondAttribute="bottom" constant="8" id="c9L-JK-LVC"/>
+                            <constraint firstItem="l15-4s-sFC" firstAttribute="top" secondItem="eeB-IT-Lef" secondAttribute="bottom" constant="45" id="eDg-eD-IX7"/>
+                            <constraint firstItem="eeB-IT-Lef" firstAttribute="leading" secondItem="k1y-eG-WCt" secondAttribute="leadingMargin" constant="-20" id="f7H-Zq-T5r"/>
+                            <constraint firstItem="8B4-BB-SxW" firstAttribute="centerX" secondItem="eeB-IT-Lef" secondAttribute="centerX" id="jhD-05-e1K"/>
+                            <constraint firstItem="8B4-BB-SxW" firstAttribute="top" secondItem="eeB-IT-Lef" secondAttribute="bottom" constant="7" id="pzS-e6-FoD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="wjg-X7-3Og"/>
+                    <connections>
+                        <outlet property="webView" destination="eeB-IT-Lef" id="sPO-fF-tKA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DIX-Ea-Kug" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-56" y="420"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Usb-2Y-Htk">
             <objects>
@@ -21,7 +69,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnP-5f-x2B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1198" y="242"/>
+            <point key="canvasLocation" x="-638.93333333333328" y="229.09333333333333"/>
         </scene>
         <!--Guardian RegistrationVC-->
         <scene sceneID="ZMJ-r7-pA2">
@@ -228,11 +276,12 @@
                         <outlet property="mobilePhone" destination="hMx-mY-uuJ" id="vsX-sM-UAm"/>
                         <outlet property="registerBtn" destination="V8n-sP-sMn" id="fxJ-yW-DPh"/>
                         <segue destination="rnQ-Ef-gQv" kind="push" identifier="fromGuardianRegistrationToVerifyCode" id="syf-ZR-30A"/>
+                        <segue destination="Wbx-Np-51Y" kind="push" id="PLX-pn-MPa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n7h-m2-gkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-438" y="2315"/>
+            <point key="canvasLocation" x="-538" y="1255"/>
         </scene>
         <!--Verify CodeVC-->
         <scene sceneID="Avp-Un-nMU">
@@ -312,7 +361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmy-K2-lsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-28" y="2315"/>
+            <point key="canvasLocation" x="-14.933333333333334" y="2191.5333333333333"/>
         </scene>
     </scenes>
     <resources>
